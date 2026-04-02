@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>RGU | Rathinam Global University — The RGU Way</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+/* ╔══════════════════════════════════════════╗
+   ║  TOKENS & RESET                          ║
+   ╚══════════════════════════════════════════╝ */
+:root{
+  --purple:#660066;
+  --purple-light:#f7eaf7;
+  --purple-mid:#d4a0d4;
+  --blue:#006699;
+  --blue-light:#e8f4fb;
+  --blue-mid:#80b3cc;
+  --green:#99cc33;
+  --green-light:#f2fadf;
+  --green-mid:#c2e080;
+  --ink:#0d0d1a;
+  --ink2:#3a3a55;
+  --ink3:#7a7a99;
+  --line:#e4e4f0;
+  --bg:#ffffff;
+  --bg2:#f9f9fc;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --ease-spring:cubic-bezier(.175,.885,.32,1.275);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:#f0f0f0;}
+::-webkit-scrollbar-thumb{background:var(--purple);border-radius:2px;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  TYPOGRAPHY                              ║
+   ╚══════════════════════════════════════════╝ */
+h1,h2,h3,h4,h5{font-family:'Outfit',sans-serif;font-weight:800;color:var(--ink);line-height:1.08;letter-spacing:-.02em;}
+p{color:var(--ink2);line-height:1.75;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  LAYOUT                                  ║
+   ╚══════════════════════════════════════════╝ */
+.wrap{max-width:1200px;margin:0 auto;padding:0 52px;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  REVEAL ANIMATIONS                       ║
+   ╚══════════════════════════════════════════╝ */
+.r{opacity:0;transform:translateY(32px);transition:opacity .75s var(--ease),transform .75s var(--ease);}
+.r.on{opacity:1;transform:none;}
+.r-l{opacity:0;transform:translateX(-32px);transition:opacity .75s var(--ease),transform .75s var(--ease);}
+.r-l.on{opacity:1;transform:none;}
+.r-r{opacity:0;transform:translateX(32px);transition:opacity .75s var(--ease),transform .75s var(--ease);}
+.r-r.on{opacity:1;transform:none;}
+[data-d="1"]{transition-delay:.1s;}
+[data-d="2"]{transition-delay:.2s;}
+[data-d="3"]{transition-delay:.3s;}
+[data-d="4"]{transition-delay:.4s;}
+[data-d="5"]{transition-delay:.5s;}
+[data-d="6"]{transition-delay:.6s;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  BUTTONS                                 ║
+   ╚══════════════════════════════════════════╝ */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:700;cursor:pointer;border:2px solid transparent;position:relative;overflow:hidden;transition:color .3s var(--ease),border-color .3s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease);letter-spacing:.01em;}
+.btn::before{content:'';position:absolute;inset:0;transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease);z-index:0;}
+.btn span{position:relative;z-index:1;}
+/* Purple button */
+.btn-p{background:var(--purple);color:#fff;border-color:var(--purple);}
+.btn-p::before{background:rgba(0,0,0,0.15);}
+.btn-p:hover::before{transform:scaleX(1);}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(102,0,102,0.35);}
+/* Purple outline */
+.btn-po{background:transparent;color:var(--purple);border-color:var(--purple);}
+.btn-po::before{background:var(--purple);}
+.btn-po:hover{color:#fff;}
+.btn-po:hover::before{transform:scaleX(1);}
+.btn-po:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(102,0,102,0.2);}
+/* Blue */
+.btn-b{background:var(--blue);color:#fff;border-color:var(--blue);}
+.btn-b::before{background:rgba(0,0,0,0.15);}
+.btn-b:hover::before{transform:scaleX(1);}
+.btn-b:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,102,153,0.35);}
+/* Blue outline */
+.btn-bo{background:transparent;color:var(--blue);border-color:var(--blue);}
+.btn-bo::before{background:var(--blue);}
+.btn-bo:hover{color:#fff;}
+.btn-bo:hover::before{transform:scaleX(1);}
+.btn-bo:hover{transform:translateY(-2px);}
+/* Green */
+.btn-g{background:var(--green);color:var(--ink);border-color:var(--green);}
+.btn-g::before{background:rgba(0,0,0,0.1);}
+.btn-g:hover::before{transform:scaleX(1);}
+.btn-g:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(153,204,51,0.4);}
+/* White */
+.btn-w{background:#fff;color:var(--purple);border-color:#fff;}
+.btn-w:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.15);background:#f5f5f5;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  SECTION LABEL / EYEBROW                 ║
+   ╚══════════════════════════════════════════╝ */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;}
+.eyebrow-bar{width:32px;height:2px;border-radius:2px;flex-shrink:0;}
+.eyebrow-text{font-family:'Outfit',sans-serif;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  TOP ANNOUNCEMENT BAR                    ║
+   ╚══════════════════════════════════════════╝ */
+.announce{background:var(--ink);color:#fff;text-align:center;padding:11px 24px;font-size:13px;font-weight:400;}
+.announce strong{font-weight:700;}
+.announce a{color:#c2e85c;font-weight:700;margin-left:10px;text-decoration:underline;text-underline-offset:2px;}
+.announce a:hover{color:#d4f07a;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  NAVBAR                                  ║
+   ╚══════════════════════════════════════════╝ */
+.site-header{position:sticky;top:0;z-index:500;background:#fff;border-bottom:1px solid var(--line);transition:box-shadow .3s;}
+.site-header.up{box-shadow:0 4px 24px rgba(0,0,0,.07);}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 52px;height:70px;display:flex;align-items:center;justify-content:space-between;gap:24px;}
+/* Logo */
+.nav-logo{display:flex;align-items:center;gap:13px;text-decoration:none;flex-shrink:0;}
+.logo-mark{width:48px;height:48px;border-radius:10px;background:var(--purple);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;transition:transform .3s var(--ease-spring);}
+.logo-mark:hover{transform:scale(1.06);}
+.logo-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.12),transparent);}
+.logo-mark-tag{font-size:7px;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;font-family:'Outfit',sans-serif;line-height:1;}
+.logo-mark-name{font-family:'Outfit',sans-serif;font-weight:900;font-size:15px;color:#fff;line-height:1.2;}
+.logo-text-wrap .t1{font-family:'Outfit',sans-serif;font-weight:900;font-size:21px;color:var(--ink);line-height:1;letter-spacing:-.02em;}
+.logo-text-wrap .t2{font-size:9px;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;font-weight:500;}
+/* Nav links */
+.nav-links{display:flex;align-items:center;gap:0;flex:1;justify-content:center;}
+.nav-links a{position:relative;padding:8px 15px;font-size:14px;font-weight:500;color:var(--ink2);text-decoration:none;transition:color .25s;white-space:nowrap;}
+.nav-links a::after{content:'';position:absolute;bottom:4px;left:15px;right:15px;height:2px;background:var(--purple);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);border-radius:2px;}
+.nav-links a:hover{color:var(--purple);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{display:flex;gap:10px;align-items:center;flex-shrink:0;}
+.nav-cta .btn{padding:10px 22px;font-size:14px;}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border-radius:6px;border:1px solid var(--line);}
+.ham span{width:20px;height:2px;background:var(--ink);border-radius:2px;transition:.3s;}
+/* Mobile nav */
+.m-nav{display:none;flex-direction:column;border-top:1px solid var(--line);background:#fff;}
+.m-nav.open{display:flex;}
+.m-nav a{padding:13px 24px;font-size:15px;color:var(--ink2);border-bottom:1px solid var(--line);font-weight:500;transition:color .2s,background .2s;}
+.m-nav a:hover{color:var(--purple);background:var(--purple-light);}
+.m-nav-cta{display:flex;gap:10px;padding:16px 24px;}
+.m-nav-cta .btn{flex:1;justify-content:center;padding:13px;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  HERO  ─  COLOR ZONE: PURPLE             ║
+   ╚══════════════════════════════════════════╝ */
+#hero{background:#fff;overflow:hidden;position:relative;border-bottom:1px solid var(--line);}
+.hero-wrap{max-width:1200px;margin:0 auto;padding:0 52px;display:grid;grid-template-columns:1fr 460px;gap:60px;align-items:center;min-height:90vh;}
+.hero-left{padding:88px 0 72px;}
+/* Animated tag */
+.hero-tag{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:5px;background:var(--purple-light);border:1px solid var(--purple-mid);margin-bottom:32px;}
+.hero-tag-dot{width:7px;height:7px;border-radius:50%;background:var(--purple);}
+.hero-tag-text{font-family:'Outfit',sans-serif;font-size:12px;font-weight:700;color:var(--purple);letter-spacing:.08em;}
+/* Headline */
+.hero-h{font-size:64px;line-height:1.0;margin-bottom:14px;}
+.hero-h .line2{color:var(--purple);}
+.hero-sub{font-family:'Outfit',sans-serif;font-size:18px;font-weight:600;color:var(--purple);letter-spacing:.01em;margin-bottom:22px;opacity:.75;}
+.hero-p{font-size:17px;line-height:1.8;max-width:500px;margin-bottom:40px;}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px;}
+/* Stats bar */
+.hero-stats{display:flex;gap:0;border-top:1px solid var(--line);padding-top:32px;}
+.hs{flex:1;padding:0 24px 0 0;border-right:1px solid var(--line);}
+.hs:first-child{padding-left:0;}
+.hs:last-child{border-right:none;}
+.hs-n{font-family:'Outfit',sans-serif;font-weight:900;font-size:34px;color:var(--purple);line-height:1;}
+.hs-l{font-size:12px;color:var(--ink3);margin-top:5px;font-weight:500;line-height:1.4;}
+
+/* Hero right panel */
+.hero-panel{background:var(--purple);border-radius:20px;padding:48px 40px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:0;min-height:560px;}
+.hero-panel-noise{position:absolute;inset:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;}
+.hp-logo{display:flex;align-items:center;gap:12px;margin-bottom:40px;position:relative;z-index:1;}
+.hp-logo-box{width:50px;height:50px;background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.25);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.hp-logo-box .t{font-size:7px;color:rgba(255,255,255,.4);letter-spacing:.1em;}
+.hp-logo-box .n{font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:#fff;}
+.hp-brand-name{font-family:'Outfit',sans-serif;font-weight:800;font-size:17px;color:#fff;}
+.hp-brand-sub{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.06em;margin-top:2px;}
+.hp-heading{font-family:'Outfit',sans-serif;font-weight:900;font-size:30px;color:#fff;line-height:1.1;margin-bottom:8px;position:relative;z-index:1;}
+.hp-sub{font-size:14px;color:rgba(255,255,255,.6);line-height:1.65;margin-bottom:32px;position:relative;z-index:1;}
+.hp-list{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;position:relative;z-index:1;}
+.hp-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:8px;transition:background .25s,transform .25s var(--ease);}
+.hp-item:hover{background:rgba(255,255,255,.14);transform:translateX(4px);}
+.hp-item-icon{width:34px;height:34px;background:rgba(255,255,255,.12);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.hp-item-title{font-size:13px;font-weight:600;color:#fff;}
+.hp-item-sub{font-size:11px;color:rgba(255,255,255,.45);margin-top:1px;}
+.hp-footer{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:14px 16px;display:flex;align-items:center;gap:10px;position:relative;z-index:1;}
+.hp-footer-dot{width:8px;height:8px;border-radius:50%;background:#c2e85c;flex-shrink:0;animation:blink 2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+.hp-footer-text{font-size:12px;font-weight:600;color:rgba(255,255,255,.8);}
+
+/* Hero background accents */
+.hero-bg-circle{position:absolute;border-radius:50%;pointer-events:none;}
+.hbc1{width:300px;height:300px;background:rgba(102,0,102,.04);right:-80px;top:50px;}
+.hbc2{width:200px;height:200px;background:rgba(102,0,102,.03);right:80px;bottom:-50px;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  TICKER STRIP                            ║
+   ╚══════════════════════════════════════════╝ */
+.ticker{overflow:hidden;background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0;}
+.ticker-track{display:flex;width:max-content;animation:tick 30s linear infinite;align-items:center;}
+@keyframes tick{to{transform:translateX(-50%);}}
+.ticker-item{display:flex;align-items:center;gap:10px;padding:0 40px;border-right:1px solid var(--line);white-space:nowrap;}
+.ticker-item:last-child{border-right:none;}
+.ticker-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.ticker-text{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--ink2);}
+
+/* ╔══════════════════════════════════════════╗
+   ║  WHY MORE THAN A DEGREE                  ║
+   ║  COLOR ZONE: BLUE (#006699)              ║
+   ╚══════════════════════════════════════════╝ */
+#why{background:#fff;padding:100px 0;}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+/* Left */
+.why-eyebrow .eyebrow-bar{background:var(--blue);}
+.why-eyebrow .eyebrow-text{color:var(--blue);}
+.why-h{font-size:46px;margin-bottom:20px;}
+.why-h em{font-style:normal;color:var(--blue);}
+.why-p{font-size:16px;margin-bottom:36px;}
+/* Pillar list */
+.pillars{display:flex;flex-direction:column;gap:0;}
+.pillar{display:flex;align-items:flex-start;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);position:relative;cursor:default;transition:padding-left .3s var(--ease);}
+.pillar::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue);transform:scaleY(0);transform-origin:top;transition:transform .35s var(--ease);border-radius:2px;}
+.pillar:hover{padding-left:14px;}
+.pillar:hover::before{transform:scaleY(1);}
+.pillar:last-child{border-bottom:none;}
+.pillar-icon{width:44px;height:44px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:background .3s,transform .3s var(--ease);}
+.pillar:hover .pillar-icon{background:var(--blue);transform:scale(1.08);}
+.pillar-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:4px;transition:color .3s;}
+.pillar:hover .pillar-title{color:var(--blue);}
+.pillar-desc{font-size:14px;color:var(--ink3);line-height:1.6;}
+/* Right — blue panel */
+.why-panel{background:var(--blue);border-radius:18px;padding:52px 44px;position:relative;overflow:hidden;}
+.why-panel-pattern{position:absolute;inset:0;opacity:.06;background:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:22px 22px;pointer-events:none;}
+.why-quote{font-family:'Outfit',sans-serif;font-weight:700;font-size:23px;color:#fff;line-height:1.55;margin-bottom:30px;position:relative;z-index:1;}
+.why-quote em{font-style:normal;color:#b3dff0;}
+.why-quote-rule{width:36px;height:2px;background:rgba(255,255,255,.25);margin-bottom:10px;position:relative;z-index:1;}
+.why-quote-attr{font-size:12px;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase;font-weight:600;font-family:'Outfit',sans-serif;position:relative;z-index:1;}
+.why-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;position:relative;z-index:1;}
+.why-chip{padding:7px 15px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.85);font-family:'Outfit',sans-serif;transition:background .25s,transform .25s;}
+.why-chip:hover{background:rgba(255,255,255,.18);transform:translateY(-2px);}
+
+/* ╔══════════════════════════════════════════╗
+   ║  WHAT IS RGU WAY                         ║
+   ║  COLOR ZONE: GREEN (#99cc33)             ║
+   ╚══════════════════════════════════════════╝ */
+#rgoway{background:var(--bg2);padding:100px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.rgoway-top{text-align:center;max-width:680px;margin:0 auto 64px;}
+.rgoway-top .eyebrow-bar{background:var(--green);}
+.rgoway-top .eyebrow-text{color:#548a1a;}
+.rgoway-top .eyebrow{justify-content:center;}
+.rgoway-top h2{font-size:46px;margin-bottom:18px;}
+.rgoway-top h2 em{font-style:normal;color:#548a1a;}
+.rgoway-top p{font-size:17px;}
+/* Grid */
+.rgoway-grid{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start;margin-bottom:56px;}
+/* Shift panel */
+.shift-panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:28px;margin-bottom:24px;transition:box-shadow .3s,border-color .3s;}
+.shift-panel:hover{box-shadow:0 8px 32px rgba(153,204,51,0.15);border-color:var(--green-mid);}
+.shift-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:16px;font-family:'Outfit',sans-serif;}
+.shift-row{display:flex;align-items:center;gap:14px;}
+.shift-cell{flex:1;padding:16px;border-radius:8px;text-align:center;}
+.shift-from{background:#f8f8fc;border:1px solid var(--line);}
+.shift-to{background:var(--green-light);border:1px solid var(--green-mid);}
+.shift-cell-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-family:'Outfit',sans-serif;margin-bottom:6px;}
+.shift-from .shift-cell-lbl{color:var(--ink3);}
+.shift-to .shift-cell-lbl{color:#548a1a;}
+.shift-cell p{font-size:13px;font-weight:600;color:var(--ink);line-height:1.4;}
+.shift-arrow{width:36px;height:36px;background:var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0;transition:background .3s,transform .3s var(--ease);}
+.shift-panel:hover .shift-arrow{background:var(--green);transform:scale(1.1);}
+/* Timeline */
+.rw-timeline{padding-left:28px;position:relative;}
+.rw-timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,#99cc33,#548a1a);border-radius:2px;}
+.rw-item{position:relative;margin-bottom:24px;}
+.rw-item:last-child{margin-bottom:0;}
+.rw-dot{position:absolute;left:-35px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--green);border:3px solid #fff;box-shadow:0 0 0 2px var(--green);transition:transform .3s var(--ease-spring);}
+.rw-item:hover .rw-dot{transform:scale(1.4);}
+.rw-card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:20px 24px;margin-left:8px;transition:box-shadow .3s,border-color .3s,transform .3s var(--ease);}
+.rw-card:hover{box-shadow:0 8px 28px rgba(153,204,51,0.15);border-color:var(--green-mid);transform:translateX(4px);}
+.rw-yr{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--green-light);color:#548a1a;border:1px solid var(--green-mid);padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:8px;font-family:'Outfit',sans-serif;}
+.rw-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;color:var(--ink);margin-bottom:10px;}
+.rw-list{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.rw-list li{font-size:13px;color:var(--ink3);display:flex;align-items:center;gap:8px;}
+.rw-list li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);flex-shrink:0;}
+/* Dark promise strip */
+.promise-strip{background:var(--ink);border-radius:14px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
+.ps-left h3{font-size:24px;color:#fff;margin-bottom:6px;}
+.ps-left p{font-size:14px;color:rgba(255,255,255,.45);}
+
+/* ╔══════════════════════════════════════════╗
+   ║  CORE BRAND PROMISE                      ║
+   ║  COLOR ZONE: PURPLE (#660066)            ║
+   ╚══════════════════════════════════════════╝ */
+#core{background:#fff;padding:100px 0;}
+.core-hdr{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:56px;}
+.core-hdr .eyebrow-bar{background:var(--purple);}
+.core-hdr .eyebrow-text{color:var(--purple);}
+.core-hdr h2{font-size:46px;}
+.core-hdr h2 em{font-style:normal;color:var(--purple);}
+.core-hdr p{font-size:16px;}
+/* Cards */
+.core-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.core-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:32px;position:relative;overflow:hidden;cursor:default;transition:border-color .35s,box-shadow .35s,transform .35s var(--ease);}
+.core-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--purple);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
+.core-card::after{content:attr(data-num);position:absolute;top:20px;right:20px;font-family:'Outfit',sans-serif;font-weight:900;font-size:42px;color:var(--line);line-height:1;transition:color .35s;}
+.core-card:hover{border-color:var(--purple-mid);box-shadow:0 16px 48px rgba(102,0,102,0.12);transform:translateY(-5px);}
+.core-card:hover::before{transform:scaleX(1);}
+.core-card:hover::after{color:var(--purple-light);}
+.cc-icon{width:48px;height:48px;background:var(--purple-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px;transition:background .3s,transform .3s var(--ease);}
+.core-card:hover .cc-icon{background:var(--purple);transform:scale(1.05) rotate(-3deg);}
+.cc-freq{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:10px;display:block;transition:opacity .3s;}
+.core-card h3{font-size:19px;margin-bottom:10px;color:var(--ink);}
+.core-card p{font-size:14px;color:var(--ink3);line-height:1.65;}
+/* Arrow link */
+.cc-link{display:inline-flex;align-items:center;gap:4px;margin-top:18px;font-size:13px;font-weight:700;color:var(--purple);opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s;}
+.core-card:hover .cc-link{opacity:1;transform:none;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  SKILL PASSPORT                          ║
+   ║  COLOR ZONE: PURPLE accent on dark       ║
+   ╚══════════════════════════════════════════╝ */
+#passport{background:var(--bg2);padding:80px 0;}
+.sp-banner{background:var(--ink);border-radius:20px;overflow:hidden;}
+.sp-top-stripe{height:4px;background:var(--purple);}
+.sp-grid{display:grid;grid-template-columns:1fr 1fr;}
+.sp-cell{padding:56px 52px;}
+.sp-cell:first-child{border-right:1px solid rgba(255,255,255,.07);}
+.sp-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);display:block;margin-bottom:14px;font-family:'Outfit',sans-serif;}
+.sp-icon-row{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px;}
+.sp-icon{width:52px;height:52px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;transition:transform .3s var(--ease-spring);}
+.sp-icon:hover{transform:scale(1.1) rotate(-5deg);}
+.sp-h{font-family:'Outfit',sans-serif;font-weight:800;font-size:28px;color:#fff;line-height:1.15;}
+.sp-ph{border:1px dashed rgba(255,255,255,.1);border-radius:10px;padding:20px;margin-bottom:24px;}
+.sp-ph-note{font-size:12px;color:rgba(255,255,255,.25);text-align:center;margin-bottom:16px;font-style:italic;}
+.sp-ph-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.sp-ph-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.sp-ph-bar{height:5px;border-radius:3px;background:rgba(255,255,255,.06);flex:1;}
+.sp-ph-lbl{font-size:11px;color:rgba(255,255,255,.18);width:100px;text-align:right;}
+.sp-desc{font-size:14px;color:rgba(255,255,255,.45);line-height:1.7;margin-bottom:18px;}
+.sp-link{font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:5px;transition:gap .25s;}
+.sp-link:hover{gap:9px;}
+/* Growth card bars */
+.gc-row{margin-bottom:12px;}
+.gc-lbl-row{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.3);margin-bottom:6px;}
+.gc-track{height:5px;background:rgba(255,255,255,.06);border-radius:3px;}
+.gc-fill{height:100%;border-radius:3px;transition:width 1.2s var(--ease);}
+.sp-footer{padding:18px 52px;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;}
+.sp-footer p{font-size:12px;color:rgba(255,255,255,.2);}
+.sp-dots{display:flex;gap:6px;}
+.sp-dots span{width:7px;height:7px;border-radius:50%;}
+
+/* ╔══════════════════════════════════════════╗
+   ║  PROJECTED OUTCOMES                      ║
+   ║  COLOR ZONE: BLUE (#006699)              ║
+   ╚══════════════════════════════════════════╝ */
+#outcomes{background:#fff;padding:100px 0;}
+.oc-hdr{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:56px;}
+.oc-hdr .eyebrow-bar{background:var(--blue);}
+.oc-hdr .eyebrow-text{color:var(--blue);}
+.oc-hdr h2{font-size:46px;}
+.oc-hdr h2 em{font-style:normal;color:var(--blue);}
+.oc-hdr p{font-size:16px;}
+/* Cards */
+.oc-grid-top{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:18px;}
+.oc-grid-bot{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:800px;}
+.oc-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px;position:relative;overflow:hidden;cursor:default;transition:border-color .35s,box-shadow .35s,transform .35s var(--ease);}
+.oc-card:hover{border-color:var(--blue-mid);box-shadow:0 16px 48px rgba(0,102,153,0.1);transform:translateY(-5px);}
+.oc-card-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
+.oc-card:hover .oc-card-bar{transform:scaleX(1);}
+.oc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;}
+.oc-icon{width:44px;height:44px;background:var(--blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background .3s,transform .3s var(--ease);}
+.oc-card:hover .oc-icon{background:var(--blue);transform:scale(1.08);}
+.oc-stat-n{font-family:'Outfit',sans-serif;font-weight:900;font-size:26px;color:var(--blue);line-height:1;text-align:right;}
+.oc-stat-l{font-size:10px;color:var(--ink3);text-align:right;margin-top:2px;}
+.oc-card h3{font-size:18px;margin-bottom:8px;color:var(--ink);transition:color .3s;}
+.oc-card:hover h3{color:var(--blue);}
+.oc-card p{font-size:13px;color:var(--ink3);line-height:1.65;}
+/* Summary */
+.oc-sum{margin-top:48px;background:var(--blue-light);border:1px solid var(--blue-mid);border-radius:14px;padding:44px 52px;display:flex;align-items:center;justify-content:space-between;gap:40px;}
+.oc-sum-left h3{font-size:24px;color:var(--blue);margin-bottom:8px;}
+.oc-sum-left p{font-size:14px;}
+.oc-sum-tags{display:flex;flex-wrap:wrap;gap:8px;max-width:380px;}
+.oc-sum-tag{padding:8px 16px;background:#fff;border:1px solid var(--blue-mid);border-radius:5px;font-size:12px;font-weight:700;color:var(--blue);font-family:'Outfit',sans-serif;transition:background .25s,transform .2s;}
+.oc-sum-tag:hover{background:var(--blue);color:#fff;transform:translateY(-2px);}
+
+/* ╔══════════════════════════════════════════╗
+   ║  LIFE @ RGU                              ║
+   ║  COLOR ZONE: GREEN (#99cc33)             ║
+   ╚══════════════════════════════════════════╝ */
+#life{background:var(--bg2);padding:100px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.life-top{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:48px;}
+.life-top .eyebrow-bar{background:var(--green);}
+.life-top .eyebrow-text{color:#548a1a;}
+.life-h{font-size:56px;}
+.life-h em{font-style:normal;color:#548a1a;}
+/* Mosaic */
+.life-mosaic{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:200px 200px;gap:14px;margin-bottom:40px;}
+.mc{border-radius:14px;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;position:relative;overflow:hidden;cursor:default;transition:box-shadow .3s,transform .3s var(--ease),border-color .3s;}
+.mc.span2{grid-row:span 2;}
+.mc:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(153,204,51,0.15);border-color:var(--green-mid);}
+.mc-top{position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
+.mc:hover .mc-top{transform:scaleX(1);}
+.mc-emoji{font-size:30px;margin-bottom:12px;transition:transform .3s var(--ease-spring);}
+.mc:hover .mc-emoji{transform:scale(1.15) rotate(-5deg);}
+.mc-lbl{font-family:'Outfit',sans-serif;font-weight:700;font-size:15px;color:var(--ink);margin-bottom:4px;}
+.mc-sub{font-size:12px;color:var(--ink3);}
+.mc-ph{margin-top:12px;font-size:10px;color:#ccc;border:1px solid var(--line);padding:4px 10px;border-radius:4px;}
+/* Marquee */
+.life-ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);overflow:hidden;padding:14px 0;}
+.life-ticker-track{display:flex;width:max-content;animation:tick 26s linear infinite;align-items:center;gap:0;}
+.lt-item{display:flex;align-items:center;gap:8px;padding:0 28px;border-right:1px solid var(--line);white-space:nowrap;}
+.lt-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0;}
+.lt-text{font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;color:var(--ink2);}
+
+/* ╔══════════════════════════════════════════╗
+   ║  HAPPENING @ RGU                         ║
+   ║  COLOR ZONE: PURPLE (#660066)            ║
+   ╚══════════════════════════════════════════╝ */
+#happening{background:#fff;padding:100px 0;}
+.hap-top{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:end;margin-bottom:48px;}
+.hap-top .eyebrow-bar{background:var(--purple);}
+.hap-top .eyebrow-text{color:var(--purple);}
+.hap-h{font-size:56px;}
+.hap-h em{font-style:normal;color:var(--purple);}
+/* Filter pills */
+.hap-filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;}
+.hap-pill{padding:7px 18px;border-radius:5px;font-size:12px;font-weight:700;border:2px solid var(--line);background:#fff;color:var(--ink2);cursor:pointer;font-family:'Outfit',sans-serif;transition:all .25s;}
+.hap-pill:hover{border-color:var(--purple);color:var(--purple);}
+.hap-pill.on{border-color:var(--purple);background:var(--purple);color:#fff;}
+/* Event cards */
+.ev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.ev{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:default;transition:box-shadow .35s,transform .35s var(--ease),border-color .35s;}
+.ev:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(102,0,102,0.1);border-color:var(--purple-mid);}
+.ev-stripe{height:3px;background:var(--purple);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease);}
+.ev:hover .ev-stripe{transform:scaleX(1);}
+.ev-body{padding:28px;}
+.ev-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.ev-cat{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--purple);font-family:'Outfit',sans-serif;}
+.ev-date{font-size:11px;color:var(--ink3);display:flex;align-items:center;gap:5px;font-weight:500;}
+.ev-date-dot{width:5px;height:5px;border-radius:50%;background:var(--purple);}
+.ev-icon-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.ev-icon{width:40px;height:40px;background:var(--purple-light);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;transition:background .3s,transform .3s var(--ease);}
+.ev:hover .ev-icon{background:var(--purple);transform:scale(1.08);}
+.ev-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:16px;color:var(--ink);line-height:1.35;}
+.ev p{font-size:13px;color:var(--ink3);line-height:1.65;}
+.ev-foot{display:flex;align-items:center;justify-content:space-between;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+.ev-tag-lbl{font-size:10px;font-weight:700;padding:4px 10px;border-radius:4px;background:var(--purple-light);color:var(--purple);font-family:'Outfit',sans-serif;letter-spacing:.06em;text-transform:uppercase;}
+.ev-more{font-size:12px;font-weight:700;color:var(--purple);display:flex;align-items:center;gap:4px;transition:gap .25s;}
+.ev:hover .ev-more{gap:8px;}
+/* Newsletter */
+.nl-block{margin-top:60px;background:var(--purple);border-radius:16px;padding:52px 60px;display:flex;align-items:center;justify-content:space-between;gap:48px;position:relative;overflow:hidden;}
+.nl-block-pattern{position:absolute;inset:0;opacity:.05;background:repeating-linear-gradient(-45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:18px 18px;pointer-events:none;}
+.nl-left{position:relative;z-index:1;}
+.nl-left h3{font-family:'Outfit',sans-serif;font-size:26px;font-weight:800;color:#fff;margin-bottom:8px;}
+.nl-left p{font-size:14px;color:rgba(255,255,255,.55);max-width:380px;}
+.nl-form{display:flex;gap:10px;flex-shrink:0;position:relative;z-index:1;}
+.nl-input{padding:14px 20px;border-radius:6px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-size:14px;font-family:'Inter',sans-serif;outline:none;min-width:220px;transition:border .25s,background .25s;backdrop-filter:blur(4px);}
+.nl-input::placeholder{color:rgba(255,255,255,.35);}
+.nl-input:focus{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15);}
+
+/* ╔══════════════════════════════════════════╗
+   ║  FOOTER                                  ║
+   ╚══════════════════════════════════════════╝ */
+footer{background:var(--ink);padding-top:72px;}
+.ft-grid{max-width:1200px;margin:0 auto;padding:0 52px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1fr;gap:48px;padding-bottom:52px;border-bottom:1px solid rgba(255,255,255,.07);}
+/* Brand col */
+.ft-logo{display:flex;align-items:center;gap:12px;margin-bottom:18px;}
+.ft-logo-box{width:44px;height:44px;background:var(--purple);border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.ft-logo-box .fl{font-family:'Outfit',sans-serif;font-weight:900;font-size:13px;color:#fff;}
+.ft-brand-n{font-family:'Outfit',sans-serif;font-weight:800;font-size:18px;color:#fff;}
+.ft-brand-s{font-size:9px;color:rgba(255,255,255,.3);letter-spacing:.1em;text-transform:uppercase;margin-top:2px;}
+.ft-brand-p{font-size:13px;color:rgba(255,255,255,.35);line-height:1.7;margin-bottom:20px;max-width:230px;}
+.ft-socials{display:flex;gap:8px;}
+.ft-soc{width:34px;height:34px;border-radius:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:rgba(255,255,255,.4);transition:all .25s;text-decoration:none;}
+.ft-soc:hover{background:var(--purple);border-color:var(--purple);color:#fff;transform:translateY(-2px);}
+.ft-accr{display:inline-flex;align-items:center;gap:8px;margin-top:18px;padding:7px 14px;border-radius:6px;background:rgba(153,204,51,.08);border:1px solid rgba(153,204,51,.2);font-size:11px;font-weight:600;color:rgba(153,204,51,.65);font-family:'Outfit',sans-serif;}
+/* Link cols */
+.ft-col h4{font-family:'Outfit',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:18px;}
+.ft-col ul{list-style:none;}
+.ft-col ul li{margin-bottom:10px;}
+.ft-col ul li a{font-size:13px;color:rgba(255,255,255,.35);transition:color .2s,padding-left .2s;display:inline-block;}
+.ft-col ul li a:hover{color:rgba(255,255,255,.85);padding-left:4px;}
+/* Contact */
+.ft-contact{max-width:1200px;margin:0 auto;padding:28px 52px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-bottom:1px solid rgba(255,255,255,.06);}
+.ft-ci{display:flex;align-items:flex-start;gap:12px;}
+.ft-ci-icon{font-size:16px;margin-top:2px;}
+.ft-ci-lbl{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;font-weight:600;margin-bottom:4px;font-family:'Outfit',sans-serif;}
+.ft-ci-val{font-size:13px;color:rgba(255,255,255,.45);}
+.ft-bottom{max-width:1200px;margin:0 auto;padding:20px 52px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.18);}
+.ft-links{display:flex;gap:18px;}
+.ft-links a{font-size:12px;color:rgba(255,255,255,.18);transition:color .2s;}
+.ft-links a:hover{color:rgba(255,255,255,.5);}
+.ft-badge{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.18);}
+.ft-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+
+/* ╔══════════════════════════════════════════╗
+   ║  RESPONSIVE                              ║
+   ╚══════════════════════════════════════════╝ */
+@media(max-width:1100px){
+.wrap{padding:0 28px;}
+.hero-wrap{grid-template-columns:1fr;min-height:auto;padding:0 28px;}
+.hero-left{padding:60px 0 0;}
+.hero-panel{min-height:auto;}
+.why-grid,.rgoway-grid,.core-hdr,.oc-hdr,.life-top,.hap-top{grid-template-columns:1fr;gap:32px;}
+.core-grid{grid-template-columns:repeat(2,1fr);}
+.oc-grid-top{grid-template-columns:repeat(2,1fr);}
+.oc-grid-bot{grid-template-columns:1fr;max-width:100%;}
+.oc-sum{flex-direction:column;align-items:flex-start;gap:24px;}
+.sp-grid{grid-template-columns:1fr;}
+.sp-cell:first-child{border-right:none;border-bottom:1px solid rgba(255,255,255,.06);}
+.life-mosaic{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+.mc.span2{grid-row:span 1;grid-column:span 2;}
+.ev-grid{grid-template-columns:repeat(2,1fr);}
+.nl-block{flex-direction:column;padding:40px 36px;}
+.nl-form{flex-direction:column;width:100%;}
+.nl-input{min-width:auto;}
+.ft-grid{grid-template-columns:1fr 1fr 1fr;padding:0 28px;}
+.ft-contact,.ft-bottom{padding-left:28px;padding-right:28px;}
+.promise-strip{flex-direction:column;align-items:flex-start;gap:20px;}
+}
+@media(max-width:768px){
+.wrap,.nav-inner{padding:0 20px;}
+.nav-links,.nav-cta{display:none;}
+.ham{display:flex;}
+.m-nav.open{display:flex;}
+.hero-wrap{padding:0 20px;}
+.hero-h{font-size:42px;}
+.hero-stats{flex-wrap:wrap;gap:24px;}
+.hs{flex:none;width:calc(50% - 12px);border-right:none;padding:0;}
+.core-grid,.oc-grid-top{grid-template-columns:1fr;}
+.ev-grid{grid-template-columns:1fr;}
+.ft-grid{grid-template-columns:1fr 1fr;padding:0 20px;}
+.ft-contact{grid-template-columns:1fr;padding:24px 20px;}
+.ft-bottom{padding:18px 20px;flex-direction:column;align-items:flex-start;}
+.sp-cell{padding:36px 24px;}
+.sp-footer{padding:16px 24px;}
+.life-h,.hap-h{font-size:38px;}
+.promise-strip{padding:30px 28px;}
+section{padding:64px 0;}
+.nl-block{padding:32px 24px;}
+.life-mosaic{grid-template-columns:1fr;}
+.mc.span2{grid-column:span 1;}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce">
+  <strong>Applications open for 2025–26.</strong> Begin your RGU Way journey today.
+  <a href="#apply">Apply Now →</a>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header class="site-header" id="hdr">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="logo-mark">
+        <span class="logo-mark-tag">Logo</span>
+        <span class="logo-mark-name">RGU</span>
+      </div>
+      <div class="logo-text-wrap">
+        <div class="t1">RGU</div>
+        <div class="t2">Rathinam Global University</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="#why">Why RGU</a>
+      <a href="#rgoway">The RGU Way</a>
+      <a href="#core">Programme</a>
+      <a href="#life">Campus</a>
+      <a href="#happening">Events</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#core" class="btn btn-po"><span>Explore</span></a>
+      <a href="#apply" class="btn btn-p"><span>Apply Now →</span></a>
+    </div>
+    <div class="ham" onclick="mobileToggle()" id="ham">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+  <div class="m-nav" id="mNav">
+    <a href="#why" onclick="mobileToggle()">Why RGU</a>
+    <a href="#rgoway" onclick="mobileToggle()">The RGU Way</a>
+    <a href="#core" onclick="mobileToggle()">Programme</a>
+    <a href="#life" onclick="mobileToggle()">Campus Life</a>
+    <a href="#happening" onclick="mobileToggle()">Events</a>
+    <div class="m-nav-cta">
+      <a href="#core" class="btn btn-po" onclick="mobileToggle()"><span>Explore</span></a>
+      <a href="#apply" class="btn btn-p" onclick="mobileToggle()"><span>Apply Now</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ HERO — PURPLE ZONE ══════════ -->
+<section id="hero">
+  <div class="hero-bg-circle hbc1"></div>
+  <div class="hero-bg-circle hbc2"></div>
+  <div class="hero-wrap">
+    <!-- Left -->
+    <div class="hero-left r-l">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        <div class="hero-tag-text">Deemed to be University</div>
+      </div>
+      <h1 class="hero-h">
+        Rathinam Global<br>
+        <span class="line2">University</span>
+      </h1>
+      <p class="hero-sub">Career Readiness + Global Readiness</p>
+      <p class="hero-p">RGU Way is our signature student transformation model — a structured pathway where every semester adds <strong style="color:var(--ink);">measurable value</strong> to your journey. Not just a degree. A transformation.</p>
+      <div class="hero-btns">
+        <a href="#core" class="btn btn-p"><span>Explore the RGU Way</span></a>
+        <a href="#apply" class="btn btn-po"><span>Apply for 2025–26</span></a>
+      </div>
+      <div class="hero-stats">
+        <div class="hs">
+          <div class="hs-n" data-count="6">6+</div>
+          <div class="hs-l">Certifications<br>per year</div>
+        </div>
+        <div class="hs">
+          <div class="hs-n">95%</div>
+          <div class="hs-l">Graduate<br>placement rate</div>
+        </div>
+        <div class="hs">
+          <div class="hs-n">40+</div>
+          <div class="hs-l">Global partner<br>institutions</div>
+        </div>
+      </div>
+    </div>
+    <!-- Right — purple panel -->
+    <div class="hero-panel r-r">
+      <div class="hero-panel-noise"></div>
+      <div class="hp-logo">
+        <div class="hp-logo-box">
+          <span class="t">Logo</span>
+          <span class="n">RGU</span>
+        </div>
+        <div>
+          <div class="hp-brand-name">Rathinam Global</div>
+          <div class="hp-brand-sub">Deemed to be University</div>
+        </div>
+      </div>
+      <div class="hp-heading">The RGU Way</div>
+      <p class="hp-sub">A structured transformation ecosystem — building globally ready, career ready graduates from semester one.</p>
+      <div class="hp-list">
+        <div class="hp-item">
+          <div class="hp-item-icon">🏆</div>
+          <div>
+            <div class="hp-item-title">Global Certification</div>
+            <div class="hp-item-sub">Every semester</div>
+          </div>
+        </div>
+        <div class="hp-item">
+          <div class="hp-item-icon">💼</div>
+          <div>
+            <div class="hp-item-title">Industry Internship</div>
+            <div class="hp-item-sub">Every semester</div>
+          </div>
+        </div>
+        <div class="hp-item">
+          <div class="hp-item-icon">✈️</div>
+          <div>
+            <div class="hp-item-title">Global Immersion Programme</div>
+            <div class="hp-item-sub">International exposure</div>
+          </div>
+        </div>
+        <div class="hp-item">
+          <div class="hp-item-icon">📊</div>
+          <div>
+            <div class="hp-item-title">Skill Passport + Growth Card</div>
+            <div class="hp-item-sub">Measured progress, every semester</div>
+          </div>
+        </div>
+      </div>
+      <div class="hp-footer">
+        <div class="hp-footer-dot"></div>
+        <div class="hp-footer-text">Applications open for 2025–26 academic year</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER — NEUTRAL -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--purple);"></div><span class="ticker-text">Career Ready</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--blue);"></div><span class="ticker-text">Globally Ready</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--green);"></div><span class="ticker-text">Future Ready</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--purple);"></div><span class="ticker-text">6+ Certifications Per Year</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--blue);"></div><span class="ticker-text">6+ Internships Per Year</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--green);"></div><span class="ticker-text">Global Immersion Programme</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--purple);"></div><span class="ticker-text">Outbound Leadership Every Year</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--blue);"></div><span class="ticker-text">Deemed to be University</span></div>
+    <!-- dup -->
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--purple);"></div><span class="ticker-text">Career Ready</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--blue);"></div><span class="ticker-text">Globally Ready</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--green);"></div><span class="ticker-text">Future Ready</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--purple);"></div><span class="ticker-text">6+ Certifications Per Year</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--blue);"></div><span class="ticker-text">6+ Internships Per Year</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--green);"></div><span class="ticker-text">Global Immersion Programme</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--purple);"></div><span class="ticker-text">Outbound Leadership Every Year</span></div>
+    <div class="ticker-item"><div class="ticker-dot" style="background:var(--blue);"></div><span class="ticker-text">Deemed to be University</span></div>
+  </div>
+</div>
+
+<!-- ══════════ WHY — BLUE ZONE ══════════ -->
+<section id="why">
+  <div class="wrap">
+    <div class="why-grid">
+      <div class="r-l">
+        <div class="eyebrow why-eyebrow">
+          <div class="eyebrow-bar"></div>
+          <span class="eyebrow-text">The Question Every Student Should Ask</span>
+        </div>
+        <h2 class="why-h">Why more than <em>just a degree?</em></h2>
+        <p class="why-p" style="font-size:16px;">The future belongs to students who can adapt, lead, communicate, and perform in real environments. RGU Way is built to develop exactly that.</p>
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-icon">🌍</div>
+            <div>
+              <div class="pillar-title">Adapt</div>
+              <p class="pillar-desc">Navigate rapidly changing global landscapes with clarity and cross-cultural intelligence.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">🚀</div>
+            <div>
+              <div class="pillar-title">Lead</div>
+              <p class="pillar-desc">Step into leadership from semester one through structured, real-world challenges.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">💬</div>
+            <div>
+              <div class="pillar-title">Communicate</div>
+              <p class="pillar-desc">Articulate ideas across cultures, industries, and global contexts with conviction.</p>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">⚡</div>
+            <div>
+              <div class="pillar-title">Perform</div>
+              <p class="pillar-desc">Deliver measurable results in real environments — not just in exams, but in the world.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="r-r">
+        <div class="why-panel">
+          <div class="why-panel-pattern"></div>
+          <p class="why-quote">"A degree opens the door. <em>The RGU Way</em> makes you ready for what's on the other side."</p>
+          <div class="why-quote-rule"></div>
+          <div class="why-quote-attr">Rathinam Global University</div>
+          <div class="why-chips">
+            <div class="why-chip">Globally Ready</div>
+            <div class="why-chip">Career Ready</div>
+            <div class="why-chip">Practical & Confident</div>
+            <div class="why-chip">Leadership Oriented</div>
+            <div class="why-chip">Future Ready</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ RGU WAY — GREEN ZONE ══════════ -->
+<section id="rgoway">
+  <div class="wrap">
+    <div class="rgoway-top r">
+      <div class="eyebrow" style="justify-content:center;">
+        <div class="eyebrow-bar" style="background:var(--green);"></div>
+        <span class="eyebrow-text" style="color:#548a1a;">The Integrated Ecosystem</span>
+      </div>
+      <h2 style="font-size:46px;margin-bottom:18px;">What makes <em style="font-style:normal;color:#548a1a;">RGU Way</em> different?</h2>
+      <p style="font-size:17px;">Most institutions offer placements, internships, and exposure as separate features. RGU Way presents them as one integrated transformation ecosystem — shifting the conversation from what the university offers to <strong style="color:var(--ink);">what the student becomes.</strong></p>
+    </div>
+
+    <div class="rgoway-grid">
+      <div class="r-l">
+        <div class="shift-panel">
+          <div class="shift-lbl">The Shift in Conversation</div>
+          <div class="shift-row">
+            <div class="shift-cell shift-from">
+              <div class="shift-cell-lbl">From</div>
+              <p>"What the university offers"</p>
+            </div>
+            <div class="shift-arrow">→</div>
+            <div class="shift-cell shift-to">
+              <div class="shift-cell-lbl">To</div>
+              <p style="color:#548a1a;font-weight:700;">"What the student becomes"</p>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:15px;margin-bottom:16px;color:var(--ink2);">RGU Way is not a collection of isolated benefits. It is a structured pathway where every semester and every year adds measurable value — globally ready, career ready, and future ready.</p>
+        <p style="font-size:15px;color:var(--ink3);">Students who complete the RGU Way graduate not just with a degree, but with a verified portfolio of certifications, real internship experience, leadership credentials, and an international worldview.</p>
+      </div>
+
+      <div class="rw-timeline r-r">
+        <div class="rw-item">
+          <div class="rw-dot"></div>
+          <div class="rw-card">
+            <span class="rw-yr">Year 1 — Foundation</span>
+            <div class="rw-title">Building Your Global Base</div>
+            <ul class="rw-list">
+              <li>Global Certification I</li>
+              <li>Internship I</li>
+              <li>Field Exposure I</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rw-item">
+          <div class="rw-dot"></div>
+          <div class="rw-card">
+            <span class="rw-yr">Year 2 — Exposure</span>
+            <div class="rw-title">Expanding Your Reach</div>
+            <ul class="rw-list">
+              <li>Global Certifications II &amp; III</li>
+              <li>Internships II &amp; III</li>
+              <li>Outbound Leadership Programme I</li>
+            </ul>
+          </div>
+        </div>
+        <div class="rw-item">
+          <div class="rw-dot"></div>
+          <div class="rw-card">
+            <span class="rw-yr">Year 3 — Mastery</span>
+            <div class="rw-title">Becoming World-Ready</div>
+            <ul class="rw-list">
+              <li>Global Immersion Programme</li>
+              <li>Internship IV+</li>
+              <li>Leadership Programme II</li>
+              <li>Skill Passport Final Review</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="promise-strip r">
+      <div class="ps-left">
+        <h3>One integrated transformation ecosystem.</h3>
+        <p style="color:rgba(255,255,255,.4);font-size:14px;">Every programme, every semester, every milestone — designed to compound.</p>
+      </div>
+      <a href="#core" class="btn btn-g"><span>Explore All Programmes</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CORE BRAND PROMISE — PURPLE ZONE ══════════ -->
+<section id="core">
+  <div class="wrap">
+    <div class="core-hdr">
+      <div class="r-l">
+        <div class="eyebrow">
+          <div class="eyebrow-bar" style="background:var(--purple);"></div>
+          <span class="eyebrow-text" style="color:var(--purple);">Core Brand Promise</span>
+        </div>
+        <h2 style="font-size:46px;">Built for <em>Global Readiness</em></h2>
+      </div>
+      <div class="r-r">
+        <p style="font-size:16px;">RGU Way ensures students begin building their profile from semester one. Every element is purposefully designed to stack, compound, and transform.</p>
+      </div>
+    </div>
+
+    <div class="core-grid">
+      <div class="core-card r" data-num="01" data-d="1">
+        <div class="cc-icon">🏆</div>
+        <span class="cc-freq">Every Semester</span>
+        <h3>Global Certification</h3>
+        <p>Students earn internationally recognised certifications each semester, building a verified global credential profile from Day 1 of their programme.</p>
+        <div class="cc-link">Learn more →</div>
+      </div>
+      <div class="core-card r" data-num="02" data-d="2">
+        <div class="cc-icon">💼</div>
+        <span class="cc-freq">Every Semester</span>
+        <h3>Industry Internship</h3>
+        <p>Real-world work experience every semester — not a one-time placement. Students graduate with a rich, practice-based portfolio employers actively seek.</p>
+        <div class="cc-link">Learn more →</div>
+      </div>
+      <div class="core-card r" data-num="03" data-d="3">
+        <div class="cc-icon">🌟</div>
+        <span class="cc-freq">Every Year</span>
+        <h3>Outbound Leadership</h3>
+        <p>Annual leadership programmes held outside campus — building resilience, strategic thinking, and executive presence in real-world settings.</p>
+        <div class="cc-link">Learn more →</div>
+      </div>
+      <div class="core-card r" data-num="04" data-d="4">
+        <div class="cc-icon">🔭</div>
+        <span class="cc-freq">Every Year</span>
+        <h3>Field Exposure</h3>
+        <p>Industry visits, live projects, and on-ground experiences that bridge classroom knowledge to real-world application — structured annually.</p>
+        <div class="cc-link">Learn more →</div>
+      </div>
+      <div class="core-card r" data-num="05" data-d="5">
+        <div class="cc-icon">✈️</div>
+        <span class="cc-freq">Once in Programme</span>
+        <h3>Global Immersion Programme</h3>
+        <p>An international immersive experience at a partner university — exposing students to global campuses, cultures, and career environments.</p>
+        <div class="cc-link">Learn more →</div>
+      </div>
+      <div class="core-card r" data-num="06" data-d="6">
+        <div class="cc-icon">📊</div>
+        <span class="cc-freq">Continuous Measurement</span>
+        <h3>Measured Progress</h3>
+        <p>Every achievement recorded through the Global Skill Passport and personal Growth Card — a verified, semester-by-semester record of transformation.</p>
+        <div class="cc-link">Learn more →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SKILL PASSPORT — PURPLE on DARK ══════════ -->
+<section id="passport" style="background:var(--bg2);padding:80px 0;border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="sp-banner r">
+      <div class="sp-top-stripe"></div>
+      <div class="sp-grid">
+        <!-- Skill Passport -->
+        <div class="sp-cell">
+          <span class="sp-eyebrow">Coming Soon — Details Ahead</span>
+          <div class="sp-icon-row">
+            <div class="sp-icon" style="background:rgba(102,0,102,0.3);border:1px solid rgba(102,0,102,0.4);">🌐</div>
+            <div class="sp-h">Global Skill Passport</div>
+          </div>
+          <div class="sp-ph">
+            <p class="sp-ph-note">Detailed content will be added soon</p>
+            <div class="sp-ph-row"><div class="sp-ph-dot" style="background:var(--purple);opacity:.6;"></div><div class="sp-ph-bar"></div><span class="sp-ph-lbl">Certifications</span></div>
+            <div class="sp-ph-row"><div class="sp-ph-dot" style="background:var(--purple);opacity:.5;"></div><div class="sp-ph-bar"></div><span class="sp-ph-lbl">Internship Log</span></div>
+            <div class="sp-ph-row"><div class="sp-ph-dot" style="background:var(--purple);opacity:.4;"></div><div class="sp-ph-bar"></div><span class="sp-ph-lbl">Leadership</span></div>
+            <div class="sp-ph-row"><div class="sp-ph-dot" style="background:var(--purple);opacity:.3;"></div><div class="sp-ph-bar"></div><span class="sp-ph-lbl">Global Exposure</span></div>
+          </div>
+          <p class="sp-desc">Your Global Skill Passport is a living digital credential — recording every certification, internship, exposure, and milestone throughout your RGU journey.</p>
+          <a href="#" class="sp-link" style="color:rgba(170,100,170,1);">Learn more <span>→</span></a>
+        </div>
+        <!-- Growth Card -->
+        <div class="sp-cell">
+          <span class="sp-eyebrow">Coming Soon — Details Ahead</span>
+          <div class="sp-icon-row">
+            <div class="sp-icon" style="background:rgba(102,0,102,0.25);border:1px solid rgba(102,0,102,0.35);">📈</div>
+            <div class="sp-h">Growth Card</div>
+          </div>
+          <div class="sp-ph">
+            <p class="sp-ph-note">Detailed content will be added soon</p>
+            <div class="gc-row"><div class="gc-lbl-row"><span>Career Readiness</span><span>—</span></div><div class="gc-track"><div class="gc-fill" style="width:70%;background:var(--purple);"></div></div></div>
+            <div class="gc-row"><div class="gc-lbl-row"><span>Global Exposure</span><span>—</span></div><div class="gc-track"><div class="gc-fill" style="width:55%;background:rgba(102,0,102,0.6);"></div></div></div>
+            <div class="gc-row"><div class="gc-lbl-row"><span>Leadership Score</span><span>—</span></div><div class="gc-track"><div class="gc-fill" style="width:45%;background:rgba(102,0,102,0.4);"></div></div></div>
+          </div>
+          <p class="sp-desc">The Growth Card is your personal progress tracker — a semester-by-semester snapshot measuring career readiness, global exposure, leadership, and practical skills.</p>
+          <a href="#" class="sp-link" style="color:rgba(170,100,170,1);">Learn more <span>→</span></a>
+        </div>
+      </div>
+      <div class="sp-footer">
+        <p>Together, the Skill Passport and Growth Card form your complete RGU transformation record.</p>
+        <div class="sp-dots">
+          <span style="background:var(--purple);opacity:.7;"></span>
+          <span style="background:var(--purple);opacity:.4;"></span>
+          <span style="background:var(--purple);opacity:.2;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ OUTCOMES — BLUE ZONE ══════════ -->
+<section id="outcomes">
+  <div class="wrap">
+    <div class="oc-hdr">
+      <div class="r-l">
+        <div class="eyebrow">
+          <div class="eyebrow-bar"></div>
+          <span class="eyebrow-text">What You Become</span>
+        </div>
+        <h2 style="font-size:46px;">Projected <em>Outcomes</em></h2>
+      </div>
+      <div class="r-r">
+        <p style="font-size:16px;">The RGU Way prepares you for a life of impact, leadership, and global significance — one that compounds across your entire career.</p>
+      </div>
+    </div>
+
+    <div class="oc-grid-top">
+      <div class="oc-card r" data-d="1">
+        <div class="oc-card-bar"></div>
+        <div class="oc-top">
+          <div class="oc-icon">🌍</div>
+          <div><div class="oc-stat-n">40+</div><div class="oc-stat-l">Global Partners</div></div>
+        </div>
+        <h3>Globally Ready</h3>
+        <p>International certifications, global immersion, and cross-cultural skills to thrive anywhere in the world.</p>
+      </div>
+      <div class="oc-card r" data-d="2">
+        <div class="oc-card-bar"></div>
+        <div class="oc-top">
+          <div class="oc-icon">💼</div>
+          <div><div class="oc-stat-n">95%</div><div class="oc-stat-l">Placement Rate</div></div>
+        </div>
+        <h3>Career Ready</h3>
+        <p>Multiple internships, industry connections, and job-ready skills built from semester one — not just at graduation.</p>
+      </div>
+      <div class="oc-card r" data-d="3">
+        <div class="oc-card-bar"></div>
+        <div class="oc-top">
+          <div class="oc-icon">⚡</div>
+          <div><div class="oc-stat-n">6+</div><div class="oc-stat-l">Real Projects/Year</div></div>
+        </div>
+        <h3>Practical &amp; Confident</h3>
+        <p>Hands-on projects and real environments — so students perform in practice, not just in theory.</p>
+      </div>
+    </div>
+    <div class="oc-grid-bot">
+      <div class="oc-card r" data-d="4">
+        <div class="oc-card-bar"></div>
+        <div class="oc-top">
+          <div class="oc-icon">🚀</div>
+          <div><div class="oc-stat-n">2×</div><div class="oc-stat-l">Leadership Tracks</div></div>
+        </div>
+        <h3>Leadership Oriented</h3>
+        <p>Outbound leadership programmes that build executive presence and strategic thinking.</p>
+      </div>
+      <div class="oc-card r" data-d="5">
+        <div class="oc-card-bar"></div>
+        <div class="oc-top">
+          <div class="oc-icon">🔮</div>
+          <div><div class="oc-stat-n">∞</div><div class="oc-stat-l">Possibilities</div></div>
+        </div>
+        <h3>Future Ready</h3>
+        <p>Graduates who are adaptable, resilient, and prepared for careers that don't yet exist.</p>
+      </div>
+    </div>
+
+    <div class="oc-sum r">
+      <div class="oc-sum-left">
+        <h3>One journey. Five transformations.</h3>
+        <p>Every element compounds — creating a graduate comprehensively ready for the world.</p>
+      </div>
+      <div class="oc-sum-tags">
+        <span class="oc-sum-tag">Globally Ready</span>
+        <span class="oc-sum-tag">Career Ready</span>
+        <span class="oc-sum-tag">Practical & Confident</span>
+        <span class="oc-sum-tag">Leadership Oriented</span>
+        <span class="oc-sum-tag">Future Ready</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ LIFE @ RGU — GREEN ZONE ══════════ -->
+<section id="life">
+  <div class="wrap">
+    <div class="life-top">
+      <div class="r-l">
+        <div class="eyebrow">
+          <div class="eyebrow-bar" style="background:var(--green);"></div>
+          <span class="eyebrow-text" style="color:#548a1a;">The Campus Experience</span>
+        </div>
+        <h2 class="life-h">Life @ <em>RGU</em></h2>
+      </div>
+      <div class="r-r">
+        <p style="font-size:16px;">Life at RGU extends far beyond classrooms. It's a vibrant, global community where students learn, grow, explore, and lead — every single day on and off campus.</p>
+        <a href="#" style="display:inline-flex;align-items:center;gap:6px;color:#548a1a;font-weight:700;font-size:14px;margin-top:18px;font-family:'Outfit',sans-serif;transition:gap .25s;" onmouseenter="this.style.gap='10px'" onmouseleave="this.style.gap='6px'">Explore Campus Life →</a>
+      </div>
+    </div>
+
+    <div class="life-mosaic r">
+      <div class="mc span2" style="border-top:3px solid var(--green);">
+        <div class="mc-top"></div>
+        <div class="mc-emoji">🏛️</div>
+        <div class="mc-lbl">Campus Life</div>
+        <div class="mc-sub">Modern Spaces & Vibrant Community</div>
+        <div class="mc-ph">Photo Gallery Coming Soon</div>
+      </div>
+      <div class="mc" style="border-top:3px solid var(--green);">
+        <div class="mc-top"></div>
+        <div class="mc-emoji">🧪</div>
+        <div class="mc-lbl">Innovation Labs</div>
+        <div class="mc-sub">World-class Infrastructure</div>
+      </div>
+      <div class="mc" style="border-top:3px solid var(--green);">
+        <div class="mc-top"></div>
+        <div class="mc-emoji">🎭</div>
+        <div class="mc-lbl">Events &amp; Fests</div>
+        <div class="mc-sub">Always Happening</div>
+      </div>
+      <div class="mc" style="border-top:3px solid var(--green);">
+        <div class="mc-top"></div>
+        <div class="mc-emoji">✈️</div>
+        <div class="mc-lbl">Global Exchanges</div>
+        <div class="mc-sub">Study Abroad</div>
+      </div>
+      <div class="mc" style="border-top:3px solid var(--green);">
+        <div class="mc-top"></div>
+        <div class="mc-emoji">⚽</div>
+        <div class="mc-lbl">Sports Complex</div>
+        <div class="mc-sub">Champion Mindset</div>
+      </div>
+    </div>
+
+    <div class="life-ticker r">
+      <div class="life-ticker-track">
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Academic Excellence</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Global Exposure</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Cultural Vibrancy</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Sports & Fitness</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Clubs & Societies</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Campus Living</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Innovation Labs</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Arts & Music</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Research Centres</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Sustainability Initiatives</span></div>
+        <!-- dup -->
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Academic Excellence</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Global Exposure</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Cultural Vibrancy</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Sports & Fitness</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Clubs & Societies</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Campus Living</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Innovation Labs</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Arts & Music</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Research Centres</span></div>
+        <div class="lt-item"><div class="lt-dot"></div><span class="lt-text">Sustainability Initiatives</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HAPPENING @ RGU — PURPLE ZONE ══════════ -->
+<section id="happening">
+  <div class="wrap">
+    <div class="hap-top">
+      <div class="r-l">
+        <div class="eyebrow">
+          <div class="eyebrow-bar"></div>
+          <span class="eyebrow-text">Always Active</span>
+        </div>
+        <h2 class="hap-h">Happening <em>@ RGU</em></h2>
+      </div>
+      <div class="r-r">
+        <p style="font-size:16px;">From international summits to innovation challenges, leadership expeditions to cultural fests — the RGU campus is always alive with meaningful opportunities.</p>
+        <div class="hap-filters">
+          <button class="hap-pill on" onclick="evFilter(this,'all')">All</button>
+          <button class="hap-pill" onclick="evFilter(this,'Annual')">Annual</button>
+          <button class="hap-pill" onclick="evFilter(this,'Regular')">Regular</button>
+          <button class="hap-pill" onclick="evFilter(this,'Ongoing')">Ongoing</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ev-grid" id="evGrid">
+      <div class="ev r" data-tag="Annual" data-d="1">
+        <div class="ev-stripe"></div>
+        <div class="ev-body">
+          <div class="ev-meta">
+            <span class="ev-cat">Global Summit</span>
+            <div class="ev-date"><div class="ev-date-dot"></div>March 2025</div>
+          </div>
+          <div class="ev-icon-row">
+            <div class="ev-icon">🌍</div>
+            <div class="ev-title">International Career Conclave 2025</div>
+          </div>
+          <p>Bringing together 200+ global recruiters, students, and industry leaders for a 3-day immersive career festival.</p>
+          <div class="ev-foot">
+            <span class="ev-tag-lbl">Annual</span>
+            <span class="ev-more">View Details →</span>
+          </div>
+        </div>
+      </div>
+      <div class="ev r" data-tag="Ongoing" data-d="2">
+        <div class="ev-stripe"></div>
+        <div class="ev-body">
+          <div class="ev-meta">
+            <span class="ev-cat">Leadership</span>
+            <div class="ev-date"><div class="ev-date-dot"></div>Every Semester</div>
+          </div>
+          <div class="ev-icon-row">
+            <div class="ev-icon">🏔️</div>
+            <div class="ev-title">Outbound Leadership Expedition</div>
+          </div>
+          <p>Students take on real-world leadership challenges in outdoor settings — building resilience, teamwork, and strategic thinking.</p>
+          <div class="ev-foot">
+            <span class="ev-tag-lbl">Ongoing</span>
+            <span class="ev-more">View Details →</span>
+          </div>
+        </div>
+      </div>
+      <div class="ev r" data-tag="Regular" data-d="3">
+        <div class="ev-stripe"></div>
+        <div class="ev-body">
+          <div class="ev-meta">
+            <span class="ev-cat">Industry Connect</span>
+            <div class="ev-date"><div class="ev-date-dot"></div>Monthly</div>
+          </div>
+          <div class="ev-icon-row">
+            <div class="ev-icon">🎤</div>
+            <div class="ev-title">CEO Masterclass Series</div>
+          </div>
+          <p>Exclusive sessions with C-suite executives, startup founders, and global thought leaders sharing live, unfiltered insights.</p>
+          <div class="ev-foot">
+            <span class="ev-tag-lbl">Regular</span>
+            <span class="ev-more">View Details →</span>
+          </div>
+        </div>
+      </div>
+      <div class="ev r" data-tag="Annual" data-d="4">
+        <div class="ev-stripe"></div>
+        <div class="ev-body">
+          <div class="ev-meta">
+            <span class="ev-cat">Cultural Festival</span>
+            <div class="ev-date"><div class="ev-date-dot"></div>February 2025</div>
+          </div>
+          <div class="ev-icon-row">
+            <div class="ev-icon">🎊</div>
+            <div class="ev-title">Rathinam International Fest</div>
+          </div>
+          <p>A celebration of global cultures, arts, music, and sports — connecting students across nationalities and disciplines.</p>
+          <div class="ev-foot">
+            <span class="ev-tag-lbl">Annual</span>
+            <span class="ev-more">View Details →</span>
+          </div>
+        </div>
+      </div>
+      <div class="ev r" data-tag="Regular" data-d="5">
+        <div class="ev-stripe"></div>
+        <div class="ev-body">
+          <div class="ev-meta">
+            <span class="ev-cat">Innovation</span>
+            <div class="ev-date"><div class="ev-date-dot"></div>Quarterly</div>
+          </div>
+          <div class="ev-icon-row">
+            <div class="ev-icon">💡</div>
+            <div class="ev-title">RGU Hackathon &amp; Startup Showcase</div>
+          </div>
+          <p>48-hour hackathon where students pitch, build, and demo solutions to real industry problems with live expert mentorship.</p>
+          <div class="ev-foot">
+            <span class="ev-tag-lbl">Regular</span>
+            <span class="ev-more">View Details →</span>
+          </div>
+        </div>
+      </div>
+      <div class="ev r" data-tag="Annual" data-d="6">
+        <div class="ev-stripe"></div>
+        <div class="ev-body">
+          <div class="ev-meta">
+            <span class="ev-cat">Global Immersion</span>
+            <div class="ev-date"><div class="ev-date-dot"></div>Year 3</div>
+          </div>
+          <div class="ev-icon-row">
+            <div class="ev-icon">✈️</div>
+            <div class="ev-title">Study Abroad Week</div>
+          </div>
+          <p>Students travel internationally for immersive learning at partner universities — bridging cultures, careers, and global perspectives.</p>
+          <div class="ev-foot">
+            <span class="ev-tag-lbl">Annual</span>
+            <span class="ev-more">View Details →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nl-block r" id="apply">
+      <div class="nl-block-pattern"></div>
+      <div class="nl-left">
+        <h3>Stay connected with RGU</h3>
+        <p>Receive updates on events, workshops, international opportunities, and academic announcements.</p>
+      </div>
+      <div class="nl-form">
+        <input class="nl-input" type="email" placeholder="your@email.com"/>
+        <button class="btn btn-w"><span>Subscribe →</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer id="contact">
+  <div class="ft-grid">
+    <div>
+      <div class="ft-logo">
+        <div class="ft-logo-box"><span class="fl">RGU</span></div>
+        <div>
+          <div class="ft-brand-n">RGU</div>
+          <div class="ft-brand-s">Rathinam Global University</div>
+        </div>
+      </div>
+      <p class="ft-brand-p">Deemed to be University. Designed for the world. The RGU Way — Career Readiness + Global Readiness, from semester one.</p>
+      <div class="ft-socials">
+        <a class="ft-soc" href="#">𝕏</a>
+        <a class="ft-soc" href="#">in</a>
+        <a class="ft-soc" href="#">f</a>
+        <a class="ft-soc" href="#">▶</a>
+      </div>
+      <div class="ft-accr">🎓 Deemed to be University</div>
+    </div>
+    <div class="ft-col">
+      <h4>The RGU Way</h4>
+      <ul>
+        <li><a href="#">Global Certification</a></li>
+        <li><a href="#">Internship Programme</a></li>
+        <li><a href="#">Outbound Leadership</a></li>
+        <li><a href="#">Global Immersion</a></li>
+        <li><a href="#">Skill Passport</a></li>
+        <li><a href="#">Growth Card</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Programmes</h4>
+      <ul>
+        <li><a href="#">Undergraduate</a></li>
+        <li><a href="#">Postgraduate</a></li>
+        <li><a href="#">Diploma</a></li>
+        <li><a href="#">Certificate</a></li>
+        <li><a href="#">Online Learning</a></li>
+        <li><a href="#">Executive Education</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Campus Life</h4>
+      <ul>
+        <li><a href="#">Clubs &amp; Societies</a></li>
+        <li><a href="#">Sports &amp; Fitness</a></li>
+        <li><a href="#">Cultural Events</a></li>
+        <li><a href="#">Student Housing</a></li>
+        <li><a href="#">International Students</a></li>
+        <li><a href="#">Scholarships</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Faculty</a></li>
+        <li><a href="#">Research</a></li>
+        <li><a href="#">News &amp; Media</a></li>
+        <li><a href="#">Alumni Network</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-contact">
+    <div class="ft-ci"><span class="ft-ci-icon">📍</span><div><div class="ft-ci-lbl">Address</div><div class="ft-ci-val">Rathinam College Campus, Coimbatore, Tamil Nadu — 641021</div></div></div>
+    <div class="ft-ci"><span class="ft-ci-icon">📞</span><div><div class="ft-ci-lbl">Phone</div><div class="ft-ci-val">+91 422 000 0000</div></div></div>
+    <div class="ft-ci"><span class="ft-ci-icon">📧</span><div><div class="ft-ci-lbl">Email</div><div class="ft-ci-val">admissions@rgu.edu.in</div></div></div>
+  </div>
+  <div class="ft-bottom">
+    <p class="ft-copy">© 2025 Rathinam Global University. All rights reserved.</p>
+    <div class="ft-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Sitemap</a>
+    </div>
+    <div class="ft-badge"><div class="ft-badge-dot"></div><span>The RGU Way</span></div>
+  </div>
+</footer>
+
+<script>
+// ── NAVBAR ELEVATION ──
+const hdr = document.getElementById('hdr');
+window.addEventListener('scroll', () => hdr.classList.toggle('up', scrollY > 10));
+
+// ── MOBILE MENU ──
+function mobileToggle() {
+  document.getElementById('mNav').classList.toggle('open');
+}
+
+// ── REVEAL ON SCROLL ──
+const revEls = document.querySelectorAll('.r, .r-l, .r-r');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+}, { threshold: 0.1 });
+revEls.forEach(el => io.observe(el));
+
+// ── EVENT FILTER ──
+function evFilter(btn, tag) {
+  document.querySelectorAll('.hap-pill').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('#evGrid .ev').forEach(card => {
+    card.style.display = (tag === 'all' || card.dataset.tag === tag) ? '' : 'none';
+  });
+}
+
+// ── STAT COUNTER ──
+const counters = document.querySelectorAll('.hs-n[data-count]');
+const cio = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const target = parseInt(el.dataset.count);
+      let current = 0;
+      const step = Math.ceil(target / 30);
+      const timer = setInterval(() => {
+        current = Math.min(current + step, target);
+        el.textContent = current + '+';
+        if (current >= target) clearInterval(timer);
+      }, 40);
+      cio.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+counters.forEach(el => cio.observe(el));
+
+// ── GROWTH CARD BAR ANIMATION ──
+const fills = document.querySelectorAll('.gc-fill');
+const bio = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const w = e.target.style.width;
+      e.target.style.width = '0';
+      setTimeout(() => { e.target.style.width = w; }, 100);
+      bio.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+fills.forEach(el => bio.observe(el));
+</script>
+</body>
+</html>
