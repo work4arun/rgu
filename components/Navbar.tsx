@@ -21,123 +21,51 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "glass border-b border-white/10 py-3"
-          : "bg-transparent py-5"
-      }`}
-    >
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "glass border-b border-black/[0.06] py-3" : "bg-transparent py-5"}`}>
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <a href="#" className="flex items-center gap-4 group">
-          {/* Logo - High End Design */}
-          <div className="relative">
-            <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center shine-effect glass-premium overflow-hidden border border-white/20"
-              style={{
-                boxShadow: "0 0 30px rgba(var(--rgu-purple-rgb), 0.4)",
-              }}
-            >
-              {/* Abstract RGU Logo Concept */}
-              <div className="relative w-full h-full flex items-center justify-center">
-                <div className="absolute inset-0 bg-gradient-to-br from-rgu-purple via-rgu-blue to-rgu-green opacity-40 group-hover:opacity-60 transition-opacity duration-500" />
-                <div className="z-10 flex flex-col items-center">
-                  <span className="text-white font-black text-xl font-outfit leading-none mb-0.5 tracking-tighter">RG</span>
-                  <span className="text-rgu-green font-bold text-[10px] font-outfit leading-none tracking-[0.2em] uppercase">University</span>
-                </div>
-              </div>
-            </div>
-            {/* Pulsing ring */}
-            <div
-              className="absolute -inset-1 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 blur-sm"
-              style={{
-                background: "linear-gradient(135deg, #660066, #006699, #99cc33)",
-              }}
-            />
-          </div>
 
-          <div className="hidden sm:block">
-            <div
-              className="font-outfit font-black text-2xl tracking-tight leading-none text-glow-purple"
-              style={{
-                background: "linear-gradient(to right, #ffffff 30%, #99cc33 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              RGU
-            </div>
-            <div className="text-[10px] text-white/40 font-inter tracking-[0.3em] mt-0.5 font-bold uppercase">
-              Rathinam Global
-            </div>
+        {/* Logo */}
+        <a href="#" className="flex items-center group">
+          <div className="w-40 h-12 rounded-xl flex items-center justify-center glass-flash overflow-hidden flex-shrink-0" style={{ background: "#ffff", border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 4px 14px rgba(0,0,0,0.05)" }}>
+            <img src="/logo.png" alt="RGU" className="w-[85%] h-[85%] object-contain" />
           </div>
         </a>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="px-5 py-2 text-sm font-inter font-semibold text-white/60 hover:text-white rounded-xl transition-all duration-300 hover:bg-white/5 relative group"
+            <a key={link.label} href={link.href}
+              className="px-4 py-2 text-sm font-inter font-medium text-gray-600 hover:text-gray-900 rounded-lg transition-all duration-200 hover:bg-black/[0.04] relative group"
             >
               {link.label}
-              <span
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 group-hover:w-3/4 transition-all duration-500 rounded-full blur-[1px]"
-                style={{ background: "linear-gradient(90deg, #660066, #006699, #99cc33)" }}
-              />
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 group-hover:w-4 transition-all duration-300 rounded-full" style={{ background: "#ffffffff" }} />
             </a>
           ))}
         </div>
 
-        {/* CTA Buttons */}
+        {/* CTA */}
         <div className="hidden lg:flex items-center gap-3">
-          <a
-            href="#explore"
-            className="px-5 py-2.5 rounded-xl text-sm font-semibold font-inter text-white/90 glass border border-white/15 hover:border-white/30 transition-all duration-300 hover:bg-white/5"
-          >
-            Explore
-          </a>
-          <a
-            href="#apply"
-            className="btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold font-inter text-white"
-          >
-            Apply Now →
-          </a>
+          <a href="#explore" className="btn-outline-purple px-5 py-2.5 rounded-xl text-sm font-semibold font-inter">Explore</a>
+          <a href="#apply" className="btn-primary px-6 py-2.5 rounded-xl text-sm font-semibold font-inter">Apply Now →</a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden p-2 rounded-lg glass border border-white/10"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <X size={20} className="text-white" /> : <Menu size={20} className="text-white" />}
+        {/* Mobile toggle */}
+        <button className="lg:hidden p-2 rounded-lg glass border border-black/[0.06]" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle menu">
+          {menuOpen ? <X size={20} className="text-gray-700" /> : <Menu size={20} className="text-gray-700" />}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       {menuOpen && (
-        <div className="lg:hidden glass border-t border-white/10 px-6 py-4 space-y-2">
+        <div className="lg:hidden glass border-t border-black/[0.06] px-6 py-4 space-y-1">
           {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="block px-4 py-3 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-              onClick={() => setMenuOpen(false)}
-            >
+            <a key={link.label} href={link.href} className="block px-4 py-3 text-sm text-gray-600 hover:text-gray-900 hover:bg-black/[0.03] rounded-lg transition-all" onClick={() => setMenuOpen(false)}>
               {link.label}
             </a>
           ))}
           <div className="flex gap-3 pt-3">
-            <a href="#explore" className="flex-1 text-center px-4 py-2.5 rounded-lg text-sm font-semibold glass border border-white/15 text-white/80">
-              Explore
-            </a>
-            <a href="#apply" className="flex-1 text-center btn-primary px-4 py-2.5 rounded-lg text-sm font-semibold text-white">
-              Apply Now
-            </a>
+            <a href="#explore" className="flex-1 text-center btn-outline-purple px-4 py-2.5 rounded-xl text-sm font-semibold">Explore</a>
+            <a href="#apply" className="flex-1 text-center btn-primary px-4 py-2.5 rounded-xl text-sm font-semibold">Apply Now</a>
           </div>
         </div>
       )}
