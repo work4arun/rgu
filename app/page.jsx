@@ -426,10 +426,11 @@ const schoolsConfig = [
     name: "School of Business & Commerce", short: "Business & Commerce", color: "#a3e635",
     svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="8" y="20" width="32" height="18" rx="3" stroke={c} strokeWidth="1.5"/><path d="M18 20v-4a6 6 0 0112 0v4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><path d="M16 32l4-4 4 4 4-4 4 4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="24" cy="29" r="2" fill={c}/></svg>),
     programs: [
-      { category: "BBA PROGRAMMES", level: "UNDERGRADUATE", courses: ["BBA Aviation Management", "BBA Computer Applications", "BBA Logistics"] },
-      { category: "B.COM PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Com Accounting & Finance", "B.Com Banking & Insurance", "B.Com Business Process Services", "B.Com Corporate Secretorship", "B.Com Financial Services", "B.Com Information Technology", "B.Com International Business", "B.Com Professional Accounting"] },
+      { category: "BBA PROGRAMMES", level: "UNDERGRADUATE", courses: ["BBA General", "BBA Aviation Management", "BBA Computer Applications", "BBA Logistics"] },
+      { category: "B.COM PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Com Accounting & Finance", "B.Com Banking & Insurance", "B.Com Business Process Services", "B.Com Corporate Secretorship", "B.Com Financial Services", "B.Com Information Technology", "B.Com International Business", "B.Com Professional Accounting", "B.Com Professional Accounting (CA Training)"] },
       { category: "B.COM — AI & PROFESSIONAL SPECIALIZATIONS", level: "UNDERGRADUATE", courses: ["B.Com Computer Applications (Business Intelligence & AI)", "B.Com Computer Applications (AI-Ready Accountant)", "B.Com Financial Services (AI-Ready Account Analyst)", "B.Com Financial Services (Public Accountant)", "B.Com IT (Accounting Analytics)", "B.Com International Business (AI-Ready Business Analyst)", "B.Com Professional Accounting (Chartered Accountant)", "B.Com (AI-Ready Accountant)", "B.Com (ACCA)"] },
-      { category: "POSTGRADUATE PROGRAMMES", level: "POSTGRADUATE", courses: ["M.Com Computer Applications (AI-Ready Accountant)", "M.Com General (Guaranteed Internship)", "MBA in Business Analytics and Artificial Intelligence"] }
+      { category: "M.COM PROGRAMMES", level: "POSTGRADUATE", courses: ["M.Com Computer Applications (AI-Ready Accountant)", "M.Com General (Guaranteed Internship)"] },
+      { category: "MBA PROGRAMMES", level: "POSTGRADUATE", courses: ["MBA General", "MBA in Business Analytics and Artificial Intelligence", "MBA in Marketing", "MBA in Finance", "MBA in Human Resource", "MBA in Supply Chain and Logistics", "MBA in Sustainability Management", "MBA in AI Product Management", "MBA in Entrepreneurship 5.0", "MBA in Media & Entertainment Management", "MBA in Sports Management", "MBA Hospitality"] }
     ]
   },
   {
@@ -445,7 +446,7 @@ const schoolsConfig = [
     name: "School of Liberal Arts & Science", short: "Liberal Arts & Science", color: "#fb923c",
     svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M12 36V16l12-6 12 6v20" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><rect x="19" y="26" width="10" height="10" rx="1" stroke={c} strokeWidth="1.5"/><path d="M19 22h10M22 18h4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>),
     programs: [
-      { category: "B.SC PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Sc Mathematics"] },
+      { category: "B.SC PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Sc Mathematics", "B.Sc Physics"] },
       { category: "B.A PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.A English Literature"] },
       { category: "POSTGRADUATE PROGRAMMES", level: "POSTGRADUATE", courses: ["M.A English Literature", "M.A Public Administration", "M.Sc Mathematics"] }
     ]
@@ -544,154 +545,166 @@ function CoursesSection() {
           </p>
         </div>
 
-        {/* ── Search box ── */}
-        <div style={{ display:"flex", justifyContent:"center", marginBottom:60,
-          opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(20px)", transition:"all .8s ease .15s" }}>
-          <div style={{ position:"relative", width:"100%", maxWidth:580 }}>
+        {/* ── Scatter zone: bubbles + central search ── */}
+        {(() => {
+          // dimming helper — always render all 7 schools, just dim non-matches when searching
+          const matchSet = new Set(filteredSchools.map(s => s.name));
+          const isDim = (sc) => search.trim() !== "" && !matchSet.has(sc.name);
 
-            {/* search icon */}
-            <div style={{ position:"absolute", left:22, top:"50%", transform:"translateY(-50%)",
-              color: inputFocused ? "#a855f7" : "rgba(255,255,255,.35)", transition:"color .3s", pointerEvents:"none" }}>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-              </svg>
-            </div>
+          const Bubble = ({ sc, i, extraStyle = {} }) => {
+            const isActive = activeSchool === sc.name;
+            const dim = isDim(sc);
+            const totalCourses = sc.programs.reduce((a,p)=>a+p.courses.length,0);
+            return (
+              <div className={floatClass(i)}
+                style={{ animationDelay:`${i*0.22}s`, transition:"opacity .4s", opacity: dim ? 0.22 : 1, ...extraStyle }}>
+                <button
+                  onClick={() => !dim && setActiveSchool(isActive ? null : sc.name)}
+                  style={{
+                    display:"flex", flexDirection:"column", alignItems:"center", gap:13,
+                    padding:"26px 22px 20px", borderRadius:28,
+                    cursor: dim ? "default" : "pointer", outline:"none",
+                    width:176, minHeight:200,
+                    background: isActive
+                      ? `linear-gradient(145deg,${sc.color}22 0%,rgba(12,12,22,.92) 100%)`
+                      : "rgba(255,255,255,.034)",
+                    border:`1.5px solid ${isActive ? sc.color+"70" : "rgba(255,255,255,.09)"}`,
+                    boxShadow: isActive
+                      ? `0 0 0 3px ${sc.color}25,0 20px 56px ${sc.color}18,inset 0 1px 0 rgba(255,255,255,.08)`
+                      : "0 8px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05)",
+                    backdropFilter:"blur(18px)",
+                    transition:"all .4s cubic-bezier(.25,.8,.25,1)",
+                    transform: isActive ? "scale(1.05)" : "scale(1)",
+                    position:"relative", overflow:"hidden",
+                  }}
+                  onMouseEnter={e=>{ if(!isActive&&!dim){ e.currentTarget.style.transform="scale(1.04)"; e.currentTarget.style.borderColor=`${sc.color}45`; e.currentTarget.style.boxShadow=`0 12px 40px ${sc.color}14,inset 0 1px 0 rgba(255,255,255,.06)`; }}}
+                  onMouseLeave={e=>{ if(!isActive&&!dim){ e.currentTarget.style.transform="scale(1)"; e.currentTarget.style.borderColor="rgba(255,255,255,.09)"; e.currentTarget.style.boxShadow="0 8px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.05)"; }}}>
 
-            <input
-              type="text"
-              placeholder="Search programmes, schools or specializations…"
-              value={search}
-              onChange={e => { setSearch(e.target.value); setActiveSchool(null); }}
-              onFocus={() => setInputFocused(true)}
-              onBlur={() => setInputFocused(false)}
-              style={{ width:"100%", padding:"18px 52px 18px 58px", borderRadius:22,
-                background: inputFocused ? "rgba(168,85,247,.08)" : "rgba(255,255,255,.05)",
-                border:`1.5px solid ${inputFocused ? "rgba(168,85,247,.55)" : "rgba(255,255,255,.12)"}`,
-                color:"#f8fafc", fontFamily:"'Sora',sans-serif", fontSize:15, outline:"none",
-                transition:"all .35s", backdropFilter:"blur(16px)",
-                boxShadow: inputFocused
-                  ? "0 0 0 4px rgba(168,85,247,.12), 0 16px 40px rgba(0,0,0,.35)"
-                  : "0 12px 32px rgba(0,0,0,.28)" }} />
+                  {/* glow blob */}
+                  <div style={{ position:"absolute", top:-20, left:"50%", transform:"translateX(-50%)",
+                    width:100, height:100, borderRadius:"50%",
+                    background:`radial-gradient(circle,${sc.color}22 0%,transparent 70%)`,
+                    pointerEvents:"none", opacity: isActive ? 1 : 0.5 }} />
 
-            {/* clear button */}
-            {search && (
-              <button onClick={() => { setSearch(""); setActiveSchool(null); }}
-                style={{ position:"absolute", right:18, top:"50%", transform:"translateY(-50%)",
-                  background:"rgba(255,255,255,.1)", border:"none", borderRadius:8, width:28, height:28,
-                  cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center",
-                  color:"rgba(255,255,255,.6)", transition:"all .2s" }}
-                onMouseEnter={e=>{e.currentTarget.style.background="rgba(255,255,255,.18)"}}
-                onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,.1)"}}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
-                  <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-              </button>
-            )}
-
-            {/* result count badge */}
-            {search && (
-              <div style={{ position:"absolute", top:-10, right:0, fontSize:11, fontFamily:"'DM Sans',sans-serif",
-                fontWeight:700, color:"#a855f7", background:"rgba(168,85,247,.15)", padding:"2px 10px",
-                borderRadius:20, border:"1px solid rgba(168,85,247,.3)" }}>
-                {filteredSchools.reduce((a,s)=>a+s.programs.reduce((b,p)=>b+p.courses.length,0),0)} results
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* ── Bubble grid ── */}
-        {filteredSchools.length === 0 ? (
-          <div style={{ textAlign:"center", padding:"60px 0", color:"rgba(255,255,255,.35)" }}>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
-              strokeLinecap="round" strokeLinejoin="round" style={{ opacity:.4, margin:"0 auto 16px", display:"block" }}>
-              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
-            </svg>
-            <div style={{ fontFamily:"'Sora',sans-serif", fontSize:18, fontWeight:600, marginBottom:8 }}>No programmes match</div>
-            <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:14 }}>Try a different keyword</div>
-          </div>
-        ) : (
-          <>
-            <div style={{ display:"flex", flexWrap:"wrap", gap:16, justifyContent:"center",
-              opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(30px)", transition:"all .8s ease .3s" }}>
-              {filteredSchools.map((sc, i) => {
-                const isActive = activeSchool === sc.name;
-                const totalCourses = sc.programs.reduce((a,p)=>a+p.courses.length,0);
-                return (
-                  /* wrapper carries the float animation so button scale doesn't fight with it */
-                  <div key={sc.name}
-                    className={floatClass(i)}
-                    style={{ animationDelay: `${i * 0.22}s` }}>
-                    <button
-                      onClick={() => setActiveSchool(isActive ? null : sc.name)}
-                      style={{
-                        display:"flex", flexDirection:"column", alignItems:"center", gap:14,
-                        padding:"28px 24px 22px", borderRadius:28, cursor:"pointer", outline:"none",
-                        width: 188, minHeight: 210,
-                        background: isActive
-                          ? `linear-gradient(145deg, ${sc.color}22 0%, rgba(12,12,22,.92) 100%)`
-                          : "rgba(255,255,255,.034)",
-                        border: `1.5px solid ${isActive ? sc.color+"70" : "rgba(255,255,255,.09)"}`,
-                        boxShadow: isActive
-                          ? `0 0 0 3px ${sc.color}25, 0 20px 56px ${sc.color}18, inset 0 1px 0 rgba(255,255,255,.08)`
-                          : "0 8px 32px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.05)",
-                        backdropFilter:"blur(18px)",
-                        transition:"all .4s cubic-bezier(.25,.8,.25,1)",
-                        transform: isActive ? "scale(1.05)" : "scale(1)",
-                        position:"relative", overflow:"hidden",
-                      }}
-                      onMouseEnter={e => { if(!isActive){ e.currentTarget.style.transform="scale(1.04)"; e.currentTarget.style.borderColor=`${sc.color}45`; e.currentTarget.style.boxShadow=`0 12px 40px ${sc.color}14, inset 0 1px 0 rgba(255,255,255,.06)`; }}}
-                      onMouseLeave={e => { if(!isActive){ e.currentTarget.style.transform="scale(1)"; e.currentTarget.style.borderColor="rgba(255,255,255,.09)"; e.currentTarget.style.boxShadow="0 8px 32px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.05)"; }}}>
-
-                      {/* glow blob behind icon */}
-                      <div style={{ position:"absolute", top:-20, left:"50%", transform:"translateX(-50%)",
-                        width:100, height:100, borderRadius:"50%",
-                        background:`radial-gradient(circle, ${sc.color}22 0%, transparent 70%)`,
-                        pointerEvents:"none", transition:"opacity .4s", opacity: isActive ? 1 : 0.5 }} />
-
-                      {/* icon container */}
-                      <div style={{ width:68, height:68, borderRadius:22, position:"relative",
-                        background:`${sc.color}14`, border:`1.5px solid ${sc.color}35`,
-                        display:"flex", alignItems:"center", justifyContent:"center",
-                        boxShadow: isActive ? `0 0 22px ${sc.color}30` : "none",
-                        transition:"all .4s" }}>
-                        {sc.svg(sc.color)}
-                        {isActive && (
-                          <div style={{ position:"absolute", inset:-3, borderRadius:25,
-                            border:`1.5px solid ${sc.color}50`, animation:"iconRing .9s ease-out infinite" }} />
-                        )}
-                      </div>
-
-                      {/* name */}
-                      <div style={{ fontFamily:"'Sora',sans-serif", fontSize:13, fontWeight:700, lineHeight:1.3,
-                        color: isActive ? "#fff" : "rgba(255,255,255,.8)", textAlign:"center",
-                        transition:"color .3s" }}>
-                        {sc.short}
-                      </div>
-
-                      {/* count badge */}
-                      <div style={{ display:"flex", alignItems:"center", gap:6, padding:"5px 12px",
-                        borderRadius:20, background:`${sc.color}18`, border:`1px solid ${sc.color}30` }}>
-                        <span style={{ width:5, height:5, borderRadius:"50%", background:sc.color, flexShrink:0 }} />
-                        <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700,
-                          letterSpacing:".1em", textTransform:"uppercase", color:sc.color }}>
-                          {totalCourses} programmes
-                        </span>
-                      </div>
-
-                      {/* chevron */}
-                      <div style={{ marginTop:"auto", opacity:.6, transition:"transform .4s",
-                        transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                          stroke={isActive ? sc.color : "rgba(255,255,255,.5)"} strokeWidth="2.5"
-                          strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M6 9l6 6 6-6"/>
-                        </svg>
-                      </div>
-                    </button>
+                  {/* icon */}
+                  <div style={{ width:64, height:64, borderRadius:20, position:"relative",
+                    background:`${sc.color}14`, border:`1.5px solid ${sc.color}35`,
+                    display:"flex", alignItems:"center", justifyContent:"center",
+                    boxShadow: isActive ? `0 0 22px ${sc.color}30` : "none", transition:"all .4s" }}>
+                    {sc.svg(sc.color)}
+                    {isActive && (
+                      <div style={{ position:"absolute", inset:-3, borderRadius:24,
+                        border:`1.5px solid ${sc.color}50`, animation:"iconRing .9s ease-out infinite" }} />
+                    )}
                   </div>
-                );
-              })}
+
+                  {/* name */}
+                  <div style={{ fontFamily:"'Sora',sans-serif", fontSize:12.5, fontWeight:700, lineHeight:1.3,
+                    color: isActive ? "#fff" : "rgba(255,255,255,.8)", textAlign:"center", transition:"color .3s" }}>
+                    {sc.short}
+                  </div>
+
+                  {/* badge */}
+                  <div style={{ display:"flex", alignItems:"center", gap:5, padding:"4px 10px",
+                    borderRadius:20, background:`${sc.color}18`, border:`1px solid ${sc.color}30` }}>
+                    <span style={{ width:5, height:5, borderRadius:"50%", background:sc.color, flexShrink:0 }} />
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:10, fontWeight:700,
+                      letterSpacing:".1em", textTransform:"uppercase", color:sc.color }}>
+                      {totalCourses} progs
+                    </span>
+                  </div>
+
+                  {/* chevron */}
+                  <div style={{ marginTop:"auto", opacity:.6, transition:"transform .4s",
+                    transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                      stroke={isActive ? sc.color : "rgba(255,255,255,.5)"} strokeWidth="2.5"
+                      strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M6 9l6 6 6-6"/>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            );
+          };
+
+          // Search bar node (reusable inline)
+          const SearchBar = (
+            <div style={{ flex:1, maxWidth:480, position:"relative", minWidth:260 }}>
+              {/* search icon */}
+              <div style={{ position:"absolute", left:20, top:"50%", transform:"translateY(-50%)",
+                color: inputFocused ? "#a855f7" : "rgba(255,255,255,.35)", transition:"color .3s", pointerEvents:"none" }}>
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder="Search programmes, schools…"
+                value={search}
+                onChange={e=>{ setSearch(e.target.value); setActiveSchool(null); }}
+                onFocus={()=>setInputFocused(true)}
+                onBlur={()=>setInputFocused(false)}
+                style={{ width:"100%", padding:"17px 50px 17px 52px", borderRadius:20,
+                  background: inputFocused ? "rgba(168,85,247,.09)" : "rgba(255,255,255,.05)",
+                  border:`1.5px solid ${inputFocused ? "rgba(168,85,247,.6)" : "rgba(255,255,255,.12)"}`,
+                  color:"#f8fafc", fontFamily:"'Sora',sans-serif", fontSize:14, outline:"none",
+                  transition:"all .35s", backdropFilter:"blur(20px)",
+                  boxShadow: inputFocused
+                    ? "0 0 0 4px rgba(168,85,247,.13),0 16px 40px rgba(0,0,0,.4)"
+                    : "0 10px 28px rgba(0,0,0,.3)" }} />
+              {/* clear */}
+              {search && (
+                <button onClick={()=>{ setSearch(""); setActiveSchool(null); }}
+                  style={{ position:"absolute", right:16, top:"50%", transform:"translateY(-50%)",
+                    background:"rgba(255,255,255,.1)", border:"none", borderRadius:8, width:26, height:26,
+                    cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center",
+                    color:"rgba(255,255,255,.6)", transition:"all .2s" }}
+                  onMouseEnter={e=>{e.currentTarget.style.background="rgba(255,255,255,.2)"}}
+                  onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,.1)"}}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              )}
+              {/* result count */}
+              {search && (
+                <div style={{ position:"absolute", bottom:-28, left:"50%", transform:"translateX(-50%)",
+                  fontSize:11, fontFamily:"'DM Sans',sans-serif", fontWeight:700, whiteSpace:"nowrap",
+                  color:"#a855f7", background:"rgba(168,85,247,.14)", padding:"3px 12px",
+                  borderRadius:20, border:"1px solid rgba(168,85,247,.3)" }}>
+                  {filteredSchools.reduce((a,s)=>a+s.programs.reduce((b,p)=>b+p.courses.length,0),0)} results
+                </div>
+              )}
             </div>
+          );
+
+          return (
+            <div style={{ opacity:vis?1:0, transform:vis?"none":"translateY(30px)", transition:"all .8s ease .3s" }}>
+
+              {/* ── ROW 1 — top 3 bubbles ── */}
+              <div style={{ display:"flex", justifyContent:"center", alignItems:"flex-end", gap:20, marginBottom:24 }}>
+                <Bubble sc={schoolsConfig[0]} i={0} extraStyle={{ transform:"translateY(-14px)" }} />
+                <Bubble sc={schoolsConfig[1]} i={1} extraStyle={{ transform:"translateY(0px)" }} />
+                <Bubble sc={schoolsConfig[2]} i={2} extraStyle={{ transform:"translateY(-8px)" }} />
+              </div>
+
+              {/* ── ROW 2 — bubble | SEARCH BAR | bubble ── */}
+              <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:20, marginBottom:24, position:"relative" }}>
+                <Bubble sc={schoolsConfig[3]} i={3} />
+                {SearchBar}
+                <Bubble sc={schoolsConfig[4]} i={4} />
+              </div>
+
+              {/* ── ROW 3 — bottom 2 bubbles ── */}
+              <div style={{ display:"flex", justifyContent:"center", alignItems:"flex-start", gap:24, marginBottom:0 }}>
+                <Bubble sc={schoolsConfig[5]} i={5} extraStyle={{ transform:"translateY(8px)" }} />
+                <Bubble sc={schoolsConfig[6]} i={6} extraStyle={{ transform:"translateY(-4px)" }} />
+              </div>
+
+            </div>
+          );
+        })()}
 
             {/* ── Expanded programme panel ── */}
             <div ref={expandRef}
@@ -807,8 +820,6 @@ function CoursesSection() {
                 </div>
               )}
             </div>
-          </>
-        )}
 
       </div>
 
