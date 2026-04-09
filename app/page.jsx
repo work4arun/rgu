@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Link from "next/link";
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -404,341 +404,426 @@ function HeroSection() {
 /* ═══════════════════════════════════════════════════════════════════
    2. COURSES OFFERED
 ═══════════════════════════════════════════════════════════════════ */
-const schools = [
+const schoolsConfig = [
   {
-    name: "Engineering & Technology", short: "Eng & Tech", color: "#38bdf8", border: "rgba(56,189,248,.28)",
-    bg: "rgba(56,189,248,.08)", courses: ["B.Tech CSE","B.Tech Mech","B.Tech ECE","M.Tech","Ph.D Engg"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="20" fill={c+"18"} stroke={c} strokeWidth="1.5" strokeDasharray="4 3"/>
-        <path d="M16 32l8-16 8 16" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="24" cy="16" r="3" fill={c}/>
-        <path d="M12 36h24" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-        <rect x="20" y="26" width="8" height="6" rx="1" stroke={c} strokeWidth="1.5"/>
-      </svg>
-    ),
+    name: "School of Computing, AI & Emerging Technologies", short: "Computing & AI", color: "#a855f7",
+    svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="8" y="14" width="32" height="20" rx="4" stroke={c} strokeWidth="1.5"/><circle cx="24" cy="24" r="5" stroke={c} strokeWidth="1.5"/><circle cx="24" cy="24" r="2" fill={c}/><path d="M19 24h-8M37 24h-8" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><path d="M24 19v-6M24 35v-6" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><circle cx="11" cy="24" r="2" fill={c} opacity=".6"/><circle cx="37" cy="24" r="2" fill={c} opacity=".6"/></svg>),
+    programs: [
+      { category: "B.TECH PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Tech Computer Science and Engineering", "B.Tech Information Technology", "B.Tech Artificial Intelligence and Data Science", "B.Tech Artificial Intelligence and Machine Learning", "B.Tech CSE — Specialization in Data Science", "B.Tech CSE — Specialization in Cyber Security", "B.Tech CSE — Specialization in Cloud Computing", "B.Tech CSE — Specialization in Gaming Technology", "B.Tech CSE — Specialization in Full Stack Development", "B.Tech Mathematics and Computing", "B.Tech CSE — Specialization in Quantum Computing"] },
+      { category: "B.SC PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Sc Artificial Intelligence and Machine Learning", "B.Sc Computer Science", "B.Sc Computer Science (AI & Data Science)", "B.Sc Computer Science (Artificial Intelligence)", "B.Sc Computer Science (Cyber Security)", "B.Sc Computer Science (Data Science)", "B.Sc Computer Technology (Generative AI)", "B.Sc Data Science and Analytics", "B.Sc Digital and Cyber Forensics Science", "B.Sc Information Technology", "B.Sc Information Technology (Specialization in Data Science)"] },
+      { category: "BCA PROGRAMMES", level: "UNDERGRADUATE", courses: ["BCA", "BCA (Artificial Intelligence)"] },
+      { category: "POSTGRADUATE PROGRAMMES", level: "POSTGRADUATE", courses: ["M.Sc Artificial Intelligence and Data Science", "M.Sc Computer Science", "M.Sc Data Science and Business Analytics"] }
+    ]
   },
   {
-    name: "Computing & AI", short: "CS & AI", color: "#a855f7", border: "rgba(168,85,247,.28)",
-    bg: "rgba(168,85,247,.08)", courses: ["B.Sc CS","M.Sc AI/ML","B.Tech AI","Ph.D CS"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <rect x="8" y="14" width="32" height="20" rx="4" stroke={c} strokeWidth="1.5"/>
-        <circle cx="24" cy="24" r="5" stroke={c} strokeWidth="1.5"/>
-        <circle cx="24" cy="24" r="2" fill={c}/>
-        <path d="M19 24h-8M37 24h-8" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M24 19v-6M24 35v-6" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-        <circle cx="11" cy="24" r="2" fill={c} opacity=".6"/>
-        <circle cx="37" cy="24" r="2" fill={c} opacity=".6"/>
-      </svg>
-    ),
+    name: "School of Engineering & Applied Technologies", short: "Engineering & Applied Tech", color: "#38bdf8",
+    svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" fill={c+"18"} stroke={c} strokeWidth="1.5" strokeDasharray="4 3"/><path d="M16 32l8-16 8 16" stroke={c} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><circle cx="24" cy="16" r="3" fill={c}/><path d="M12 36h24" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><rect x="20" y="26" width="8" height="6" rx="1" stroke={c} strokeWidth="1.5"/></svg>),
+    programs: [
+      { category: "UNDERGRADUATE PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Tech Mechanical Engineering", "B.Tech Civil Engineering", "B.Tech Electronics and Communication Engineering", "B.Tech Chemical Engineering", "B.Tech Biotechnology", "B.Tech Mechatronics Engineering", "B.Tech Robotics and Automation", "B.Tech Food Technology", "B.Tech Electric Vehicle Technology"] }
+    ]
   },
   {
-    name: "Business & Management", short: "Business", color: "#a3e635", border: "rgba(163,230,53,.28)",
-    bg: "rgba(163,230,53,.08)", courses: ["MBA","BBA","Executive MBA","PGDM"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <rect x="8" y="20" width="32" height="18" rx="3" stroke={c} strokeWidth="1.5"/>
-        <path d="M18 20v-4a6 6 0 0112 0v4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M16 32l4-4 4 4 4-4 4 4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <circle cx="24" cy="29" r="2" fill={c}/>
-      </svg>
-    ),
+    name: "School of Business & Commerce", short: "Business & Commerce", color: "#a3e635",
+    svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect x="8" y="20" width="32" height="18" rx="3" stroke={c} strokeWidth="1.5"/><path d="M18 20v-4a6 6 0 0112 0v4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><path d="M16 32l4-4 4 4 4-4 4 4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><circle cx="24" cy="29" r="2" fill={c}/></svg>),
+    programs: [
+      { category: "BBA PROGRAMMES", level: "UNDERGRADUATE", courses: ["BBA Aviation Management", "BBA Computer Applications", "BBA Logistics"] },
+      { category: "B.COM PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Com Accounting & Finance", "B.Com Banking & Insurance", "B.Com Business Process Services", "B.Com Corporate Secretorship", "B.Com Financial Services", "B.Com Information Technology", "B.Com International Business", "B.Com Professional Accounting"] },
+      { category: "B.COM — AI & PROFESSIONAL SPECIALIZATIONS", level: "UNDERGRADUATE", courses: ["B.Com Computer Applications (Business Intelligence & AI)", "B.Com Computer Applications (AI-Ready Accountant)", "B.Com Financial Services (AI-Ready Account Analyst)", "B.Com Financial Services (Public Accountant)", "B.Com IT (Accounting Analytics)", "B.Com International Business (AI-Ready Business Analyst)", "B.Com Professional Accounting (Chartered Accountant)", "B.Com (AI-Ready Accountant)", "B.Com (ACCA)"] },
+      { category: "POSTGRADUATE PROGRAMMES", level: "POSTGRADUATE", courses: ["M.Com Computer Applications (AI-Ready Accountant)", "M.Com General (Guaranteed Internship)", "MBA in Business Analytics and Artificial Intelligence"] }
+    ]
   },
   {
-    name: "Health Sciences", short: "Health Sci", color: "#f472b6", border: "rgba(244,114,182,.28)",
-    bg: "rgba(244,114,182,.08)", courses: ["B.Pharm","M.Pharm","B.Sc Nursing","M.Sc Biotech"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="16" stroke={c} strokeWidth="1.5"/>
-        <path d="M24 16v16M16 24h16" stroke={c} strokeWidth="2.5" strokeLinecap="round"/>
-        <circle cx="24" cy="24" r="5" fill={c+"30"}/>
-      </svg>
-    ),
+    name: "School of Applied Biosciences, Food & Agri-Tech", short: "Biosciences & Agri-Tech", color: "#86efac",
+    svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M24 36V22" stroke={c} strokeWidth="2" strokeLinecap="round"/><path d="M24 22c0-8-10-10-10-10s0 10 10 10z" stroke={c} strokeWidth="1.5" strokeLinejoin="round" fill={c+"20"}/><path d="M24 26c0-6 10-8 10-8s0 8-10 8z" stroke={c} strokeWidth="1.5" strokeLinejoin="round" fill={c+"20"}/><path d="M12 36h24" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>),
+    programs: [
+      { category: "B.TECH PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Tech Food Technology", "B.Tech Biotechnology"] },
+      { category: "B.SC PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Sc Biotechnology", "B.Sc Microbiology"] },
+      { category: "POSTGRADUATE PROGRAMMES", level: "POSTGRADUATE", courses: ["M.Sc Biotechnology", "M.Sc Microbiology"] }
+    ]
   },
   {
-    name: "Liberal Arts & Sciences", short: "Arts & Sci", color: "#fb923c", border: "rgba(251,146,60,.28)",
-    bg: "rgba(251,146,60,.08)", courses: ["BA English","B.Sc Physics","MA History","M.Sc Math"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <path d="M12 36V16l12-6 12 6v20" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <rect x="19" y="26" width="10" height="10" rx="1" stroke={c} strokeWidth="1.5"/>
-        <path d="M19 22h10M22 18h4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
+    name: "School of Liberal Arts & Science", short: "Liberal Arts & Science", color: "#fb923c",
+    svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><path d="M12 36V16l12-6 12 6v20" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><rect x="19" y="26" width="10" height="10" rx="1" stroke={c} strokeWidth="1.5"/><path d="M19 22h10M22 18h4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>),
+    programs: [
+      { category: "B.SC PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Sc Mathematics"] },
+      { category: "B.A PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.A English Literature"] },
+      { category: "POSTGRADUATE PROGRAMMES", level: "POSTGRADUATE", courses: ["M.A English Literature", "M.A Public Administration", "M.Sc Mathematics"] }
+    ]
   },
   {
-    name: "Design, Media & Performing Arts", short: "Design & Arts", color: "#34d399", border: "rgba(52,211,153,.28)",
-    bg: "rgba(52,211,153,.08)", courses: ["B.Des UI/UX","BA Film","BA Music","M.Des"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="24" r="14" stroke={c} strokeWidth="1.5"/>
-        <circle cx="24" cy="18" r="4" stroke={c} strokeWidth="1.5"/>
-        <path d="M16 34c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M32 14l4-4M16 14l-4-4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
+    name: "School of Design, Media & Performing Arts", short: "Design, Media & Arts", color: "#34d399",
+    svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="14" stroke={c} strokeWidth="1.5"/><circle cx="24" cy="18" r="4" stroke={c} strokeWidth="1.5"/><path d="M16 34c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke={c} strokeWidth="1.5" strokeLinecap="round"/><path d="M32 14l4-4M16 14l-4-4" stroke={c} strokeWidth="1.5" strokeLinecap="round"/></svg>),
+    programs: [
+      { category: "B.TECH PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Tech Fashion Technology"] },
+      { category: "B.SC PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Sc Fashion Design", "B.Sc Visual Communication (AI-Ready Animation & VFX Design)", "B.Sc Digital Media & Content Creation", "B.Sc Film Production"] },
+      { category: "B.A PERFORMING ARTS", level: "UNDERGRADUATE", courses: ["B.A Theatre / Acting", "B.A Dance", "B.A Music (Vocal / Instrumental)"] },
+      { category: "POSTGRADUATE PROGRAMMES", level: "POSTGRADUATE", courses: ["M.A Journalism and Mass Communication"] }
+    ]
   },
   {
-    name: "Physiotherapy", short: "Physio", color: "#e879f9", border: "rgba(232,121,249,.28)",
-    bg: "rgba(232,121,249,.08)", courses: ["BPT","MPT","Ph.D Physio","Sports PT"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <circle cx="24" cy="12" r="4" stroke={c} strokeWidth="1.5"/>
-        <path d="M24 16v12" stroke={c} strokeWidth="2" strokeLinecap="round"/>
-        <path d="M14 22l10 6 10-6" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M18 28l-4 8M30 28l4 8" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Law & Governance", short: "Law", color: "#fbbf24", border: "rgba(251,191,36,.28)",
-    bg: "rgba(251,191,36,.08)", courses: ["BA LLB","BBA LLB","LLM","Cyber Law"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <path d="M24 10v28M14 36h20" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M14 20l-6 8h12l-6-8z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/>
-        <path d="M34 16l-6 8h12l-6-8z" stroke={c} strokeWidth="1.5" strokeLinejoin="round"/>
-      </svg>
-    ),
-  },
-  {
-    name: "Architecture", short: "Arch", color: "#67e8f9", border: "rgba(103,232,249,.28)",
-    bg: "rgba(103,232,249,.08)", courses: ["B.Arch","M.Arch","Urban Design","Interior Design"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <path d="M10 36h28M24 14L10 36M24 14l14 22" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M18 28h12" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M21 22h6" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-        <circle cx="24" cy="14" r="2" fill={c}/>
-      </svg>
-    ),
-  },
-  {
-    name: "Agriculture", short: "Agri", color: "#86efac", border: "rgba(134,239,172,.28)",
-    bg: "rgba(134,239,172,.08)", courses: ["B.Sc Agri","M.Sc Agri","Horticulture","Agribusiness"],
-    svg: (c) => (
-      <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-        <path d="M24 36V22" stroke={c} strokeWidth="2" strokeLinecap="round"/>
-        <path d="M24 22c0-8-10-10-10-10s0 10 10 10z" stroke={c} strokeWidth="1.5" strokeLinejoin="round" fill={c+"20"}/>
-        <path d="M24 26c0-6 10-8 10-8s0 8-10 8z" stroke={c} strokeWidth="1.5" strokeLinejoin="round" fill={c+"20"}/>
-        <path d="M12 36h24" stroke={c} strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-  },
+    name: "School of Health Sciences & Rehabilitation", short: "Health Sciences", color: "#f472b6",
+    svg: (c) => (<svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke={c} strokeWidth="1.5"/><path d="M24 16v16M16 24h16" stroke={c} strokeWidth="2.5" strokeLinecap="round"/><circle cx="24" cy="24" r="5" fill={c+"30"}/></svg>),
+    programs: [
+      { category: "B.SC PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.Sc Psychology", "B.Sc Behavioural Science"] },
+      { category: "BBA PROGRAMMES", level: "UNDERGRADUATE", courses: ["BBA Hospital & Health Service Management"] },
+      { category: "B.A PROGRAMMES", level: "UNDERGRADUATE", courses: ["B.A Counselling Studies"] },
+      { category: "POSTGRADUATE PROGRAMMES", level: "POSTGRADUATE", courses: ["M.Sc Applied Psychology", "M.Sc Clinical Psychology", "M.Sc Behavioural Science"] }
+    ]
+  }
 ];
 
 function CoursesSection() {
   const [ref, vis] = useVisible(0.06);
-  const [active, setActive] = useState(0);
-  const s = schools[active];
+  const [search, setSearch]         = useState("");
+  const [activeSchool, setActiveSchool] = useState(null);
+  const [inputFocused, setInputFocused] = useState(false);
+  const expandRef = useRef(null);
+
+  const filteredSchools = useMemo(() => {
+    if (!search.trim()) return schoolsConfig;
+    const lower = search.toLowerCase();
+    return schoolsConfig.map(sc => {
+      const matchSchool = sc.name.toLowerCase().includes(lower) || sc.short.toLowerCase().includes(lower);
+      const filteredProgs = sc.programs.map(p => ({
+        ...p,
+        courses: p.courses.filter(c => c.toLowerCase().includes(lower))
+      })).filter(p => p.courses.length > 0);
+      if (matchSchool || filteredProgs.length > 0)
+        return { ...sc, programs: (matchSchool && filteredProgs.length === 0) ? sc.programs : filteredProgs.length > 0 ? filteredProgs : sc.programs };
+      return null;
+    }).filter(Boolean);
+  }, [search]);
+
+  const activeData = filteredSchools.find(s => s.name === activeSchool) || null;
+
+  // scroll to expanded panel when a bubble is opened
+  useEffect(() => {
+    if (activeSchool && expandRef.current) {
+      setTimeout(() => expandRef.current?.scrollIntoView({ behavior:"smooth", block:"nearest" }), 120);
+    }
+  }, [activeSchool]);
+
+  // float delay cycles for bubble rows
+  const floatClass = (i) => ["bubbleF0","bubbleF1","bubbleF2","bubbleF3"][i % 4];
 
   return (
-    <section ref={ref} id="programs" style={{ background:"#080810", padding:"100px 0 80px", position:"relative", overflow:"hidden" }}>
+    <section ref={ref} id="programs" style={{ background:"#07070f", padding:"100px 0 120px", position:"relative", overflow:"hidden" }}>
 
-      {/* Subtle diagonal lines texture */}
-      <div style={{ position:"absolute", inset:0, pointerEvents:"none", opacity:.018,
-        backgroundImage:"repeating-linear-gradient(45deg,rgba(255,255,255,.8) 0,rgba(255,255,255,.8) 1px,transparent 0,transparent 50%)",
+      {/* ── Background glows ── */}
+      <div style={{ position:"absolute", top:-260, left:-220, width:700, height:700,
+        background:"radial-gradient(circle, rgba(168,85,247,0.07) 0%, transparent 65%)", pointerEvents:"none" }} />
+      <div style={{ position:"absolute", bottom:-200, right:-200, width:800, height:800,
+        background:"radial-gradient(circle, rgba(56,189,248,0.05) 0%, transparent 65%)", pointerEvents:"none" }} />
+      <div style={{ position:"absolute", inset:0, pointerEvents:"none", opacity:.012,
+        backgroundImage:"repeating-linear-gradient(45deg,rgba(255,255,255,.9) 0,rgba(255,255,255,.9) 1px,transparent 0,transparent 50%)",
         backgroundSize:"28px 28px" }} />
 
-      <div style={{ maxWidth:1400, margin:"0 auto", padding:"0 40px" }}>
+      <div style={{ maxWidth:1240, margin:"0 auto", padding:"0 32px", position:"relative", zIndex:10 }}>
 
-        {/* ── Section Header ── */}
-        <div style={{ display:"flex", alignItems:"flex-end", justifyContent:"space-between",
-          flexWrap:"wrap", gap:24, marginBottom:56,
-          opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(28px)", transition:"all .9s ease" }}>
-          <div>
-            <div style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"7px 16px", borderRadius:100,
-              background:"rgba(163,230,53,.08)", border:"1px solid rgba(163,230,53,.22)", marginBottom:18 }}>
-              <span style={{ width:6, height:6, borderRadius:"50%", background:"#a3e635", animation:"heroPulse 2s infinite" }} />
-              <span style={{ fontFamily:"'DM Sans',sans-serif", fontWeight:700, fontSize:11,
-                letterSpacing:".28em", textTransform:"uppercase", color:"#a3e635" }}>Schools & Programs</span>
-            </div>
-            <h2 style={{ fontFamily:"'Sora',sans-serif", fontWeight:800,
-              fontSize:"clamp(2.2rem,4.5vw,3.6rem)", color:"#f8fafc",
-              letterSpacing:"-.04em", lineHeight:.95 }}>
-              Courses Offered<br/>
-              <span style={{ background:"linear-gradient(90deg,#a855f7,#38bdf8)",
-                WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
-                at RGU
-              </span>
-            </h2>
+        {/* ── Section header ── */}
+        <div style={{ textAlign:"center", marginBottom:44,
+          opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(28px)", transition:"all .8s ease" }}>
+          <div style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"7px 18px", borderRadius:100,
+            background:"rgba(163,230,53,.07)", border:"1px solid rgba(163,230,53,.22)", marginBottom:22 }}>
+            <span style={{ width:6, height:6, borderRadius:"50%", background:"#a3e635", animation:"heroPulse 2s infinite" }} />
+            <span style={{ fontFamily:"'DM Sans',sans-serif", fontWeight:700, fontSize:11,
+              letterSpacing:".28em", textTransform:"uppercase", color:"#a3e635" }}>Your Future Awaits</span>
           </div>
-          <p style={{ fontFamily:"'DM Sans',sans-serif", color:"rgba(255,255,255,.38)", fontSize:15,
-            maxWidth:380, lineHeight:1.75, textAlign:"right" }}>
-            Ten world-class schools.<br/>120+ undergraduate, postgraduate &amp; doctoral programs.
+          <h2 style={{ fontFamily:"'Sora',sans-serif", fontWeight:800,
+            fontSize:"clamp(2.4rem,4.5vw,3.8rem)", color:"#f8fafc",
+            letterSpacing:"-.04em", lineHeight:1.05, marginBottom:18 }}>
+            Courses Offered{" "}
+            <span style={{ background:"linear-gradient(90deg,#a855f7,#38bdf8)",
+              WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
+              at RGU
+            </span>
+          </h2>
+          <p style={{ fontFamily:"'DM Sans',sans-serif", color:"rgba(255,255,255,.45)", fontSize:16,
+            maxWidth:560, margin:"0 auto", lineHeight:1.75 }}>
+            {schoolsConfig.length} world-class schools · {schoolsConfig.reduce((a,s)=>a+s.programs.reduce((b,p)=>b+p.courses.length,0),0)}+ programmes
           </p>
         </div>
 
-        {/* ── Main Interactive Panel ── */}
-        <div style={{ display:"grid", gridTemplateColumns:"300px 1fr", borderRadius:28,
-          border:"1px solid rgba(255,255,255,.07)", overflow:"hidden",
-          opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(32px)", transition:"all 1s ease .15s" }}>
+        {/* ── Search box ── */}
+        <div style={{ display:"flex", justifyContent:"center", marginBottom:60,
+          opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(20px)", transition:"all .8s ease .15s" }}>
+          <div style={{ position:"relative", width:"100%", maxWidth:580 }}>
 
-          {/* LEFT — School navigator */}
-          <div style={{ background:"rgba(255,255,255,.025)", borderRight:"1px solid rgba(255,255,255,.06)",
-            padding:"10px 8px", overflowY:"auto" }}>
-            {schools.map((sc, i) => (
-              <button key={sc.name} onClick={() => setActive(i)}
-                style={{ width:"100%", display:"flex", alignItems:"center", gap:12, padding:"13px 14px",
-                  borderRadius:12, border:"none", cursor:"pointer", outline:"none", marginBottom:2,
-                  background: active===i ? `${sc.color}14` : "transparent",
-                  borderLeft: `3px solid ${active===i ? sc.color : "transparent"}`,
-                  transition:"all .22s ease" }}>
-                <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:10, fontWeight:700,
-                  letterSpacing:".12em", color: active===i ? sc.color : "rgba(255,255,255,.22)",
-                  width:22, textAlign:"left", flexShrink:0 }}>
-                  {String(i+1).padStart(2,"0")}
-                </span>
-                <div style={{ flex:1, textAlign:"left" }}>
-                  <div style={{ fontFamily:"'Sora',sans-serif", fontSize:13, fontWeight:600,
-                    color: active===i ? "#f8fafc" : "rgba(255,255,255,.45)",
-                    lineHeight:1.3, transition:"color .2s" }}>
-                    {sc.short}
-                  </div>
-                </div>
-                {active===i && (
-                  <div style={{ width:5, height:5, borderRadius:"50%", background:sc.color, flexShrink:0 }} />
-                )}
-              </button>
-            ))}
-          </div>
-
-          {/* RIGHT — Detail panel */}
-          <div style={{ position:"relative", minHeight:500, overflow:"hidden",
-            background:`linear-gradient(135deg,${s.color}06 0%,rgba(8,8,16,0) 60%)` }}>
-
-            {/* Giant watermark school number */}
-            <div style={{ position:"absolute", right:"-2%", top:"50%", transform:"translateY(-50%)",
-              fontFamily:"'Sora',sans-serif", fontWeight:800, fontSize:"22vw",
-              color:"rgba(255,255,255,.025)", lineHeight:1, pointerEvents:"none",
-              letterSpacing:"-.06em", userSelect:"none", transition:"color .5s" }}>
-              {String(active+1).padStart(2,"0")}
+            {/* search icon */}
+            <div style={{ position:"absolute", left:22, top:"50%", transform:"translateY(-50%)",
+              color: inputFocused ? "#a855f7" : "rgba(255,255,255,.35)", transition:"color .3s", pointerEvents:"none" }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
             </div>
 
-            {/* Thin top accent bar */}
-            <div style={{ position:"absolute", top:0, left:0, right:0, height:3,
-              background:`linear-gradient(90deg,${s.color},${s.color}00)`, transition:"background .4s" }} />
+            <input
+              type="text"
+              placeholder="Search programmes, schools or specializations…"
+              value={search}
+              onChange={e => { setSearch(e.target.value); setActiveSchool(null); }}
+              onFocus={() => setInputFocused(true)}
+              onBlur={() => setInputFocused(false)}
+              style={{ width:"100%", padding:"18px 52px 18px 58px", borderRadius:22,
+                background: inputFocused ? "rgba(168,85,247,.08)" : "rgba(255,255,255,.05)",
+                border:`1.5px solid ${inputFocused ? "rgba(168,85,247,.55)" : "rgba(255,255,255,.12)"}`,
+                color:"#f8fafc", fontFamily:"'Sora',sans-serif", fontSize:15, outline:"none",
+                transition:"all .35s", backdropFilter:"blur(16px)",
+                boxShadow: inputFocused
+                  ? "0 0 0 4px rgba(168,85,247,.12), 0 16px 40px rgba(0,0,0,.35)"
+                  : "0 12px 32px rgba(0,0,0,.28)" }} />
 
-            {/* Content — switches per school */}
-            <div style={{ padding:"52px 60px", position:"relative", zIndex:2 }}>
-              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:48, alignItems:"center" }}>
+            {/* clear button */}
+            {search && (
+              <button onClick={() => { setSearch(""); setActiveSchool(null); }}
+                style={{ position:"absolute", right:18, top:"50%", transform:"translateY(-50%)",
+                  background:"rgba(255,255,255,.1)", border:"none", borderRadius:8, width:28, height:28,
+                  cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center",
+                  color:"rgba(255,255,255,.6)", transition:"all .2s" }}
+                onMouseEnter={e=>{e.currentTarget.style.background="rgba(255,255,255,.18)"}}
+                onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,.1)"}}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                  <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+              </button>
+            )}
 
-                {/* Left col: info */}
-                <div>
-                  <div style={{ marginBottom:24, transition:"opacity .3s" }}>
-                    {s.svg(s.color)}
-                  </div>
-                  <h3 style={{ fontFamily:"'Sora',sans-serif", fontWeight:800,
-                    fontSize:"clamp(1.6rem,2.8vw,2.6rem)", color:"#f8fafc",
-                    letterSpacing:"-.03em", lineHeight:1.05, marginBottom:20,
-                    transition:"all .35s" }}>
-                    {s.name}
-                  </h3>
-                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:14,
-                    color:"rgba(255,255,255,.45)", lineHeight:1.75, marginBottom:28, maxWidth:380 }}>
-                    World-class faculty, industry-integrated curriculum, and research-led programs
-                    designed for global careers in {s.short}.
-                  </p>
-                  <a href="#"
-                    style={{ display:"inline-flex", alignItems:"center", gap:10, padding:"12px 28px",
-                      borderRadius:12, background:`linear-gradient(135deg,${s.color},${s.color}cc)`,
-                      color:"#0a0a14", fontFamily:"'Sora',sans-serif", fontWeight:700, fontSize:14,
-                      textDecoration:"none", transition:"all .3s",
-                      boxShadow:`0 6px 24px ${s.color}40` }}
-                    onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-2px)";e.currentTarget.style.boxShadow=`0 12px 36px ${s.color}55`}}
-                    onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow=`0 6px 24px ${s.color}40`}}>
-                    Explore Programs
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                  </a>
-                </div>
+            {/* result count badge */}
+            {search && (
+              <div style={{ position:"absolute", top:-10, right:0, fontSize:11, fontFamily:"'DM Sans',sans-serif",
+                fontWeight:700, color:"#a855f7", background:"rgba(168,85,247,.15)", padding:"2px 10px",
+                borderRadius:20, border:"1px solid rgba(168,85,247,.3)" }}>
+                {filteredSchools.reduce((a,s)=>a+s.programs.reduce((b,p)=>b+p.courses.length,0),0)} results
+              </div>
+            )}
+          </div>
+        </div>
 
-                {/* Right col: programs + stats */}
-                <div>
-                  <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700,
-                    letterSpacing:".22em", textTransform:"uppercase",
-                    color:"rgba(255,255,255,.3)", marginBottom:14 }}>
-                    Programs Offered
-                  </div>
-                  <div style={{ display:"flex", flexDirection:"column", gap:10, marginBottom:36 }}>
-                    {s.courses.map((c, ci) => (
-                      <div key={c} style={{ display:"flex", alignItems:"center", gap:14,
-                        padding:"14px 18px", borderRadius:12,
-                        background:"rgba(255,255,255,.04)", border:`1px solid ${s.color}20`,
-                        transition:"all .25s" }}
-                        onMouseEnter={e=>{e.currentTarget.style.background=`${s.color}12`;e.currentTarget.style.borderColor=`${s.color}40`}}
-                        onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,.04)";e.currentTarget.style.borderColor=`${s.color}20`}}>
-                        <span style={{ width:24, height:24, borderRadius:8, background:`${s.color}20`,
-                          border:`1px solid ${s.color}35`, display:"flex", alignItems:"center",
-                          justifyContent:"center", flexShrink:0,
-                          fontFamily:"'DM Sans',sans-serif", fontSize:9, fontWeight:800,
-                          color:s.color, letterSpacing:".04em" }}>
-                          {String(ci+1).padStart(2,"0")}
+        {/* ── Bubble grid ── */}
+        {filteredSchools.length === 0 ? (
+          <div style={{ textAlign:"center", padding:"60px 0", color:"rgba(255,255,255,.35)" }}>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
+              strokeLinecap="round" strokeLinejoin="round" style={{ opacity:.4, margin:"0 auto 16px", display:"block" }}>
+              <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <div style={{ fontFamily:"'Sora',sans-serif", fontSize:18, fontWeight:600, marginBottom:8 }}>No programmes match</div>
+            <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:14 }}>Try a different keyword</div>
+          </div>
+        ) : (
+          <>
+            <div style={{ display:"flex", flexWrap:"wrap", gap:16, justifyContent:"center",
+              opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(30px)", transition:"all .8s ease .3s" }}>
+              {filteredSchools.map((sc, i) => {
+                const isActive = activeSchool === sc.name;
+                const totalCourses = sc.programs.reduce((a,p)=>a+p.courses.length,0);
+                return (
+                  /* wrapper carries the float animation so button scale doesn't fight with it */
+                  <div key={sc.name}
+                    className={floatClass(i)}
+                    style={{ animationDelay: `${i * 0.22}s` }}>
+                    <button
+                      onClick={() => setActiveSchool(isActive ? null : sc.name)}
+                      style={{
+                        display:"flex", flexDirection:"column", alignItems:"center", gap:14,
+                        padding:"28px 24px 22px", borderRadius:28, cursor:"pointer", outline:"none",
+                        width: 188, minHeight: 210,
+                        background: isActive
+                          ? `linear-gradient(145deg, ${sc.color}22 0%, rgba(12,12,22,.92) 100%)`
+                          : "rgba(255,255,255,.034)",
+                        border: `1.5px solid ${isActive ? sc.color+"70" : "rgba(255,255,255,.09)"}`,
+                        boxShadow: isActive
+                          ? `0 0 0 3px ${sc.color}25, 0 20px 56px ${sc.color}18, inset 0 1px 0 rgba(255,255,255,.08)`
+                          : "0 8px 32px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.05)",
+                        backdropFilter:"blur(18px)",
+                        transition:"all .4s cubic-bezier(.25,.8,.25,1)",
+                        transform: isActive ? "scale(1.05)" : "scale(1)",
+                        position:"relative", overflow:"hidden",
+                      }}
+                      onMouseEnter={e => { if(!isActive){ e.currentTarget.style.transform="scale(1.04)"; e.currentTarget.style.borderColor=`${sc.color}45`; e.currentTarget.style.boxShadow=`0 12px 40px ${sc.color}14, inset 0 1px 0 rgba(255,255,255,.06)`; }}}
+                      onMouseLeave={e => { if(!isActive){ e.currentTarget.style.transform="scale(1)"; e.currentTarget.style.borderColor="rgba(255,255,255,.09)"; e.currentTarget.style.boxShadow="0 8px 32px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.05)"; }}}>
+
+                      {/* glow blob behind icon */}
+                      <div style={{ position:"absolute", top:-20, left:"50%", transform:"translateX(-50%)",
+                        width:100, height:100, borderRadius:"50%",
+                        background:`radial-gradient(circle, ${sc.color}22 0%, transparent 70%)`,
+                        pointerEvents:"none", transition:"opacity .4s", opacity: isActive ? 1 : 0.5 }} />
+
+                      {/* icon container */}
+                      <div style={{ width:68, height:68, borderRadius:22, position:"relative",
+                        background:`${sc.color}14`, border:`1.5px solid ${sc.color}35`,
+                        display:"flex", alignItems:"center", justifyContent:"center",
+                        boxShadow: isActive ? `0 0 22px ${sc.color}30` : "none",
+                        transition:"all .4s" }}>
+                        {sc.svg(sc.color)}
+                        {isActive && (
+                          <div style={{ position:"absolute", inset:-3, borderRadius:25,
+                            border:`1.5px solid ${sc.color}50`, animation:"iconRing .9s ease-out infinite" }} />
+                        )}
+                      </div>
+
+                      {/* name */}
+                      <div style={{ fontFamily:"'Sora',sans-serif", fontSize:13, fontWeight:700, lineHeight:1.3,
+                        color: isActive ? "#fff" : "rgba(255,255,255,.8)", textAlign:"center",
+                        transition:"color .3s" }}>
+                        {sc.short}
+                      </div>
+
+                      {/* count badge */}
+                      <div style={{ display:"flex", alignItems:"center", gap:6, padding:"5px 12px",
+                        borderRadius:20, background:`${sc.color}18`, border:`1px solid ${sc.color}30` }}>
+                        <span style={{ width:5, height:5, borderRadius:"50%", background:sc.color, flexShrink:0 }} />
+                        <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700,
+                          letterSpacing:".1em", textTransform:"uppercase", color:sc.color }}>
+                          {totalCourses} programmes
                         </span>
-                        <span style={{ fontFamily:"'Sora',sans-serif", fontSize:14, fontWeight:600,
-                          color:"rgba(255,255,255,.80)" }}>{c}</span>
-                        <svg style={{ marginLeft:"auto", opacity:.35 }} width="14" height="14"
-                          viewBox="0 0 24 24" fill="none" stroke={s.color} strokeWidth="2.5"
+                      </div>
+
+                      {/* chevron */}
+                      <div style={{ marginTop:"auto", opacity:.6, transition:"transform .4s",
+                        transform: isActive ? "rotate(180deg)" : "rotate(0deg)" }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                          stroke={isActive ? sc.color : "rgba(255,255,255,.5)"} strokeWidth="2.5"
                           strokeLinecap="round" strokeLinejoin="round">
-                          <path d="M5 12h14M12 5l7 7-7 7"/>
+                          <path d="M6 9l6 6 6-6"/>
                         </svg>
                       </div>
-                    ))}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* ── Expanded programme panel ── */}
+            <div ref={expandRef}
+              style={{
+                marginTop: activeData ? 36 : 0,
+                maxHeight: activeData ? "4000px" : "0px",
+                opacity: activeData ? 1 : 0,
+                overflow: "hidden",
+                transition: "max-height 0.65s cubic-bezier(0.16,1,0.3,1), opacity 0.45s ease, margin-top 0.45s ease",
+              }}>
+              {activeData && (
+                <div style={{ borderRadius:28, overflow:"hidden",
+                  background:`linear-gradient(160deg, ${activeData.color}08 0%, rgba(10,10,20,.96) 60%)`,
+                  border:`1.5px solid ${activeData.color}35`,
+                  boxShadow:`0 32px 80px ${activeData.color}10, inset 0 1px 0 rgba(255,255,255,.07)` }}>
+
+                  {/* Panel header */}
+                  <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between",
+                    padding:"28px 36px 24px",
+                    borderBottom:`1px solid ${activeData.color}20` }}>
+                    <div style={{ display:"flex", alignItems:"center", gap:16 }}>
+                      <div style={{ width:52, height:52, borderRadius:16, background:`${activeData.color}16`,
+                        border:`1.5px solid ${activeData.color}35`, display:"flex", alignItems:"center", justifyContent:"center",
+                        boxShadow:`0 0 20px ${activeData.color}20` }}>
+                        {activeData.svg(activeData.color)}
+                      </div>
+                      <div>
+                        <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700,
+                          letterSpacing:".22em", textTransform:"uppercase", color:activeData.color, marginBottom:4 }}>
+                          {activeData.programs.reduce((a,p)=>a+p.courses.length,0)} Programmes Available
+                        </div>
+                        <h3 style={{ fontFamily:"'Sora',sans-serif", fontWeight:800,
+                          fontSize:"clamp(1.2rem,2.5vw,1.6rem)", color:"#f8fafc", lineHeight:1.2, margin:0 }}>
+                          {activeData.name}
+                        </h3>
+                      </div>
+                    </div>
+                    <button onClick={() => setActiveSchool(null)}
+                      style={{ width:40, height:40, borderRadius:12, background:"rgba(255,255,255,.06)",
+                        border:"1px solid rgba(255,255,255,.12)", cursor:"pointer", display:"flex",
+                        alignItems:"center", justifyContent:"center", color:"rgba(255,255,255,.5)",
+                        transition:"all .2s", flexShrink:0 }}
+                      onMouseEnter={e=>{e.currentTarget.style.background="rgba(255,255,255,.12)"; e.currentTarget.style.color="#fff"}}
+                      onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,.06)"; e.currentTarget.style.color="rgba(255,255,255,.5)"}}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                    </button>
                   </div>
 
-                  {/* School stat strip */}
-                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:12 }}>
-                    {[["UG","Programs"],["PG","Programs"],["Ph.D","Research"]].map(([v,l]) => (
-                      <div key={l} style={{ textAlign:"center", padding:"14px 10px", borderRadius:12,
-                        background:"rgba(255,255,255,.03)", border:"1px solid rgba(255,255,255,.07)" }}>
-                        <div style={{ fontFamily:"'Sora',sans-serif", fontWeight:800, fontSize:18,
-                          color:s.color, lineHeight:1 }}>{v}</div>
-                        <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:10, fontWeight:600,
-                          color:"rgba(255,255,255,.35)", letterSpacing:".1em",
-                          textTransform:"uppercase", marginTop:4 }}>{l}</div>
+                  {/* Programme categories grid */}
+                  <div style={{ padding:"32px 36px 40px",
+                    display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(300px, 1fr))", gap:32 }}>
+                    {activeData.programs.map((prog, pIdx) => (
+                      <div key={pIdx}>
+                        {/* Category label */}
+                        <div style={{ display:"flex", alignItems:"center", gap:10, marginBottom:16,
+                          paddingBottom:12, borderBottom:`1px solid ${activeData.color}20` }}>
+                          <span style={{ width:28, height:28, borderRadius:8, background:`${activeData.color}15`,
+                            border:`1px solid ${activeData.color}30`, display:"flex", alignItems:"center",
+                            justifyContent:"center", fontFamily:"'Sora',sans-serif", fontSize:12,
+                            fontWeight:800, color:activeData.color, flexShrink:0 }}>
+                            {pIdx + 1}
+                          </span>
+                          <h4 style={{ fontFamily:"'DM Sans',sans-serif", fontSize:12, fontWeight:800,
+                            letterSpacing:".14em", textTransform:"uppercase", color:"rgba(255,255,255,.75)", margin:0 }}>
+                            {prog.category}
+                          </h4>
+                        </div>
+
+                        {/* Course list */}
+                        <ul style={{ listStyle:"none", margin:0, padding:0, display:"flex", flexDirection:"column", gap:8 }}>
+                          {prog.courses.map((course, cIdx) => (
+                            <li key={cIdx}
+                              style={{ display:"flex", alignItems:"flex-start", gap:10,
+                                padding:"12px 14px", borderRadius:10,
+                                background:"rgba(255,255,255,.026)",
+                                border:"1px solid rgba(255,255,255,.055)",
+                                transition:"all .22s", cursor:"default" }}
+                              onMouseEnter={e=>{ e.currentTarget.style.background=`${activeData.color}0d`; e.currentTarget.style.borderColor=`${activeData.color}28`; e.currentTarget.style.transform="translateX(4px)"; }}
+                              onMouseLeave={e=>{ e.currentTarget.style.background="rgba(255,255,255,.026)"; e.currentTarget.style.borderColor="rgba(255,255,255,.055)"; e.currentTarget.style.transform="translateX(0)"; }}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={activeData.color}
+                                strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                                style={{ flexShrink:0, marginTop:2, opacity:.75 }}>
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                              </svg>
+                              <span style={{ fontFamily:"'Sora',sans-serif", fontSize:13.5, fontWeight:500,
+                                color:"rgba(255,255,255,.82)", lineHeight:1.4 }}>
+                                {course}
+                              </span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     ))}
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* ── Bottom CTA + school count ── */}
-        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between",
-          flexWrap:"wrap", gap:16, marginTop:40,
-          opacity:vis?1:0, transition:"all .8s ease .6s" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:8, flexWrap:"wrap" }}>
-            {schools.map((sc, i) => (
-              <button key={sc.name} onClick={() => setActive(i)}
-                style={{ width:i===active ? 28 : 8, height:8, borderRadius:4, border:"none",
-                  cursor:"pointer", padding:0, transition:"all .3s",
-                  background: i===active ? sc.color : "rgba(255,255,255,.15)" }} />
-            ))}
-            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:12,
-              color:"rgba(255,255,255,.35)", marginLeft:8 }}>
-              {active+1} / {schools.length} Schools
-            </span>
-          </div>
-          <a href="#"
-            style={{ display:"inline-flex", alignItems:"center", gap:10, padding:"13px 32px",
-              borderRadius:12, border:"1.5px solid rgba(255,255,255,.16)", color:"rgba(255,255,255,.7)",
-              fontFamily:"'Sora',sans-serif", fontWeight:600, fontSize:14, textDecoration:"none",
-              transition:"all .3s", backdropFilter:"blur(8px)" }}
-            onMouseEnter={e=>{e.currentTarget.style.background="rgba(255,255,255,.06)";e.currentTarget.style.borderColor="rgba(255,255,255,.3)"}}
-            onMouseLeave={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.borderColor="rgba(255,255,255,.16)"}}>
-            View All 120+ Programs
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-              strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
+                  {/* Panel footer CTA */}
+                  <div style={{ padding:"20px 36px 32px", borderTop:`1px solid rgba(255,255,255,.05)`,
+                    display:"flex", alignItems:"center", justifyContent:"space-between", flexWrap:"wrap", gap:16 }}>
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:13, color:"rgba(255,255,255,.4)" }}>
+                      Interested in joining {activeData.short}?
+                    </span>
+                    <a href="#apply"
+                      style={{ display:"inline-flex", alignItems:"center", gap:10, padding:"12px 28px",
+                        borderRadius:14, background:`linear-gradient(135deg, ${activeData.color}cc, ${activeData.color})`,
+                        color:"#000", fontFamily:"'Sora',sans-serif", fontWeight:700, fontSize:14,
+                        textDecoration:"none", boxShadow:`0 8px 24px ${activeData.color}40`, transition:"all .3s" }}
+                      onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow=`0 14px 32px ${activeData.color}55`; }}
+                      onMouseLeave={e=>{ e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow=`0 8px 24px ${activeData.color}40`; }}>
+                      Apply Now
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
       </div>
+
+      {/* ── Keyframes for bubble floats ── */}
+      <style>{`
+        .bubbleF0 { animation: bFloat0 4.2s ease-in-out infinite; }
+        .bubbleF1 { animation: bFloat1 5.1s ease-in-out infinite; }
+        .bubbleF2 { animation: bFloat2 3.8s ease-in-out infinite; }
+        .bubbleF3 { animation: bFloat3 4.7s ease-in-out infinite; }
+        @keyframes bFloat0 { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-10px)} }
+        @keyframes bFloat1 { 0%,100%{transform:translateY(-5px)} 50%{transform:translateY(7px)} }
+        @keyframes bFloat2 { 0%,100%{transform:translateY(0px)} 33%{transform:translateY(-8px)} 66%{transform:translateY(4px)} }
+        @keyframes bFloat3 { 0%,100%{transform:translateY(-3px)} 50%{transform:translateY(9px)} }
+        @keyframes iconRing { 0%{opacity:.8;transform:scale(1)} 100%{opacity:0;transform:scale(1.5)} }
+      `}</style>
     </section>
   );
 }
