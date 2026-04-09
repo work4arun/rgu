@@ -278,44 +278,60 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* ── RIGHT CENTER — Logo Placeholder ── */}
-      <div style={{ position:"absolute", top:"50%", right:60, transform:"translateY(-50%)", zIndex:30,
+      {/* ── RIGHT CENTER — Logo Placeholder  (4893 × 838 → display 420 × 72) ── */}
+      <div style={{ position:"absolute", top:"50%", right:48, transform:"translateY(-50%)", zIndex:30,
         opacity: mounted ? 1 : 0, transition:"opacity .8s ease .6s",
         animation: mounted ? "logoFloat 4s ease-in-out infinite" : undefined }}>
-        <div style={{ position:"relative", width:240, height:140, borderRadius:18,
+        <div style={{ position:"relative", width:420, height:72, borderRadius:10,
           background:"rgba(255,255,255,.06)", backdropFilter:"blur(20px)",
           border:"1.5px solid rgba(255,255,255,.18)",
-          boxShadow:"0 0 0 1px rgba(168,85,247,.15), 0 24px 64px rgba(0,0,0,.45)",
-          display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
+          boxShadow:"0 0 0 1px rgba(168,85,247,.15), 0 16px 48px rgba(0,0,0,.5)",
+          display:"flex", alignItems:"center", justifyContent:"center",
           overflow:"hidden", animation: mounted ? "logoGlow 3s ease-in-out infinite" : undefined }}>
-          {/* Animated corner accents */}
-          <div style={{ position:"absolute", top:10, left:10, width:18, height:18,
-            borderTop:"2px solid rgba(168,85,247,.7)", borderLeft:"2px solid rgba(168,85,247,.7)", borderRadius:"4px 0 0 0" }} />
-          <div style={{ position:"absolute", top:10, right:10, width:18, height:18,
-            borderTop:"2px solid rgba(168,85,247,.7)", borderRight:"2px solid rgba(168,85,247,.7)", borderRadius:"0 4px 0 0" }} />
-          <div style={{ position:"absolute", bottom:10, left:10, width:18, height:18,
-            borderBottom:"2px solid rgba(168,85,247,.7)", borderLeft:"2px solid rgba(168,85,247,.7)", borderRadius:"0 0 0 4px" }} />
-          <div style={{ position:"absolute", bottom:10, right:10, width:18, height:18,
-            borderBottom:"2px solid rgba(168,85,247,.7)", borderRight:"2px solid rgba(168,85,247,.7)", borderRadius:"0 0 4px 0" }} />
+
+          {/* Corner accents — scaled to thin bar */}
+          <div style={{ position:"absolute", top:7, left:7, width:14, height:14,
+            borderTop:"2px solid rgba(168,85,247,.7)", borderLeft:"2px solid rgba(168,85,247,.7)", borderRadius:"3px 0 0 0" }} />
+          <div style={{ position:"absolute", top:7, right:7, width:14, height:14,
+            borderTop:"2px solid rgba(168,85,247,.7)", borderRight:"2px solid rgba(168,85,247,.7)", borderRadius:"0 3px 0 0" }} />
+          <div style={{ position:"absolute", bottom:7, left:7, width:14, height:14,
+            borderBottom:"2px solid rgba(168,85,247,.7)", borderLeft:"2px solid rgba(168,85,247,.7)", borderRadius:"0 0 0 3px" }} />
+          <div style={{ position:"absolute", bottom:7, right:7, width:14, height:14,
+            borderBottom:"2px solid rgba(168,85,247,.7)", borderRight:"2px solid rgba(168,85,247,.7)", borderRadius:"0 0 3px 0" }} />
+
           {/* Shimmer sweep */}
-          <div style={{ position:"absolute", inset:0, background:"linear-gradient(105deg, transparent 40%, rgba(255,255,255,.06) 50%, transparent 60%)",
+          <div style={{ position:"absolute", inset:0,
+            background:"linear-gradient(105deg, transparent 35%, rgba(255,255,255,.07) 50%, transparent 65%)",
             animation:"logoShimmer 2.8s ease-in-out infinite", pointerEvents:"none" }} />
-          {/* Logo image — shown when file exists, hidden otherwise */}
-          <img src="/banner-logo.png" alt="Logo" onError={e => { e.currentTarget.style.display="none"; e.currentTarget.nextSibling.style.display="flex"; }}
-            style={{ maxWidth:200, maxHeight:110, objectFit:"contain", position:"relative", zIndex:2 }} />
-          {/* Placeholder (visible until image uploaded) */}
-          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8, position:"relative", zIndex:2 }}>
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(168,85,247,.6)" strokeWidth="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+
+          {/* Logo image — fills the bar when uploaded */}
+          <img src="/banner-logo.png" alt="Logo"
+            onError={e => { e.currentTarget.style.display="none"; e.currentTarget.nextSibling.style.display="flex"; }}
+            style={{ maxWidth:400, maxHeight:58, objectFit:"contain", position:"relative", zIndex:2 }} />
+
+          {/* Placeholder — horizontal layout to fit the wide-thin bar */}
+          <div style={{ display:"flex", alignItems:"center", gap:12, position:"relative", zIndex:2 }}>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(168,85,247,.55)" strokeWidth="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="3"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <path d="M21 15l-5-5L5 21"/>
             </svg>
-            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700, letterSpacing:".18em",
-              textTransform:"uppercase", color:"rgba(255,255,255,.35)" }}>Your Logo Here</span>
-            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:9, color:"rgba(255,255,255,.2)",
-              letterSpacing:".1em", textTransform:"uppercase" }}>banner-logo.png</span>
+            <div style={{ display:"flex", flexDirection:"column", gap:2 }}>
+              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700,
+                letterSpacing:".16em", textTransform:"uppercase", color:"rgba(255,255,255,.35)" }}>
+                Your Logo Here
+              </span>
+              <span style={{ fontFamily:"monospace", fontSize:9.5, color:"rgba(168,85,247,.45)",
+                letterSpacing:".06em" }}>
+                public/banner-logo.png · 4893×838
+              </span>
+            </div>
           </div>
         </div>
-        {/* Glow halo behind the box */}
-        <div style={{ position:"absolute", inset:-20, borderRadius:30, background:"radial-gradient(ellipse at center, rgba(168,85,247,.12) 0%, transparent 70%)",
+
+        {/* Glow halo */}
+        <div style={{ position:"absolute", inset:-16, borderRadius:22,
+          background:"radial-gradient(ellipse 120% 200% at center, rgba(168,85,247,.10) 0%, transparent 70%)",
           pointerEvents:"none", zIndex:-1 }} />
       </div>
 
@@ -938,25 +954,154 @@ function RGUWaySection() {
 /* ═══════════════════════════════════════════════════════════════════
    4. HAPPENING @ RATHINAM
 ═══════════════════════════════════════════════════════════════════ */
-const events = [
-  { icon:"film",      cat:"Annual Cultural", title:"Cultural Fiesta 2026",       date:"May 2–4, 2026",    tag:"FEATURED",  color:"#a855f7" },
-  { icon:"cpu",       cat:"Tech Festival",   title:"TechRise 2026",              date:"Apr 18–20, 2026",  tag:"LIVE",      color:"#38bdf8" },
-  { icon:"medal",     cat:"Inter-College",   title:"Sports Meet",                date:"Apr 25–28, 2026",  tag:"UPCOMING",  color:"#a3e635" },
-  { icon:"cap",       cat:"Celebration",     title:"Founders Day",               date:"Jun 1, 2026",      tag:"UPCOMING",  color:"#f472b6" },
-  { icon:"flask",     cat:"Innovation",      title:"Research Expo 2026",         date:"Jun 5, 2026",      tag:"UPCOMING",  color:"#fb923c" },
-  { icon:"lightbulb", cat:"Hackathon",       title:"RGU Hackathon Season 4",     date:"May 20, 2026",     tag:"REGISTER",  color:"#34d399" },
+const eventTypes = [
+  { icon:"film",      cat:"Annual Cultural", title:"Cultural Fiesta",      folder:"annual-cultural",  color:"#a855f7", tag:"FEATURED",  date:"May 2–4, 2026"    },
+  { icon:"cpu",       cat:"Tech Festival",   title:"TechRise 2026",        folder:"tech-festival",    color:"#38bdf8", tag:"LIVE",       date:"Apr 18–20, 2026"  },
+  { icon:"medal",     cat:"Sports",          title:"Sports Meet",          folder:"sports-meet",      color:"#a3e635", tag:"UPCOMING",   date:"Apr 25–28, 2026"  },
+  { icon:"cap",       cat:"Celebration",     title:"Founders Day",         folder:"founders-day",     color:"#f472b6", tag:"UPCOMING",   date:"Jun 1, 2026"      },
+  { icon:"flask",     cat:"Innovation",      title:"Research Expo",        folder:"research-expo",    color:"#fb923c", tag:"UPCOMING",   date:"Jun 5, 2026"      },
+  { icon:"lightbulb", cat:"Hackathon",       title:"RGU Hackathon S4",     folder:"hackathon",        color:"#34d399", tag:"REGISTER",   date:"May 20, 2026"     },
 ];
 
+// Scatter offsets per image slot — pre-computed so each photo enters from a different direction
+const SCATTER_ORIGINS = [
+  { tx:"-120px", ty:"-80px",  rot:"-12deg", delay:"0ms"   },
+  { tx:"100px",  ty:"-100px", rot:"10deg",  delay:"50ms"  },
+  { tx:"140px",  ty:"60px",   rot:"-8deg",  delay:"80ms"  },
+  { tx:"-90px",  ty:"110px",  rot:"14deg",  delay:"30ms"  },
+  { tx:"60px",   ty:"130px",  rot:"-6deg",  delay:"110ms" },
+  { tx:"-160px", ty:"40px",   rot:"9deg",   delay:"60ms"  },
+  { tx:"110px",  ty:"-60px",  rot:"-11deg", delay:"90ms"  },
+  { tx:"-50px",  ty:"-140px", rot:"7deg",   delay:"20ms"  },
+  { tx:"180px",  ty:"90px",   rot:"-15deg", delay:"140ms" },
+  { tx:"-130px", ty:"80px",   rot:"11deg",  delay:"70ms"  },
+  { tx:"70px",   ty:"-130px", rot:"-9deg",  delay:"100ms" },
+  { tx:"-80px",  ty:"150px",  rot:"13deg",  delay:"120ms" },
+  { tx:"150px",  ty:"-40px",  rot:"-7deg",  delay:"160ms" },
+  { tx:"-170px", ty:"-60px",  rot:"8deg",   delay:"40ms"  },
+  { tx:"40px",   ty:"160px",  rot:"-13deg", delay:"130ms" },
+  { tx:"-110px", ty:"-110px", rot:"6deg",   delay:"150ms" },
+  { tx:"120px",  ty:"140px",  rot:"-10deg", delay:"170ms" },
+  { tx:"-40px",  ty:"170px",  rot:"15deg",  delay:"180ms" },
+  { tx:"160px",  ty:"-90px",  rot:"-5deg",  delay:"190ms" },
+  { tx:"-150px", ty:"110px",  rot:"12deg",  delay:"200ms" },
+];
+
+// Light random tilt for settled images (alternates per index so they feel organic)
+const SETTLE_ROTS = ["-2deg","1.5deg","-1deg","2.5deg","-1.8deg","1deg","-2.2deg","1.8deg","-0.8deg","2deg",
+                    "-1.5deg","1.2deg","-2.4deg","0.9deg","-1.3deg","2.1deg","-1.7deg","1.4deg","-2deg","1.6deg"];
+
+function ScatterGallery({ ev, visible }) {
+  const [loaded, setLoaded]   = useState([]);
+  const [entered, setEntered] = useState(false);
+  const MAX_IMAGES = 20;
+
+  // reset & retrigger scatter whenever the event changes
+  useEffect(() => {
+    setLoaded([]);
+    setEntered(false);
+    if (!visible) return;
+    // small delay so images get a chance to be in DOM before animation
+    const t = setTimeout(() => setEntered(true), 60);
+    return () => clearTimeout(t);
+  }, [ev?.folder, visible]);
+
+  if (!ev || !visible) return null;
+
+  const imgs = Array.from({ length: MAX_IMAGES }, (_, i) => ({
+    src: `/events/${ev.folder}/${String(i + 1).padStart(2,"0")}.jpg`,
+    idx: i,
+  }));
+
+  return (
+    <div style={{ marginTop:28 }}>
+      {/* Gallery grid with scatter-in animation */}
+      <div style={{
+        display:"grid",
+        gridTemplateColumns:"repeat(auto-fill, minmax(200px, 1fr))",
+        gap:14,
+      }}>
+        {imgs.map(({ src, idx }) => {
+          const o  = SCATTER_ORIGINS[idx % SCATTER_ORIGINS.length];
+          const ok = loaded.includes(idx);
+          return (
+            <div key={idx}
+              style={{
+                borderRadius:14, overflow:"hidden", aspectRatio:"4/3",
+                border:`1px solid ${ev.color}25`,
+                background:`${ev.color}08`,
+                // only show slots where image loaded
+                display: ok ? "block" : "none",
+                // scatter animation: before entered→ offset origin, after entered→ settled
+                transform: entered
+                  ? `rotate(${SETTLE_ROTS[idx % SETTLE_ROTS.length]})`
+                  : `translate(${o.tx}, ${o.ty}) rotate(${o.rot}) scale(0.6)`,
+                opacity: entered ? 1 : 0,
+                transition: `transform 0.65s cubic-bezier(.175,.885,.32,1.275) ${o.delay}, opacity 0.45s ease ${o.delay}`,
+                boxShadow: `0 8px 32px rgba(0,0,0,.45)`,
+              }}
+              onMouseEnter={e=>{ e.currentTarget.style.transform="scale(1.04) rotate(0deg)"; e.currentTarget.style.zIndex="10"; e.currentTarget.style.boxShadow=`0 16px 48px ${ev.color}30`; }}
+              onMouseLeave={e=>{ e.currentTarget.style.transform=`rotate(${SETTLE_ROTS[idx%SETTLE_ROTS.length]})`; e.currentTarget.style.zIndex="auto"; e.currentTarget.style.boxShadow="0 8px 32px rgba(0,0,0,.45)"; }}>
+              <img
+                src={src}
+                alt={`${ev.cat} ${idx + 1}`}
+                onLoad={()=> setLoaded(prev => prev.includes(idx) ? prev : [...prev, idx])}
+                onError={()=>{}}
+                style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
+              />
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Empty state when no images loaded yet */}
+      {loaded.length === 0 && (
+        <div style={{ textAlign:"center", padding:"60px 24px",
+          border:`1px dashed ${ev.color}35`, borderRadius:20,
+          background:`${ev.color}06` }}>
+          <div style={{ marginBottom:16 }}>
+            <Icon name={ev.icon} size={52} color={ev.color} sw={1.2} />
+          </div>
+          <div style={{ fontFamily:"'Sora',sans-serif", fontSize:16, fontWeight:700,
+            color:"rgba(255,255,255,.55)", marginBottom:8 }}>
+            No photos yet for {ev.cat}
+          </div>
+          <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:13, color:"rgba(255,255,255,.3)" }}>
+            Add images to{" "}
+            <code style={{ background:"rgba(255,255,255,.06)", padding:"2px 8px", borderRadius:6,
+              fontFamily:"monospace", color:ev.color }}>
+              public/events/{ev.folder}/
+            </code>
+            {" "}named <code style={{ background:"rgba(255,255,255,.06)", padding:"2px 8px", borderRadius:6,
+              fontFamily:"monospace", color:"rgba(255,255,255,.5)" }}>01.jpg, 02.jpg…</code>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function HappeningSection() {
-  const [ref, vis] = useVisible(0.08);
+  const [ref, vis]           = useVisible(0.08);
+  const [selected, setSelected] = useState(null);   // null = grid view
+
+  const ev = selected !== null ? eventTypes[selected] : null;
+
   return (
     <section ref={ref} id="happening" style={{ background:"#0c0c18", padding:"100px 0", position:"relative", overflow:"hidden" }}>
-      <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 32px" }}>
 
-        {/* Header */}
+      {/* Dynamic radial glow behind selected event colour */}
+      <div style={{ position:"absolute", inset:0, pointerEvents:"none", transition:"background 0.8s ease",
+        background: ev
+          ? `radial-gradient(ellipse 70vw 60vh at 50% 50%, ${ev.color}09 0%, transparent 70%)`
+          : "none" }} />
+
+      <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 32px", position:"relative", zIndex:10 }}>
+
+        {/* ── Section header ── */}
         <div style={{ display:"flex", alignItems:"flex-end", justifyContent:"space-between",
-          flexWrap:"wrap", gap:20, marginBottom:52,
-          opacity: vis?1:0, transform: vis?"translateY(0)":"translateY(24px)", transition:"all .8s ease" }}>
+          flexWrap:"wrap", gap:20, marginBottom:48,
+          opacity:vis?1:0, transform:vis?"translateY(0)":"translateY(24px)", transition:"all .8s ease" }}>
           <div>
             <div style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"8px 18px", borderRadius:100,
               background:"rgba(239,68,68,.1)", border:"1px solid rgba(239,68,68,.25)", marginBottom:16 }}>
@@ -971,59 +1116,172 @@ function HappeningSection() {
                 WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>Rathinam</span>
             </h2>
           </div>
-          <a href="#" style={{ fontFamily:"'Sora',sans-serif", fontWeight:700, fontSize:14,
-            color:"rgba(255,255,255,.5)", textDecoration:"none", letterSpacing:".08em",
-            border:"1px solid rgba(255,255,255,.12)", padding:"10px 20px", borderRadius:10, transition:"all .3s" }}
-            onMouseEnter={e=>{e.currentTarget.style.color="#fff";e.currentTarget.style.borderColor="rgba(255,255,255,.3)"}}
-            onMouseLeave={e=>{e.currentTarget.style.color="rgba(255,255,255,.5)";e.currentTarget.style.borderColor="rgba(255,255,255,.12)"}}>
-            View All Events →
-          </a>
+          {selected !== null ? (
+            <button onClick={() => setSelected(null)}
+              style={{ fontFamily:"'Sora',sans-serif", fontWeight:700, fontSize:14,
+                color:"rgba(255,255,255,.7)", background:"rgba(255,255,255,.06)",
+                border:"1px solid rgba(255,255,255,.15)", padding:"10px 20px", borderRadius:10,
+                cursor:"pointer", transition:"all .3s", display:"flex", alignItems:"center", gap:8 }}
+              onMouseEnter={e=>{e.currentTarget.style.background="rgba(255,255,255,.1)"; e.currentTarget.style.color="#fff"}}
+              onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,.06)"; e.currentTarget.style.color="rgba(255,255,255,.7)"}}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+              All Events
+            </button>
+          ) : (
+            <a href="#" style={{ fontFamily:"'Sora',sans-serif", fontWeight:700, fontSize:14,
+              color:"rgba(255,255,255,.5)", textDecoration:"none", letterSpacing:".08em",
+              border:"1px solid rgba(255,255,255,.12)", padding:"10px 20px", borderRadius:10, transition:"all .3s" }}
+              onMouseEnter={e=>{e.currentTarget.style.color="#fff"; e.currentTarget.style.borderColor="rgba(255,255,255,.3)"}}
+              onMouseLeave={e=>{e.currentTarget.style.color="rgba(255,255,255,.5)"; e.currentTarget.style.borderColor="rgba(255,255,255,.12)"}}>
+              View All Events →
+            </a>
+          )}
         </div>
 
-        {/* Bento grid */}
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:16 }}>
-          {events.map((ev, i) => (
-            <div key={ev.title}
-              style={{ borderRadius:24, overflow:"hidden", border:`1px solid ${ev.color}25`,
-                background:`${ev.color}08`, position:"relative", cursor:"pointer",
-                transition:"all .4s cubic-bezier(.175,.885,.32,1.275)",
-                opacity: vis ? 1 : 0, transitionDelay:`${i*80}ms`,
-                transform: vis ? "translateY(0)" : "translateY(32px)" }}
-              onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-6px) scale(1.01)";e.currentTarget.style.boxShadow=`0 20px 60px ${ev.color}20`}}
-              onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none"}}>
-
-              {/* Image placeholder */}
-              <div style={{ height:200, background:`linear-gradient(135deg,${ev.color}18,${ev.color}08)`,
-                display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
-                position:"relative", borderBottom:`1px solid ${ev.color}20` }}>
-                <div style={{ display:"flex", alignItems:"center", justifyContent:"center", marginBottom:8 }}>
-                  <Icon name={ev.icon} size={64} color={ev.color} sw={1.2} />
-                </div>
-                <span style={{ position:"absolute", top:14, right:14, fontSize:10, fontWeight:800,
-                  padding:"4px 10px", borderRadius:6, fontFamily:"'DM Sans',sans-serif", letterSpacing:".12em",
-                  background: ev.tag==="LIVE" ? "#ef4444" : ev.tag==="FEATURED" ? "#a855f7" : ev.tag==="REGISTER" ? "#a3e635" : "rgba(255,255,255,.12)",
-                  color: ev.tag==="REGISTER" ? "#0a0a14" : "#fff" }}>
-                  {ev.tag}
+        {/* ── Event type pill tabs (always visible) ── */}
+        <div style={{ display:"flex", flexWrap:"wrap", gap:10, marginBottom:32,
+          opacity:vis?1:0, transition:"opacity .8s ease .1s" }}>
+          {eventTypes.map((et, i) => {
+            const isActive = selected === i;
+            return (
+              <button key={et.folder} onClick={() => setSelected(isActive ? null : i)}
+                style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"9px 18px",
+                  borderRadius:24, cursor:"pointer", outline:"none",
+                  background: isActive ? `${et.color}22` : "rgba(255,255,255,.04)",
+                  border:`1.5px solid ${isActive ? et.color+"70" : "rgba(255,255,255,.10)"}`,
+                  boxShadow: isActive ? `0 0 0 2px ${et.color}20, 0 8px 24px ${et.color}15` : "none",
+                  transition:"all .35s cubic-bezier(.25,.8,.25,1)" }}
+                onMouseEnter={e=>{ if(!isActive){ e.currentTarget.style.borderColor=`${et.color}45`; e.currentTarget.style.background=`${et.color}0d`; }}}
+                onMouseLeave={e=>{ if(!isActive){ e.currentTarget.style.borderColor="rgba(255,255,255,.10)"; e.currentTarget.style.background="rgba(255,255,255,.04)"; }}}>
+                <Icon name={et.icon} size={15} color={isActive ? et.color : "rgba(255,255,255,.45)"} sw={2} />
+                <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:13, fontWeight:700,
+                  color: isActive ? et.color : "rgba(255,255,255,.55)", letterSpacing:".04em",
+                  transition:"color .3s" }}>
+                  {et.cat}
                 </span>
-              </div>
-
-              <div style={{ padding:"20px 22px 24px" }}>
-                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:10, fontWeight:700,
-                  letterSpacing:".2em", textTransform:"uppercase", color:ev.color, marginBottom:6 }}>
-                  {ev.cat}
-                </p>
-                <h4 style={{ fontFamily:"'Sora',sans-serif", fontWeight:800, fontSize:18,
-                  color:"#f8fafc", marginBottom:8, lineHeight:1.2 }}>{ev.title}</h4>
-                <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:12, color:"rgba(255,255,255,.40)",
-                  fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
-                  <Icon name="calendar" size={13} color="rgba(255,255,255,.35)" sw={2} />
-                  {ev.date}
-                </p>
-              </div>
-            </div>
-          ))}
+                {isActive && (
+                  <span style={{ width:6, height:6, borderRadius:"50%", background:et.color,
+                    animation:"heroPulse 2s infinite", flexShrink:0 }} />
+                )}
+              </button>
+            );
+          })}
         </div>
+
+        {/* ── GRID VIEW (no selection) ── */}
+        <div style={{
+          maxHeight: selected === null ? "1200px" : "0px",
+          opacity:   selected === null ? 1 : 0,
+          overflow:  "hidden",
+          transition:"max-height 0.55s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease",
+        }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:16,
+            opacity:vis?1:0, transition:"opacity .8s ease .2s" }}>
+            {eventTypes.map((et, i) => (
+              <div key={et.folder} onClick={() => setSelected(i)}
+                style={{ borderRadius:24, overflow:"hidden", border:`1px solid ${et.color}25`,
+                  background:`${et.color}08`, cursor:"pointer", position:"relative",
+                  transition:"all .4s cubic-bezier(.175,.885,.32,1.275)" }}
+                onMouseEnter={e=>{ e.currentTarget.style.transform="translateY(-6px) scale(1.01)"; e.currentTarget.style.boxShadow=`0 20px 60px ${et.color}20`; e.currentTarget.style.borderColor=`${et.color}55`; }}
+                onMouseLeave={e=>{ e.currentTarget.style.transform="none"; e.currentTarget.style.boxShadow="none"; e.currentTarget.style.borderColor=`${et.color}25`; }}>
+
+                {/* Image area — shows first image if exists, else icon */}
+                <div style={{ height:200, position:"relative", overflow:"hidden",
+                  background:`linear-gradient(135deg,${et.color}18,${et.color}08)`,
+                  borderBottom:`1px solid ${et.color}20` }}>
+                  <img
+                    src={`/events/${et.folder}/01.jpg`}
+                    alt={et.cat}
+                    onError={e=>{ e.currentTarget.style.display="none"; e.currentTarget.nextSibling.style.display="flex"; }}
+                    style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
+                  />
+                  {/* Fallback icon */}
+                  <div style={{ display:"none", width:"100%", height:"100%", position:"absolute", inset:0,
+                    alignItems:"center", justifyContent:"center", flexDirection:"column", gap:8 }}>
+                    <Icon name={et.icon} size={56} color={et.color} sw={1.2} />
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, color:`${et.color}80`,
+                      fontWeight:700, letterSpacing:".15em", textTransform:"uppercase" }}>Click to view photos</span>
+                  </div>
+
+                  {/* Hover overlay */}
+                  <div style={{ position:"absolute", inset:0,
+                    background:"linear-gradient(to bottom, transparent 50%, rgba(0,0,0,.6) 100%)",
+                    display:"flex", alignItems:"flex-end", padding:14, opacity:0, transition:"opacity .3s" }}
+                    className="hapCardOverlay">
+                    <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:12, fontWeight:700,
+                      color:"#fff", letterSpacing:".1em", textTransform:"uppercase" }}>
+                      View Photos →
+                    </span>
+                  </div>
+
+                  {/* Tag badge */}
+                  <span style={{ position:"absolute", top:14, right:14, fontSize:10, fontWeight:800,
+                    padding:"4px 10px", borderRadius:6, fontFamily:"'DM Sans',sans-serif", letterSpacing:".12em",
+                    background: et.tag==="LIVE" ? "#ef4444" : et.tag==="FEATURED" ? "#a855f7" : et.tag==="REGISTER" ? "#a3e635" : "rgba(255,255,255,.14)",
+                    color: et.tag==="REGISTER" ? "#0a0a14" : "#fff" }}>
+                    {et.tag}
+                  </span>
+                </div>
+
+                <div style={{ padding:"18px 22px 22px" }}>
+                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:10, fontWeight:700,
+                    letterSpacing:".2em", textTransform:"uppercase", color:et.color, marginBottom:6 }}>
+                    {et.cat}
+                  </p>
+                  <h4 style={{ fontFamily:"'Sora',sans-serif", fontWeight:800, fontSize:17,
+                    color:"#f8fafc", marginBottom:8, lineHeight:1.2 }}>{et.title}</h4>
+                  <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:12, color:"rgba(255,255,255,.4)",
+                    fontWeight:600, display:"flex", alignItems:"center", gap:6 }}>
+                    <Icon name="calendar" size={13} color="rgba(255,255,255,.35)" sw={2} />
+                    {et.date}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── SCATTER GALLERY VIEW (event selected) ── */}
+        {selected !== null && ev && (
+          <div>
+            {/* Selected event header bar */}
+            <div style={{ display:"flex", alignItems:"center", gap:16, padding:"20px 24px", marginBottom:8,
+              borderRadius:20, background:`${ev.color}10`, border:`1.5px solid ${ev.color}35`,
+              boxShadow:`inset 0 1px 0 rgba(255,255,255,.06)` }}>
+              <div style={{ width:44, height:44, borderRadius:14, background:`${ev.color}18`,
+                border:`1.5px solid ${ev.color}35`, display:"flex", alignItems:"center", justifyContent:"center",
+                boxShadow:`0 0 18px ${ev.color}25` }}>
+                <Icon name={ev.icon} size={22} color={ev.color} sw={1.6} />
+              </div>
+              <div style={{ flex:1 }}>
+                <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700,
+                  letterSpacing:".22em", textTransform:"uppercase", color:ev.color, marginBottom:3 }}>{ev.cat}</div>
+                <div style={{ fontFamily:"'Sora',sans-serif", fontSize:18, fontWeight:800, color:"#f8fafc", lineHeight:1.1 }}>{ev.title}</div>
+              </div>
+              <div style={{ fontFamily:"'DM Sans',sans-serif", fontSize:12, color:"rgba(255,255,255,.4)",
+                display:"flex", alignItems:"center", gap:6 }}>
+                <Icon name="calendar" size={13} color="rgba(255,255,255,.35)" sw={2} />
+                {ev.date}
+              </div>
+              <span style={{ fontSize:10, fontWeight:800, padding:"5px 12px", borderRadius:8,
+                fontFamily:"'DM Sans',sans-serif", letterSpacing:".12em",
+                background: ev.tag==="LIVE" ? "#ef4444" : ev.tag==="FEATURED" ? "#a855f7" : ev.tag==="REGISTER" ? "#a3e635" : "rgba(255,255,255,.14)",
+                color: ev.tag==="REGISTER" ? "#0a0a14" : "#fff" }}>
+                {ev.tag}
+              </span>
+            </div>
+
+            {/* Scatter gallery */}
+            <ScatterGallery ev={ev} visible={selected !== null} />
+          </div>
+        )}
+
       </div>
+
+      <style>{`
+        .hapCardOverlay { pointer-events: none; }
+        div:hover > .hapCardOverlay { opacity: 1 !important; }
+      `}</style>
     </section>
   );
 }
