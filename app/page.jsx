@@ -278,11 +278,11 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* ── RIGHT CENTER — Logo Placeholder  (4893 × 838 → display 420 × 72) ── */}
+      {/* ── RIGHT CENTER — Logo Placeholder  (3675 × 535 → display 490 × 71) ── */}
       <div style={{ position:"absolute", top:"50%", right:48, transform:"translateY(-50%)", zIndex:30,
         opacity: mounted ? 1 : 0, transition:"opacity .8s ease .6s",
         animation: mounted ? "logoFloat 4s ease-in-out infinite" : undefined }}>
-        <div style={{ position:"relative", width:420, height:72, borderRadius:10,
+        <div style={{ position:"relative", width:490, height:71, borderRadius:10,
           background:"rgba(255,255,255,.06)", backdropFilter:"blur(20px)",
           border:"1.5px solid rgba(255,255,255,.18)",
           boxShadow:"0 0 0 1px rgba(168,85,247,.15), 0 16px 48px rgba(0,0,0,.5)",
@@ -307,7 +307,7 @@ function HeroSection() {
           {/* Logo image — fills the bar when uploaded */}
           <img src="/banner-logo.png" alt="Logo"
             onError={e => { e.currentTarget.style.display="none"; e.currentTarget.nextSibling.style.display="flex"; }}
-            style={{ maxWidth:400, maxHeight:58, objectFit:"contain", position:"relative", zIndex:2 }} />
+            style={{ maxWidth:470, maxHeight:57, objectFit:"contain", position:"relative", zIndex:2 }} />
 
           {/* Placeholder — horizontal layout to fit the wide-thin bar */}
           <div style={{ display:"flex", alignItems:"center", gap:12, position:"relative", zIndex:2 }}>
@@ -323,7 +323,7 @@ function HeroSection() {
               </span>
               <span style={{ fontFamily:"monospace", fontSize:9.5, color:"rgba(168,85,247,.45)",
                 letterSpacing:".06em" }}>
-                public/banner-logo.png · 4893×838
+                public/banner-logo.png · 3675×535
               </span>
             </div>
           </div>
