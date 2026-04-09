@@ -309,24 +309,8 @@ function HeroSection() {
             onError={e => { e.currentTarget.style.display="none"; e.currentTarget.nextSibling.style.display="flex"; }}
             style={{ maxWidth:470, maxHeight:57, objectFit:"contain", position:"relative", zIndex:2 }} />
 
-          {/* Placeholder — horizontal layout to fit the wide-thin bar */}
-          <div style={{ display:"flex", alignItems:"center", gap:12, position:"relative", zIndex:2 }}>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(168,85,247,.55)" strokeWidth="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="3"/>
-              <circle cx="8.5" cy="8.5" r="1.5"/>
-              <path d="M21 15l-5-5L5 21"/>
-            </svg>
-            <div style={{ display:"flex", flexDirection:"column", gap:2 }}>
-              <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700,
-                letterSpacing:".16em", textTransform:"uppercase", color:"rgba(255,255,255,.35)" }}>
-                Your Logo Here
-              </span>
-              <span style={{ fontFamily:"monospace", fontSize:9.5, color:"rgba(168,85,247,.45)",
-                letterSpacing:".06em" }}>
-                public/banner-logo.png · 3675×535
-              </span>
-            </div>
-          </div>
+          {/* Placeholder — empty, no text */}
+          <div style={{ position:"relative", zIndex:2 }} />
         </div>
 
         {/* Glow halo */}
