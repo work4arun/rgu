@@ -86,7 +86,7 @@ const statsCarousel = [
   { num: "98%",      label: "Placement Record"    },
   { num: "80+",      label: "Global Partnerships" },
   { num: "50+",      label: "Research Centres"    },
-  { num: "1997",     label: "Established"         },
+  { num: "NIRF",     label: "Ranked Institute"     },
 ];
 
 function HeroSection() {
@@ -275,29 +275,48 @@ function HeroSection() {
             onMouseLeave={e=>{e.currentTarget.style.background="transparent"}}>
             Explore RGU Way →
           </a>
-          <a href="/landing"
-            style={{ display:"inline-flex", alignItems:"center", gap:8, padding:"15px 28px", borderRadius:16,
-              background:"linear-gradient(135deg,rgba(56,189,248,.18),rgba(168,85,247,.18))",
-              border:"1.5px solid rgba(56,189,248,.45)", color:"#38bdf8",
-              fontFamily:"'Sora',sans-serif", fontWeight:800, fontSize:15, letterSpacing:".08em",
-              textDecoration:"none", transition:"all .3s", marginLeft:12,
-              backdropFilter:"blur(12px)", boxShadow:"0 4px 20px rgba(56,189,248,.2)" }}
-            onMouseEnter={e=>{
-              e.currentTarget.style.background="linear-gradient(135deg,rgba(56,189,248,.30),rgba(168,85,247,.30))";
-              e.currentTarget.style.transform="translateY(-3px)";
-              e.currentTarget.style.boxShadow="0 10px 32px rgba(56,189,248,.4)";
-            }}
-            onMouseLeave={e=>{
-              e.currentTarget.style.background="linear-gradient(135deg,rgba(56,189,248,.18),rgba(168,85,247,.18))";
-              e.currentTarget.style.transform="none";
-              e.currentTarget.style.boxShadow="0 4px 20px rgba(56,189,248,.2)";
-            }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{flexShrink:0}}>
-              <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
-            </svg>
-            DETAILS
-          </a>
         </div>
+      </div>
+
+      {/* ── RIGHT CENTER — Logo Placeholder ── */}
+      <div style={{ position:"absolute", top:"50%", right:60, transform:"translateY(-50%)", zIndex:30,
+        opacity: mounted ? 1 : 0, transition:"opacity .8s ease .6s",
+        animation: mounted ? "logoFloat 4s ease-in-out infinite" : undefined }}>
+        <div style={{ position:"relative", width:240, height:140, borderRadius:18,
+          background:"rgba(255,255,255,.06)", backdropFilter:"blur(20px)",
+          border:"1.5px solid rgba(255,255,255,.18)",
+          boxShadow:"0 0 0 1px rgba(168,85,247,.15), 0 24px 64px rgba(0,0,0,.45)",
+          display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
+          overflow:"hidden", animation: mounted ? "logoGlow 3s ease-in-out infinite" : undefined }}>
+          {/* Animated corner accents */}
+          <div style={{ position:"absolute", top:10, left:10, width:18, height:18,
+            borderTop:"2px solid rgba(168,85,247,.7)", borderLeft:"2px solid rgba(168,85,247,.7)", borderRadius:"4px 0 0 0" }} />
+          <div style={{ position:"absolute", top:10, right:10, width:18, height:18,
+            borderTop:"2px solid rgba(168,85,247,.7)", borderRight:"2px solid rgba(168,85,247,.7)", borderRadius:"0 4px 0 0" }} />
+          <div style={{ position:"absolute", bottom:10, left:10, width:18, height:18,
+            borderBottom:"2px solid rgba(168,85,247,.7)", borderLeft:"2px solid rgba(168,85,247,.7)", borderRadius:"0 0 0 4px" }} />
+          <div style={{ position:"absolute", bottom:10, right:10, width:18, height:18,
+            borderBottom:"2px solid rgba(168,85,247,.7)", borderRight:"2px solid rgba(168,85,247,.7)", borderRadius:"0 0 4px 0" }} />
+          {/* Shimmer sweep */}
+          <div style={{ position:"absolute", inset:0, background:"linear-gradient(105deg, transparent 40%, rgba(255,255,255,.06) 50%, transparent 60%)",
+            animation:"logoShimmer 2.8s ease-in-out infinite", pointerEvents:"none" }} />
+          {/* Logo image — shown when file exists, hidden otherwise */}
+          <img src="/banner-logo.png" alt="Logo" onError={e => { e.currentTarget.style.display="none"; e.currentTarget.nextSibling.style.display="flex"; }}
+            style={{ maxWidth:200, maxHeight:110, objectFit:"contain", position:"relative", zIndex:2 }} />
+          {/* Placeholder (visible until image uploaded) */}
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:8, position:"relative", zIndex:2 }}>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(168,85,247,.6)" strokeWidth="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+            </svg>
+            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:11, fontWeight:700, letterSpacing:".18em",
+              textTransform:"uppercase", color:"rgba(255,255,255,.35)" }}>Your Logo Here</span>
+            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:9, color:"rgba(255,255,255,.2)",
+              letterSpacing:".1em", textTransform:"uppercase" }}>banner-logo.png</span>
+          </div>
+        </div>
+        {/* Glow halo behind the box */}
+        <div style={{ position:"absolute", inset:-20, borderRadius:30, background:"radial-gradient(ellipse at center, rgba(168,85,247,.12) 0%, transparent 70%)",
+          pointerEvents:"none", zIndex:-1 }} />
       </div>
 
       {/* ── BOTTOM RIGHT — Stats carousel ── */}
@@ -374,6 +393,9 @@ function HeroSection() {
         @keyframes heroProgress { from{width:0} to{width:100%} }
         @keyframes scrollDot  { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(10px);opacity:.3} }
         @keyframes ticker     { from{transform:translateX(0)} to{transform:translateX(-33.33%)} }
+        @keyframes logoFloat  { 0%,100%{transform:translateY(calc(-50% + 0px))} 50%{transform:translateY(calc(-50% - 8px))} }
+        @keyframes logoGlow   { 0%,100%{box-shadow:0 0 0 1px rgba(168,85,247,.15),0 24px 64px rgba(0,0,0,.45),0 0 30px rgba(168,85,247,.08)} 50%{box-shadow:0 0 0 1px rgba(168,85,247,.35),0 24px 64px rgba(0,0,0,.45),0 0 50px rgba(168,85,247,.22)} }
+        @keyframes logoShimmer{ 0%{transform:translateX(-100%)} 100%{transform:translateX(200%)} }
       `}</style>
     </section>
   );
