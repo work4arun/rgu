@@ -8,57 +8,68 @@ const links = {
   "Connect":     ["About Us", "Faculty", "Research", "News & Media", "Alumni Network", "Contact"],
 };
 
-export default function Footer() {
-  const socialIcons = [
-    { Icon: Twitter,  label: "𝕏" },
-    { Icon: Linkedin, label: "in" },
-    { Icon: Facebook, label: "f" },
-    { Icon: Youtube,  label: "▶" },
-  ];
+const socials = [
+  { Icon: Twitter,  href: "#" },
+  { Icon: Linkedin, href: "#" },
+  { Icon: Facebook, href: "#" },
+  { Icon: Youtube,  href: "#" },
+];
 
+export default function Footer() {
   return (
-    <footer id="contact" className="relative overflow-hidden" style={{ background: "#111827", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-      {/* Top three-color stripe */}
+    <footer id="contact" className="relative overflow-hidden"
+      style={{ background: "#050508", borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+
+      {/* Top 5-color stripe */}
       <div className="h-1 w-full flex">
-        <div className="flex-1" style={{ background: "#660066" }} />
-        <div className="flex-1" style={{ background: "#006699" }} />
-        <div className="flex-1" style={{ background: "#7aaa1f" }} />
+        {["#a855f7","#38bdf8","#a3e635","#f472b6","#fb923c"].map((c) => (
+          <div key={c} className="flex-1" style={{ background:c }} />
+        ))}
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Main content */}
+
+        {/* Main grid */}
         <div className="py-16 grid lg:grid-cols-5 gap-12">
-          {/* Brand */}
+
+          {/* Brand col */}
           <div className="lg:col-span-1 space-y-6">
-            <a href="#" className="flex items-center group">
-              <div className="w-40 h-12 rounded-xl flex items-center justify-center glass-flash overflow-hidden flex-shrink-0" style={{ background: "#ffffff", border: "1px solid rgba(255,255,255,0.1)", boxShadow: "0 4px 14px rgba(0,0,0,0.15)" }}>
-                <img src="/logo.png" alt="RGU" className="w-[85%] h-[85%] object-contain" />
+            <a href="#">
+              <div className="h-11 px-3 rounded-xl inline-flex items-center justify-center overflow-hidden"
+                style={{ background:"rgba(255,255,255,0.95)", boxShadow:"0 4px 16px rgba(0,0,0,.3)" }}>
+                <img src="/logo.png" alt="RGU" className="h-8 w-auto object-contain" />
               </div>
             </a>
-            <p className="font-inter text-white/40 text-sm leading-relaxed">
+            <p className="text-slate-500 text-sm font-inter leading-relaxed">
               Deemed to be University. Designed for the world. The RGU Way — Career Readiness + Global Readiness.
             </p>
-            <div className="flex gap-2.5">
-              {socialIcons.map((social, i) => (
-                <a key={i} href="#" className="w-9 h-9 rounded-xl flex items-center justify-center text-white/40 hover:text-white border border-white/10 hover:border-white/20 transition-all duration-300 group" style={{ background: "rgba(255,255,255,0.04)" }}>
-                  <social.Icon size={16} className="transition-transform group-hover:scale-110" />
+            <div className="flex gap-2">
+              {socials.map(({ Icon, href }, i) => (
+                <a key={i} href={href}
+                  className="w-9 h-9 rounded-xl flex items-center justify-center border transition-all duration-300 hover:bg-white/10 hover:scale-110"
+                  style={{ background:"rgba(255,255,255,.04)", borderColor:"rgba(255,255,255,.1)", color:"rgba(255,255,255,.4)" }}>
+                  <Icon size={16} />
                 </a>
               ))}
             </div>
-            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-inter" style={{ background: "rgba(122,170,31,0.1)", border: "1px solid rgba(122,170,31,0.2)", color: "rgba(122,170,31,0.8)" }}>
-              <GraduationCap size={14} /><span>Deemed to be University</span>
+            <div className="inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-inter"
+              style={{ background:"rgba(163,230,53,.08)", border:"1px solid rgba(163,230,53,.2)", color:"rgba(163,230,53,.8)" }}>
+              <GraduationCap size={14} />
+              <span>Deemed to be University</span>
             </div>
           </div>
 
-          {/* Links */}
+          {/* Link columns */}
           {Object.entries(links).map(([section, items]) => (
             <div key={section} className="space-y-5">
-              <h4 className="font-outfit font-bold text-sm tracking-widest uppercase text-white/50">{section}</h4>
+              <h4 className="font-outfit font-bold text-xs tracking-[0.2em] uppercase text-slate-500">{section}</h4>
               <ul className="space-y-2.5">
                 {items.map((item) => (
                   <li key={item}>
-                    <a href="#" className="font-inter text-sm text-white/35 hover:text-white/70 transition-colors duration-200 flex items-center gap-2 group">
-                      <span className="w-1 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: "#7aaa1f" }} />
+                    <a href="#"
+                      className="text-sm text-slate-500 font-inter flex items-center gap-2 group transition-colors duration-200 hover:text-slate-200">
+                      <span className="w-1 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
+                        style={{ background:"#a3e635" }} />
                       {item}
                     </a>
                   </li>
@@ -68,34 +79,37 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Contact */}
-        <div className="py-8 grid md:grid-cols-3 gap-6" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+        {/* Contact row */}
+        <div className="py-8 grid md:grid-cols-3 gap-6 border-t" style={{ borderColor:"rgba(255,255,255,.06)" }}>
           {[
-            { Icon: MapPin, label: "Address", value: "Rathinam College Campus, Coimbatore, Tamil Nadu - 641021" },
+            { Icon: MapPin, label: "Address", value: "Rathinam College Campus, Coimbatore, Tamil Nadu — 641021" },
             { Icon: Phone,  label: "Phone",   value: "+91 422 000 0000" },
             { Icon: Mail,   label: "Email",   value: "admissions@rgu.edu.in" },
           ].map((c) => (
             <div key={c.label} className="flex items-start gap-3">
-              <c.Icon size={20} className="text-white/30 mt-0.5" />
+              <c.Icon size={18} className="mt-0.5 flex-shrink-0" style={{ color:"rgba(255,255,255,.25)" }} />
               <div>
-                <div className="text-white/30 text-xs font-inter mb-1 tracking-wide uppercase font-semibold">{c.label}</div>
-                <div className="text-white/60 text-sm font-inter">{c.value}</div>
+                <div className="text-slate-600 text-[10px] font-inter mb-1 tracking-wider uppercase font-bold">{c.label}</div>
+                <div className="text-slate-400 text-sm font-inter">{c.value}</div>
               </div>
             </div>
           ))}
         </div>
 
         {/* Bottom bar */}
-        <div className="py-6 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-          <p className="font-inter text-white/25 text-xs">© {new Date().getFullYear()} Rathinam Global University. All rights reserved.</p>
+        <div className="py-6 flex flex-col md:flex-row items-center justify-between gap-4 border-t"
+          style={{ borderColor:"rgba(255,255,255,.06)" }}>
+          <p className="text-slate-600 text-xs font-inter">
+            © {new Date().getFullYear()} Rathinam Global University. All rights reserved.
+          </p>
           <div className="flex gap-6">
-            {["Privacy Policy", "Terms of Use", "Sitemap"].map((l) => (
-              <a key={l} href="#" className="font-inter text-white/25 text-xs hover:text-white/50 transition-colors">{l}</a>
+            {["Privacy Policy","Terms of Use","Sitemap"].map((l) => (
+              <a key={l} href="#" className="text-slate-600 text-xs font-inter transition-colors hover:text-slate-300">{l}</a>
             ))}
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#7aaa1f" }} />
-            <span className="font-inter text-white/25 text-xs">The RGU Way</span>
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background:"#a3e635" }} />
+            <span className="text-slate-600 text-xs font-inter">The RGU Way</span>
           </div>
         </div>
       </div>

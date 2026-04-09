@@ -3,107 +3,98 @@ import { GraduationCap, Globe, Theater, Trophy, Users, Utensils, FlaskConical, M
 import { useEffect, useRef, useState } from "react";
 
 const highlights = [
-  { Icon: GraduationCap, label: "Academic Excellence",  color: "#660066", bg: "#f5eaf5" },
-  { Icon: Globe,         label: "Global Exposure",       color: "#006699", bg: "#e6f2f8" },
-  { Icon: Theater,       label: "Cultural Vibrancy",     color: "#7aaa1f", bg: "#f0f7e3" },
-  { Icon: Trophy,        label: "Sports & Fitness",      color: "#660066", bg: "#f5eaf5" },
-  { Icon: Users,         label: "Clubs & Societies",     color: "#006699", bg: "#e6f2f8" },
-  { Icon: Utensils,      label: "Campus Living",         color: "#7aaa1f", bg: "#f0f7e3" },
-  { Icon: FlaskConical,  label: "Innovation Labs",       color: "#660066", bg: "#f5eaf5" },
-  { Icon: Music,         label: "Arts & Music",          color: "#006699", bg: "#e6f2f8" },
+  { Icon: GraduationCap, label: "Academic Excellence",  c: "#a855f7", bg: "rgba(168,85,247,.1)"  },
+  { Icon: Globe,         label: "Global Exposure",       c: "#38bdf8", bg: "rgba(56,189,248,.1)"  },
+  { Icon: Theater,       label: "Cultural Vibrancy",     c: "#a3e635", bg: "rgba(163,230,53,.1)"  },
+  { Icon: Trophy,        label: "Sports & Fitness",      c: "#f472b6", bg: "rgba(244,114,182,.1)" },
+  { Icon: Users,         label: "Clubs & Societies",     c: "#fb923c", bg: "rgba(251,146,60,.1)"  },
+  { Icon: Utensils,      label: "Campus Living",         c: "#34d399", bg: "rgba(52,211,153,.1)"  },
+  { Icon: FlaskConical,  label: "Innovation Labs",       c: "#a855f7", bg: "rgba(168,85,247,.1)"  },
+  { Icon: Music,         label: "Arts & Music",          c: "#38bdf8", bg: "rgba(56,189,248,.1)"  },
 ];
 
-const galleryItems = [
-  { Icon: FlaskConical, label: "Innovation Labs",   sub: "World-class Infrastructure", color: "#006699", bg: "#e6f2f8" },
-  { Icon: Theater,      label: "Events & Fests",    sub: "Always Happening",           color: "#7aaa1f", bg: "#f0f7e3" },
-  { Icon: Plane,        label: "Global Exchanges",  sub: "Study Abroad",               color: "#660066", bg: "#f5eaf5" },
-  { Icon: Trophy,       label: "Sports Complex",    sub: "Champion Mindset",           color: "#006699", bg: "#e6f2f8" },
+const bento = [
+  { Icon: School,       label: "Campus Life",         sub: "Modern Spaces & Community",  c: "#a855f7", bg: "rgba(168,85,247,.1)",  border: "rgba(168,85,247,.22)", span: "lg:col-span-2 lg:row-span-2" },
+  { Icon: FlaskConical, label: "Innovation Labs",      sub: "World-class Infrastructure", c: "#38bdf8", bg: "rgba(56,189,248,.1)",  border: "rgba(56,189,248,.22)",  span: "" },
+  { Icon: Theater,      label: "Events & Fests",       sub: "Always Happening",           c: "#a3e635", bg: "rgba(163,230,53,.1)",  border: "rgba(163,230,53,.22)",  span: "" },
+  { Icon: Plane,        label: "Global Exchanges",     sub: "Study Abroad",               c: "#f472b6", bg: "rgba(244,114,182,.1)", border: "rgba(244,114,182,.22)", span: "" },
+  { Icon: Trophy,       label: "Sports Complex",       sub: "Champion Mindset",           c: "#fb923c", bg: "rgba(251,146,60,.1)",  border: "rgba(251,146,60,.22)",  span: "" },
 ];
 
 export default function LifeAtRGU() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [vis, setVis] = useState(false);
   useEffect(() => {
-    const observer = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.1 });
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold: 0.08 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} id="life" className="relative py-28 overflow-hidden" style={{ background: "#f6f7f9" }}>
-      <div className="blob-purple w-80 h-80 top-0 left-[-10%] opacity-50"   style={{ filter: "blur(70px)" }} />
-      <div className="blob-green  w-64 h-64 bottom-[-10%] right-[10%] opacity-50" style={{ filter: "blur(70px)" }} />
+    <section ref={ref} id="life" className="relative py-32 overflow-hidden"
+      style={{ background: "linear-gradient(180deg,#0f0f1e 0%,#0c0c18 100%)" }}>
+
+      <div className="absolute w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{ background:"radial-gradient(circle,rgba(168,85,247,.07) 0%,transparent 70%)", top:"-20%", right:"-10%", filter:"blur(70px)" }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        <div className={`grid lg:grid-cols-2 gap-12 items-end mb-16 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
+
+        {/* Header row */}
+        <div className={`grid lg:grid-cols-2 gap-12 items-end mb-16 transition-all duration-1000 ${vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-black/[0.07] mb-6">
-              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#7aaa1f" }} />
-              <span className="text-xs font-inter font-semibold text-gray-500 tracking-widest uppercase">The Campus Experience</span>
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border mb-6"
+              style={{ background:"rgba(163,230,53,.08)", borderColor:"rgba(163,230,53,.22)", color:"#a3e635" }}>
+              <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background:"#a3e635" }} />
+              <span className="text-[10px] font-inter font-bold tracking-[0.28em] uppercase">The Campus Experience</span>
             </div>
-            <h2 className="font-outfit font-black text-5xl lg:text-7xl text-gray-900 leading-none">
-              Life @{" "}<span style={{ color: "#660066" }}>RGU</span>
+            <h2 className="font-outfit font-black text-5xl lg:text-7xl leading-none text-white">
+              Life @{" "}
+              <span style={{ background:"linear-gradient(90deg,#a855f7,#f472b6)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
+                RGU
+              </span>
             </h2>
           </div>
           <div>
-            <p className="font-inter text-gray-500 text-lg leading-relaxed">
-              Life at RGU extends far beyond classrooms. It&#39;s a vibrant, global community where students learn, grow, explore, and lead — every single day.
+            <p className="text-slate-400 text-lg leading-relaxed font-inter">
+              Life at RGU extends far beyond classrooms — a vibrant, global community where students learn, grow, explore, and lead every single day.
             </p>
-            <a href="#explore-campus" className="mt-5 inline-flex items-center gap-2 font-inter font-semibold text-sm hover:gap-4 transition-all duration-300" style={{ color: "#7aaa1f" }}>
+            <a href="#explore-campus"
+              className="mt-5 inline-flex items-center gap-2 font-inter font-bold text-sm transition-all duration-300 hover:gap-4"
+              style={{ color:"#a3e635" }}>
               Explore Campus Life <span>→</span>
             </a>
           </div>
         </div>
 
-        <div className={`grid grid-cols-2 lg:grid-cols-3 gap-4 mb-14 transition-all duration-1000 delay-200 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
-          {/* Large card */}
-          <div className="col-span-2 lg:col-span-1 row-span-2 rounded-3xl overflow-hidden relative card-hover shine-effect glass-card" style={{ minHeight: "300px" }}>
-            <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-              <div className="w-16 h-16 rounded-2xl flex items-center justify-center text-4xl mb-4" style={{ background: "#f5eaf5" }}>
-                <School size={40} style={{ color: "#660066" }} />
+        {/* Bento grid */}
+        <div className={`grid grid-cols-2 lg:grid-cols-3 gap-4 mb-14 transition-all duration-1000 delay-200 ${vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          {bento.map((item) => (
+            <div key={item.label}
+              className={`group rounded-3xl border p-7 flex flex-col justify-end min-h-[160px] relative overflow-hidden cursor-default transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 ${item.span}`}
+              style={{ background:item.bg, borderColor:item.border }}>
+              {/* Top glow */}
+              <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background:`linear-gradient(90deg,transparent,${item.c},transparent)` }} />
+              <div className="w-11 h-11 rounded-2xl flex items-center justify-center mb-4"
+                style={{ background:`${item.c}18`, border:`1px solid ${item.c}30` }}>
+                <item.Icon size={22} style={{ color:item.c }} />
               </div>
-              <h4 className="font-outfit font-bold text-2xl text-gray-900 mb-2">Campus Life</h4>
-              <p className="font-inter text-gray-500 text-sm mb-4">Modern Spaces & Vibrant Community</p>
-              <div className="px-4 py-1.5 rounded-full glass border border-black/[0.07] text-gray-400 text-xs font-inter font-medium">Photo Gallery</div>
-            </div>
-          </div>
-
-          {galleryItems.map((item, i) => (
-            <div
-              key={item.label}
-              className="rounded-3xl overflow-hidden relative card-hover glass-card"
-              style={{ height: i < 2 ? "160px" : "180px" }}
-            >
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-5 text-center">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-3" style={{ background: item.bg }}>
-                  <item.Icon size={24} style={{ color: item.color }} />
-                </div>
-                <h4 className="font-outfit font-bold text-base text-gray-900 mb-1">{item.label}</h4>
-                <p className="font-inter text-gray-400 text-xs">{item.sub}</p>
-              </div>
-              <div className="absolute top-0 left-0 right-0 h-0.5" style={{ background: item.color }} />
+              <h4 className="font-outfit font-bold text-white text-lg leading-tight">{item.label}</h4>
+              <p className="text-slate-500 text-xs font-inter mt-1">{item.sub}</p>
             </div>
           ))}
         </div>
 
-        {/* Highlights marquee */}
-        <div className={`relative transition-all duration-1000 delay-400 ${visible ? "opacity-100" : "opacity-0"}`}>
-          <div className="h-px bg-gray-200 mb-8" />
-          <div className="overflow-hidden marquee-wrapper">
-            <div className="marquee-content gap-4">
-              {[...highlights, ...highlights].map((h, i) => (
-                <div
-                  key={`${h.label}-${i}`}
-                  className="flex items-center gap-3 px-4 py-2.5 rounded-2xl flex-shrink-0 glass-card mr-4"
-                  style={{ border: `1px solid ${h.color}18` }}
-                >
-                  <h.Icon size={18} style={{ color: h.color }} />
-                  <span className="font-inter font-semibold text-sm text-gray-600 whitespace-nowrap">{h.label}</span>
-                </div>
-              ))}
+        {/* Pill highlights row */}
+        <div className={`flex flex-wrap gap-3 transition-all duration-1000 delay-400 ${vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          {highlights.map(({ Icon, label, c, bg }) => (
+            <div key={label}
+              className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full border transition-all duration-300 hover:scale-105"
+              style={{ background:bg, borderColor:`${c}30`, color:c }}>
+              <Icon size={14} />
+              <span className="text-xs font-inter font-bold">{label}</span>
             </div>
-          </div>
-          <div className="h-px bg-gray-200 mt-8" />
+          ))}
         </div>
       </div>
     </section>

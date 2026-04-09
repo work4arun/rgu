@@ -1,130 +1,150 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { Globe, BarChart3, ShieldCheck, Zap } from "lucide-react";
+import { Globe, BarChart3 } from "lucide-react";
+
+const passportBars = [
+  { label: "SSCP – Semester Skill Certification", pct: 20, color: "#a855f7" },
+  { label: "SIIP – Semester Industry Immersion",  pct: 20, color: "#38bdf8" },
+  { label: "OLT – Outbound Leadership Training",  pct: 20, color: "#a3e635" },
+  { label: "FEP – Field Exposure Programme",      pct: 20, color: "#f472b6" },
+  { label: "GIP – Global Immersion Programme",    pct: 20, color: "#fb923c" },
+];
+
+const growthBars = [
+  { label: "RAALE Growth (Foundation)",            pct: 40, color: "#a855f7" },
+  { label: "Centre of Excellence (Specialization)", pct: 25, color: "#38bdf8" },
+  { label: "Communication Growth",                  pct: 25, color: "#a3e635" },
+  { label: "Social & Leadership Growth",            pct: 10, color: "#f472b6" },
+];
 
 export default function SkillPassportBanner() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const [vis, setVis] = useState(false);
   useEffect(() => {
-    const observer = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.15 });
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVis(true); }, { threshold: 0.12 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
   }, []);
 
   return (
-    <section ref={sectionRef} id="skill-passport" className="relative py-24 overflow-hidden" style={{ background: "#f6f7f9" }}>
-      <div className="blob-blue  w-72 h-72 bottom-[-10%] right-[-5%] opacity-60" style={{ filter: "blur(70px)" }} />
-      <div className="blob-green w-56 h-56 top-[-10%] left-[20%]  opacity-50" style={{ filter: "blur(60px)" }} />
+    <section ref={ref} id="skill-passport" className="relative py-28 overflow-hidden"
+      style={{ background: "linear-gradient(180deg,#0c0c18 0%,#080810 100%)" }}>
+
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02]"
+        style={{ backgroundImage:"linear-gradient(rgba(255,255,255,.8) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px)", backgroundSize:"60px 60px" }} />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6">
-        <div className={`text-center mb-14 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-black/[0.07] mb-4">
-            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: "#7aaa1f" }} />
-            <span className="text-xs font-inter font-semibold text-gray-500 tracking-widest uppercase">Track. Prove. Grow.</span>
+
+        {/* Header */}
+        <div className={`text-center mb-16 transition-all duration-700 ${vis ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border mb-6"
+            style={{ background:"rgba(163,230,53,.08)", borderColor:"rgba(163,230,53,.22)", color:"#a3e635" }}>
+            <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background:"#a3e635" }} />
+            <span className="text-[10px] font-inter font-bold tracking-[0.28em] uppercase">Track · Prove · Grow</span>
           </div>
-          <h2 className="font-outfit font-black text-4xl lg:text-5xl text-gray-900">Your RGU Journey, Measured.</h2>
+          <h2 className="font-outfit font-black text-4xl lg:text-5xl text-white">Your RGU Journey, Measured.</h2>
         </div>
 
-        <div
-          className={`relative rounded-3xl overflow-hidden transition-all duration-1000 glass-premium ${visible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
-          style={{ border: "1px solid rgba(0,0,0,0.07)", boxShadow: "0 12px 48px rgba(0,0,0,0.07)" }}
-        >
-          {/* Top color stripe — three separate stripes */}
-          <div className="absolute top-0 left-0 right-0 h-1 flex">
-            <div className="flex-1" style={{ background: "#660066" }} />
-            <div className="flex-1" style={{ background: "#006699" }} />
-            <div className="flex-1" style={{ background: "#7aaa1f" }} />
+        {/* Two-panel card */}
+        <div className={`rounded-3xl border overflow-hidden transition-all duration-1000 ${vis ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+          style={{ background:"rgba(255,255,255,.03)", borderColor:"rgba(255,255,255,.08)", boxShadow:"0 32px 80px rgba(0,0,0,.4)" }}>
+
+          {/* Top accent stripe */}
+          <div className="h-1 flex">
+            {["#a855f7","#38bdf8","#a3e635","#f472b6","#fb923c"].map((c) => (
+              <div key={c} className="flex-1" style={{ background:c }} />
+            ))}
           </div>
 
           <div className="grid lg:grid-cols-2 gap-0">
             {/* Global Skill Passport */}
-            <div className="p-10 lg:p-14 border-b lg:border-b-0 lg:border-r" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
+            <div className="p-10 lg:p-12 border-b lg:border-b-0 lg:border-r"
+              style={{ borderColor:"rgba(255,255,255,.07)" }}>
               <div className="flex items-start gap-4 mb-8">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shine-effect" style={{ background: "#660066", boxShadow: "0 6px 20px rgba(102,0,102,0.25)" }}>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+                  style={{ background:"linear-gradient(135deg,#a855f7,#6d28d9)", boxShadow:"0 8px 24px rgba(168,85,247,.35)" }}>
                   <Globe className="text-white w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="font-outfit font-black text-3xl text-gray-900">Global Skill Passport</h3>
+                  <h3 className="font-outfit font-black text-2xl text-white leading-tight">Global Skill Passport</h3>
+                  <span className="text-lg font-black" style={{ color:"#a855f7" }}>100%</span>
                 </div>
               </div>
-              <div className="rounded-2xl p-5 mb-6" style={{ background: "#f5eaf5", border: "1px dashed rgba(102,0,102,0.2)" }}>
-                <div className="space-y-4">
-                  {[
-                    { label: "SSCP (Semester Skill Certification Programme)", pct: 20 },
-                    { label: "SIIP (Semester Industry Immersion Programme)", pct: 20 },
-                    { label: "OLT (Outbound Leadership Training)",           pct: 20 },
-                    { label: "FEP (Field Exposure Programme)",               pct: 20 },
-                    { label: "GIP (Global Immersion Programme)",             pct: 20 },
-                  ].map((item) => (
-                    <div key={item.label}>
-                      <div className="flex justify-between text-[10px] font-bold font-inter mb-1.5 uppercase tracking-wider" style={{ color: "#660066" }}>
-                        <span>{item.label}</span>
-                        <span>{item.pct}%</span>
-                      </div>
-                      <div className="h-1.5 rounded-full bg-white overflow-hidden">
-                        <div className="h-full rounded-full transition-all duration-1000 ease-out" style={{ width: visible ? `${item.pct}%` : "0%", background: "#660066" }} />
-                      </div>
+
+              <div className="rounded-2xl p-5 mb-6 border space-y-4"
+                style={{ background:"rgba(168,85,247,.06)", borderColor:"rgba(168,85,247,.18)" }}>
+                {passportBars.map((bar) => (
+                  <div key={bar.label}>
+                    <div className="flex justify-between text-[10px] font-bold font-inter mb-1.5 tracking-wider"
+                      style={{ color:"rgba(255,255,255,.5)" }}>
+                      <span>{bar.label}</span>
+                      <span style={{ color:bar.color }}>{bar.pct}%</span>
                     </div>
-                  ))}
-                </div>
+                    <div className="h-1.5 rounded-full overflow-hidden" style={{ background:"rgba(255,255,255,.08)" }}>
+                      <div className="h-full rounded-full transition-all duration-1000 ease-out"
+                        style={{ width: vis ? `${bar.pct}%` : "0%", background:bar.color }} />
+                    </div>
+                  </div>
+                ))}
               </div>
-              <p className="font-inter text-gray-500 text-sm leading-relaxed">
-                Your Global Skill Passport is a living digital credential — recording every certification, internship, exposure, and milestone accumulated throughout your RGU journey.
+
+              <p className="text-slate-400 text-sm font-inter leading-relaxed">
+                A living digital credential — recording every certification, internship, exposure, and milestone accumulated throughout your RGU journey.
               </p>
-              <div className="mt-5 inline-flex items-center gap-2 text-sm font-inter font-semibold" style={{ color: "#660066" }}>
-                <span>Learn more</span><span>→</span>
+              <div className="mt-4 inline-flex items-center gap-2 text-sm font-inter font-bold" style={{ color:"#a855f7" }}>
+                Learn more →
               </div>
             </div>
 
             {/* Growth Card */}
-            <div className="p-10 lg:p-14">
+            <div className="p-10 lg:p-12">
               <div className="flex items-start gap-4 mb-8">
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0 shine-effect" style={{ background: "#7aaa1f", boxShadow: "0 6px 20px rgba(122,170,31,0.28)" }}>
+                <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+                  style={{ background:"linear-gradient(135deg,#a3e635,#16a34a)", boxShadow:"0 8px 24px rgba(163,230,53,.30)" }}>
                   <BarChart3 className="text-white w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="font-outfit font-black text-3xl text-gray-900">Growth Card</h3>
+                  <h3 className="font-outfit font-black text-2xl text-white leading-tight">Growth Card</h3>
+                  <span className="text-lg font-black" style={{ color:"#a3e635" }}>100%</span>
                 </div>
               </div>
-              <div className="rounded-2xl p-6 mb-6" style={{ background: "#f0f7e3", border: "1px solid rgba(122,170,31,0.18)" }}>
-                <div className="flex items-center justify-between mb-5">
-                  <div className="text-xs font-bold tracking-[0.2em] uppercase font-inter" style={{ color: "#7aaa1f" }}>Metrics Tracking</div>
-                  <div className="w-2 h-2 rounded-full animate-pulse" style={{ background: "#7aaa1f" }} />
+
+              <div className="rounded-2xl p-5 mb-6 border space-y-4"
+                style={{ background:"rgba(163,230,53,.05)", borderColor:"rgba(163,230,53,.18)" }}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase font-inter" style={{ color:"#a3e635" }}>Metrics Tracking</span>
+                  <div className="w-2 h-2 rounded-full animate-pulse" style={{ background:"#a3e635" }} />
                 </div>
-                <div className="space-y-4">
-                  {[
-                    { label: "RAALE Growth (Foundation)",         pct: 40, color: "#660066" },
-                    { label: "Centre of Excellence Growth (Specialization)", pct: 25, color: "#006699" },
-                    { label: "Communication Growth",               pct: 25, color: "#7aaa1f" },
-                    { label: "Social & Leadership Growth",         pct: 10, color: "#660066" },
-                  ].map((bar) => (
-                    <div key={bar.label}>
-                      <div className="flex justify-between text-xs font-semibold font-inter mb-1.5">
-                        <span className="text-gray-600">{bar.label}</span>
-                        <span style={{ color: bar.color }}>{bar.pct}%</span>
-                      </div>
-                      <div className="h-2 rounded-full bg-white overflow-hidden">
-                        <div className="h-full rounded-full transition-all duration-1000 ease-out" style={{ width: visible ? `${bar.pct}%` : "0%", background: bar.color }} />
-                      </div>
+                {growthBars.map((bar) => (
+                  <div key={bar.label}>
+                    <div className="flex justify-between text-[10px] font-bold font-inter mb-1.5">
+                      <span className="text-slate-400">{bar.label}</span>
+                      <span style={{ color:bar.color }}>{bar.pct}%</span>
                     </div>
-                  ))}
-                </div>
+                    <div className="h-2 rounded-full overflow-hidden" style={{ background:"rgba(255,255,255,.08)" }}>
+                      <div className="h-full rounded-full transition-all duration-1000 ease-out"
+                        style={{ width: vis ? `${bar.pct}%` : "0%", background:bar.color }} />
+                    </div>
+                  </div>
+                ))}
               </div>
-              <p className="font-inter text-gray-500 text-sm leading-relaxed">
-                The <span className="font-bold" style={{ color: "#7aaa1f" }}>Growth Card</span> is your personal progress tracker — a semester-by-semester snapshot measuring how far you&#39;ve come.
+
+              <p className="text-slate-400 text-sm font-inter leading-relaxed">
+                Your personal progress tracker — a semester-by-semester snapshot measuring how far you've come and where you're headed.
               </p>
-              <div className="mt-5 inline-flex items-center gap-2 text-sm font-inter font-semibold" style={{ color: "#7aaa1f" }}>
-                <span>Explore Metrics</span><span>→</span>
+              <div className="mt-4 inline-flex items-center gap-2 text-sm font-inter font-bold" style={{ color:"#a3e635" }}>
+                Explore Metrics →
               </div>
             </div>
           </div>
 
-          <div className="px-10 lg:px-14 py-5 flex items-center justify-between" style={{ background: "rgba(0,0,0,0.02)", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
-            <p className="text-gray-400 text-xs font-inter">Together, the Skill Passport and Growth Card form your complete RGU transformation record.</p>
+          <div className="px-10 lg:px-12 py-5 flex items-center justify-between border-t"
+            style={{ background:"rgba(255,255,255,.02)", borderColor:"rgba(255,255,255,.06)" }}>
+            <p className="text-slate-500 text-xs font-inter">Together, the Skill Passport and Growth Card form your complete RGU transformation record.</p>
             <div className="flex gap-2">
-              <div className="w-2 h-2 rounded-full" style={{ background: "#660066" }} />
-              <div className="w-2 h-2 rounded-full" style={{ background: "#006699" }} />
-              <div className="w-2 h-2 rounded-full" style={{ background: "#7aaa1f" }} />
+              {["#a855f7","#38bdf8","#a3e635"].map((c) => (
+                <div key={c} className="w-2 h-2 rounded-full" style={{ background:c }} />
+              ))}
             </div>
           </div>
         </div>

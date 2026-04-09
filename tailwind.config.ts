@@ -22,8 +22,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-outfit)", "system-ui", "sans-serif"],
+        sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
+        display: ["Fraunces", "Georgia", "serif"],
       },
       backgroundImage: {
         "rgu-gradient": "linear-gradient(135deg, #0a000a 0%, #001a2e 50%, #0d1a00 100%)",
