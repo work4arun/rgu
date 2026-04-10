@@ -284,7 +284,7 @@ function HeroSection() {
         <div style={{
           position: "relative", overflow: "hidden", borderRadius: 16, padding: "18px 24px",
           background: "rgba(255,255,255,.06)", border: "1px solid rgba(255,255,255,.12)", backdropFilter: "blur(16px)",
-          marginBottom: 28, maxWidth: 520,
+          marginBottom: 28, marginTop: 42, maxWidth: 520,
           opacity: mounted ? 1 : 0, transition: "opacity .7s ease .4s"
         }}>
           <div style={{
@@ -446,7 +446,8 @@ function HeroSection() {
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes heroPulse  { 0%,100%{box-shadow:0 0 0 3px rgba(163,230,53,.3)} 50%{box-shadow:0 0 0 6px rgba(163,230,53,.15)} }
         @keyframes heroProgress { from{width:0} to{width:100%} }
         @keyframes scrollDot  { 0%,100%{transform:translateY(0);opacity:1} 50%{transform:translateY(10px);opacity:.3} }
@@ -566,7 +567,8 @@ function CoursesSection() {
     <section ref={ref} id="programs" style={{ background: "#ffffff", padding: "100px 0 120px", position: "relative", overflow: "hidden" }}>
 
       {/* ── Dynamic Floating Background Mesh ── */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes floatBlob1 {
           0% { transform: translate(0, 0) scale(1); }
           33% { transform: translate(5vw, 15vh) scale(1.2); }
@@ -586,7 +588,7 @@ function CoursesSection() {
           100% { transform: translate(0, 0) scale(1.2); }
         }
       `}} />
-      
+
       {/* Pure White Background */}
       <div style={{ position: "absolute", inset: 0, background: "#ffffff", pointerEvents: "none" }} />
       {/* Subtle glowing orbs for the white theme just to add richness without disrupting white background */}
@@ -655,42 +657,42 @@ function CoursesSection() {
             // get up to 5 descriptive short courses to scatter around
             const topCourses = sc.programs.flatMap(p => p.courses)
               .filter(c => c.length < 45)
-              .sort((a,b) => a.length - b.length)
+              .sort((a, b) => a.length - b.length)
               .slice(0, 5);
-            
+
             const scatterPositions = [
-              { top: "-25%", left: "-45%", delay: "0s" },
-              { top: "45%", right: "-55%", delay: "1.5s" },
-              { bottom: "-25%", left: "20%", delay: "2.5s" },
-              { top: "15%", right: "-50%", delay: "0.8s" },
-              { bottom: "15%", left: "-45%", delay: "3.2s" }
+              { top: "-45%", left: "-75%", delay: "0s" },
+              { top: "50%", right: "-85%", delay: "1.5s" },
+              { bottom: "-45%", left: "25%", delay: "2.5s" },
+              { top: "10%", right: "-80%", delay: "0.8s" },
+              { bottom: "10%", left: "-75%", delay: "3.2s" }
             ];
 
             return (
               <div className={floatClass(i)}
                 style={{ animationDelay: `${i * 0.22}s`, transition: "opacity .4s", opacity: dim ? 0.22 : 1, position: "relative", ...extraStyle }}>
-                
+
                 {/* Scattered Top Courses */}
                 {!dim && topCourses.map((c, idx) => {
                   const pos = scatterPositions[idx];
-                  if(!pos) return null;
+                  if (!pos) return null;
                   return (
                     <div key={idx} style={{
-                      position: "absolute", zIndex: isActive ? 5 : 0,
+                      position: "absolute", zIndex: 20,
                       top: pos.top, left: pos.left, right: pos.right, bottom: pos.bottom,
                       animation: `floatCourse 6s ease-in-out infinite`,
                       animationDelay: pos.delay,
                       pointerEvents: "auto"
                     }}>
-                      <button onClick={() => setActiveSchool(sc.name)} 
+                      <button onClick={() => setActiveSchool(sc.name)}
                         style={{
                           padding: "6px 14px", borderRadius: 20, whiteSpace: "nowrap",
                           background: "#ffffff", border: `1.5px solid ${sc.color}25`,
                           boxShadow: `0 8px 24px rgba(0,0,0,0.06), 0 2px 8px ${sc.color}15`,
                           fontFamily: "'DM Sans',sans-serif", fontSize: 10, fontWeight: 700,
                           color: sc.color, display: "flex", alignItems: "center", gap: 6,
-                          transform: isActive ? "scale(1.05) translateY(-5px)" : "scale(1)", 
-                          opacity: isActive ? 1 : 0.85, 
+                          transform: isActive ? "scale(1.05) translateY(-5px)" : "scale(1)",
+                          opacity: isActive ? 1 : 0.85,
                           transition: "all 0.4s cubic-bezier(.25,.8,.25,1)",
                           cursor: "pointer", outline: "none"
                         }}
@@ -711,7 +713,7 @@ function CoursesSection() {
                     padding: "26px 22px 20px", borderRadius: 28,
                     cursor: dim ? "default" : "pointer", outline: "none",
                     width: 176, minHeight: 200, zIndex: 10,
-                    background: `linear-gradient(135deg, ${sc.color} 0%, ${sc.colorHi||sc.color} 100%)`,
+                    background: `linear-gradient(135deg, ${sc.color} 0%, ${sc.colorHi || sc.color} 100%)`,
                     border: `1px solid rgba(255,255,255,0.4)`,
                     boxShadow: isActive
                       ? `0 24px 60px rgba(0,0,0,0.15), 0 8px 24px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.5)`
@@ -849,23 +851,23 @@ function CoursesSection() {
             <div style={{ opacity: vis ? 1 : 0, transform: vis ? "none" : "translateY(30px)", transition: "all .8s ease .3s" }}>
 
               {/* ── ROW 1 — top 3 bubbles ── */}
-              <div style={{ display:"flex", justifyContent:"center", alignItems:"flex-end", gap:140, marginBottom:70 }}>
-                <Bubble sc={schoolsConfig[0]} i={0} extraStyle={{ transform:"translateY(30px) translateX(-60px)" }} />
-                <Bubble sc={schoolsConfig[1]} i={1} extraStyle={{ transform:"translateY(-50px)" }} />
-                <Bubble sc={schoolsConfig[2]} i={2} extraStyle={{ transform:"translateY(40px) translateX(60px)" }} />
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-end", gap: 140, marginBottom: 70 }}>
+                <Bubble sc={schoolsConfig[0]} i={0} extraStyle={{ transform: "translateY(30px) translateX(-60px)" }} />
+                <Bubble sc={schoolsConfig[1]} i={1} extraStyle={{ transform: "translateY(-50px)" }} />
+                <Bubble sc={schoolsConfig[2]} i={2} extraStyle={{ transform: "translateY(40px) translateX(60px)" }} />
               </div>
 
               {/* ── ROW 2 — bubble | SEARCH BAR | bubble ── */}
-              <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:140, marginBottom:70, position:"relative", zIndex: 11 }}>
-                <Bubble sc={schoolsConfig[3]} i={3} extraStyle={{ transform:"translateX(-60px) translateY(12px)" }} />
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 140, marginBottom: 70, position: "relative", zIndex: 11 }}>
+                <Bubble sc={schoolsConfig[3]} i={3} extraStyle={{ transform: "translateX(-60px) translateY(12px)" }} />
                 {SearchBar}
-                <Bubble sc={schoolsConfig[4]} i={4} extraStyle={{ transform:"translateX(60px) translateY(-12px)" }} />
+                <Bubble sc={schoolsConfig[4]} i={4} extraStyle={{ transform: "translateX(60px) translateY(-12px)" }} />
               </div>
 
               {/* ── ROW 3 — bottom 2 bubbles ── */}
-              <div style={{ display:"flex", justifyContent:"center", alignItems:"flex-start", gap:220, marginBottom:40 }}>
-                <Bubble sc={schoolsConfig[5]} i={5} extraStyle={{ transform:"translateY(55px) translateX(-60px)" }} />
-                <Bubble sc={schoolsConfig[6]} i={6} extraStyle={{ transform:"translateY(38px) translateX(60px)" }} />
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "flex-start", gap: 220, marginBottom: 40 }}>
+                <Bubble sc={schoolsConfig[5]} i={5} extraStyle={{ transform: "translateY(55px) translateX(-60px)" }} />
+                <Bubble sc={schoolsConfig[6]} i={6} extraStyle={{ transform: "translateY(38px) translateX(60px)" }} />
               </div>
 
             </div>
@@ -1018,7 +1020,8 @@ function CoursesSection() {
       </div>
 
       {/* ── Keyframes for bubble floats ── */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .bubbleF0 { animation: bFloat0 4.2s ease-in-out infinite; }
         .bubbleF1 { animation: bFloat1 5.1s ease-in-out infinite; }
         .bubbleF2 { animation: bFloat2 3.8s ease-in-out infinite; }
@@ -1029,6 +1032,8 @@ function CoursesSection() {
         @keyframes bFloat3 { 0%,100%{transform:translateY(-3px)} 50%{transform:translateY(9px)} }
         @keyframes iconRing { 0%{opacity:.8;transform:scale(1)} 100%{opacity:0;transform:scale(1.5)} }
         @keyframes floatCourse { 0%,100%{transform:translateY(0px) rotate(0deg)} 50%{transform:translateY(-8px) rotate(3deg)} }
+        @keyframes chairmanFloat { 0%,100%{transform:translateY(0px)} 50%{transform:translateY(-10px)} }
+        @keyframes chairmanGlow  { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:.85;transform:scale(1.04)} }
       `}} />
     </section>
   );
@@ -1190,104 +1195,138 @@ const SCATTER_ORIGINS = [
   { tx: "-150px", ty: "110px", rot: "12deg", delay: "200ms" },
 ];
 
-// Light random tilt for settled images (alternates per index so they feel organic)
-const SETTLE_ROTS = ["-2deg", "1.5deg", "-1deg", "2.5deg", "-1.8deg", "1deg", "-2.2deg", "1.8deg", "-0.8deg", "2deg",
-  "-1.5deg", "1.2deg", "-2.4deg", "0.9deg", "-1.3deg", "2.1deg", "-1.7deg", "1.4deg", "-2deg", "1.6deg"];
+// Define organic, masonry-style aspect ratios and grid spans for a rich collage effect
+const COLLAGE_STYLES = [
+  { gC: "span 2", gR: "span 2" },    // Large square
+  { gC: "span 1", gR: "span 1" },    // Small block
+  { gC: "span 2", gR: "span 1" },    // Wide rectangle
+  { gC: "span 1", gR: "span 2" },    // Tall portrait
+  { gC: "span 1", gR: "span 1" },    // Small block
+  { gC: "span 1", gR: "span 1" },    // Small block
+  { gC: "span 2", gR: "span 2" },    // Large square
+  { gC: "span 1", gR: "span 2" },    // Tall portrait
+];
 
-function ScatterGallery({ ev, visible }) {
+function InteractiveCollage({ selected, eventTypes, visible }) {
   const [loaded, setLoaded] = useState([]);
   const [entered, setEntered] = useState(false);
-  const MAX_IMAGES = 20;
 
-  // reset & retrigger scatter whenever the event changes
   useEffect(() => {
     setLoaded([]);
     setEntered(false);
     if (!visible) return;
-    // small delay so images get a chance to be in DOM before animation
     const t = setTimeout(() => setEntered(true), 60);
     return () => clearTimeout(t);
-  }, [ev?.folder, visible]);
+  }, [selected, visible]);
 
-  if (!ev || !visible) return null;
+  if (!visible) return null;
 
-  const imgs = Array.from({ length: MAX_IMAGES }, (_, i) => ({
-    src: `/events/${ev.folder}/${String(i + 1).padStart(2, "0")}.jpg`,
-    idx: i,
-  }));
+  // Construct an organic global array of images based on selection filter
+  let allImages = [];
+
+  if (selected === null) {
+    // COMPACT GLOBAL VIEW: Show exactly 1 powerful highlight image per event
+    eventTypes.forEach((ev) => {
+      allImages.push({
+        id: `${ev.folder}-1`,
+        src: `/events/${ev.folder}/01.jpg`,
+        ev: ev,
+        idx: allImages.length
+      });
+    });
+  } else {
+    // FOCUSED VIEW: Show 4 images for the single selected event
+    const ev = eventTypes[selected];
+    for (let i = 1; i <= 4; i++) {
+      allImages.push({
+        id: `${ev.folder}-${i}`,
+        src: `/events/${ev.folder}/0${i}.jpg`,
+        ev: ev,
+        idx: allImages.length
+      });
+    }
+  }
 
   return (
     <div style={{ marginTop: 28 }}>
-      {/* Gallery grid with scatter-in animation */}
       <div style={{
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
-        gap: 14,
+        gridTemplateColumns: "repeat(4, 1fr)",
+        gridAutoFlow: "dense",
+        gap: "18px",
       }}>
-        {imgs.map(({ src, idx }) => {
-          const o = SCATTER_ORIGINS[idx % SCATTER_ORIGINS.length];
-          const ok = loaded.includes(idx);
+        {allImages.map((item, index) => {
+          const styleTemplate = COLLAGE_STYLES[index % COLLAGE_STYLES.length];
+          const ok = loaded.includes(item.id);
+          const o = SCATTER_ORIGINS[index % SCATTER_ORIGINS.length];
+
           return (
-            <div key={idx}
+            <div key={item.id}
               style={{
-                borderRadius: 14, overflow: "hidden", aspectRatio: "4/3",
-                border: `1px solid ${ev.color}25`,
-                background: `${ev.color}08`,
-                // only show slots where image loaded
-                display: ok ? "block" : "none",
-                // scatter animation: before entered→ offset origin, after entered→ settled
-                transform: entered
-                  ? `rotate(${SETTLE_ROTS[idx % SETTLE_ROTS.length]})`
-                  : `translate(${o.tx}, ${o.ty}) rotate(${o.rot}) scale(0.6)`,
+                gridColumn: styleTemplate.gC,
+                gridRow: styleTemplate.gR,
+                minHeight: 180, // ensures spans have body even without image
+                borderRadius: 24, overflow: "hidden", position: "relative",
+                border: `1px solid ${item.ev.color}35`,
+                background: `${item.ev.color}08`,
+                transform: entered ? "scale(1) translateY(0px)" : `translate(${o.tx}, ${o.ty}) scale(0.9) rotate(${o.rot})`,
                 opacity: entered ? 1 : 0,
-                transition: `transform 0.65s cubic-bezier(.175,.885,.32,1.275) ${o.delay}, opacity 0.45s ease ${o.delay}`,
-                boxShadow: `0 8px 32px rgba(0,0,0,.45)`,
+                transition: `all 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) ${o.delay}`,
+                cursor: "pointer",
+                boxShadow: "0 8px 32px rgba(0,0,0,0.05)"
               }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.04) rotate(0deg)"; e.currentTarget.style.zIndex = "10"; e.currentTarget.style.boxShadow = `0 16px 48px ${ev.color}30`; }}
-              onMouseLeave={e => { e.currentTarget.style.transform = `rotate(${SETTLE_ROTS[idx % SETTLE_ROTS.length]})`; e.currentTarget.style.zIndex = "auto"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,.45)"; }}>
+              onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.02) translateY(-4px)"; e.currentTarget.style.zIndex = "10"; e.currentTarget.style.boxShadow = `0 24px 64px ${item.ev.color}40`; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = "scale(1) translateY(0px)"; e.currentTarget.style.zIndex = "auto"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(0,0,0,0.05)"; }}
+            >
+              {/* Event label overlay */}
+              <div style={{
+                position: "absolute", bottom: 0, left: 0, right: 0, padding: "28px 20px 20px",
+                background: "linear-gradient(to bottom, transparent, rgba(15,23,42,0.95))",
+                zIndex: 2, display: "flex", alignItems: "center", gap: 10,
+                opacity: entered ? 1 : 0, transition: "opacity 1s ease 0.5s"
+              }}>
+                <div style={{ background: item.ev.color, borderRadius: "50%", padding: 6, display: "flex" }}>
+                  <Icon name={item.ev.icon} size={14} color="#fff" />
+                </div>
+                <div>
+                  <span style={{ display: "block", fontFamily: "'Sora',sans-serif", fontSize: 13, fontWeight: 800, color: "#fff", letterSpacing: "0.02em" }}>
+                    {item.ev.title}
+                  </span>
+                  <span style={{ display: "block", fontFamily: "'DM Sans',sans-serif", fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.15em", marginTop: 2 }}>
+                    {item.ev.cat}
+                  </span>
+                </div>
+              </div>
+
               <img
-                src={src}
-                alt={`${ev.cat} ${idx + 1}`}
-                onLoad={() => setLoaded(prev => prev.includes(idx) ? prev : [...prev, idx])}
-                onError={() => { }}
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                src={item.src}
+                alt={item.ev.title}
+                onLoad={() => setLoaded(prev => [...prev, item.id])}
+                style={{
+                  width: "100%", height: "100%", objectFit: "cover", display: ok ? "block" : "none",
+                  filter: "brightness(0.95) contrast(1.05)", transition: "all 0.5s ease"
+                }}
+                onMouseOver={e => e.currentTarget.style.filter = "brightness(1.1) contrast(1.1) scale(1.05)"}
+                onMouseOut={e => e.currentTarget.style.filter = "brightness(0.95) contrast(1.05) scale(1)"}
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                  if (e.currentTarget.nextSibling) e.currentTarget.nextSibling.style.display = "flex";
+                }}
               />
+
+              {/* Fallback Icon Gradient if No Photo Available */}
+              <div style={{
+                display: ok ? "none" : "flex", position: "absolute", inset: 0, zIndex: 1,
+                alignItems: "center", justifyContent: "center", flexDirection: "column",
+                background: `linear-gradient(135deg, ${item.ev.color}15, ${item.ev.color}02)`
+              }}>
+                <Icon name={item.ev.icon} size={42} color={item.ev.color} />
+                <span style={{ marginTop: 12, fontFamily: "'DM Sans',sans-serif", fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", color: `${item.ev.color}80`, textTransform: "uppercase" }}>Photo pending</span>
+              </div>
             </div>
           );
         })}
       </div>
-
-      {/* Empty state when no images loaded yet */}
-      {loaded.length === 0 && (
-        <div style={{
-          textAlign: "center", padding: "60px 24px",
-          border: `1px dashed ${ev.color}35`, borderRadius: 20,
-          background: `${ev.color}06`
-        }}>
-          <div style={{ marginBottom: 16 }}>
-            <Icon name={ev.icon} size={52} color={ev.color} sw={1.2} />
-          </div>
-          <div style={{
-            fontFamily: "'Sora',sans-serif", fontSize: 16, fontWeight: 700,
-            color: "rgba(255,255,255,.55)", marginBottom: 8
-          }}>
-            No photos yet for {ev.cat}
-          </div>
-          <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: "rgba(255,255,255,.3)" }}>
-            Add images to{" "}
-            <code style={{
-              background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 6,
-              fontFamily: "monospace", color: ev.color
-            }}>
-              public/events/{ev.folder}/
-            </code>
-            {" "}named <code style={{
-              background: "rgba(255,255,255,.06)", padding: "2px 8px", borderRadius: 6,
-              fontFamily: "monospace", color: "rgba(255,255,255,.5)"
-            }}>01.jpg, 02.jpg…</code>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
@@ -1393,113 +1432,8 @@ function HappeningSection() {
           })}
         </div>
 
-        {/* ── GRID VIEW (no selection) ── */}
-        <div style={{
-          maxHeight: selected === null ? "1200px" : "0px",
-          opacity: selected === null ? 1 : 0,
-          overflow: "hidden",
-          transition: "max-height 0.55s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease",
-        }}>
-          <div style={{
-            display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16,
-            opacity: vis ? 1 : 0, transition: "opacity .8s ease .2s"
-          }}>
-            {eventTypes.map((et, i) => (
-              <div key={et.folder} onClick={() => setSelected(i)}
-                style={{
-                  borderRadius: 24, overflow: "hidden", border: `1px solid ${et.color}25`,
-                  background: `${et.color}08`, cursor: "pointer", position: "relative",
-                  transition: "all .4s cubic-bezier(.175,.885,.32,1.275)"
-                }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-6px) scale(1.01)"; e.currentTarget.style.boxShadow = `0 20px 60px ${et.color}20`; e.currentTarget.style.borderColor = `${et.color}55`; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.borderColor = `${et.color}25`; }}>
-
-                {/* Image area — shows first image if exists, else icon */}
-                <div style={{
-                  height: 200, position: "relative", overflow: "hidden",
-                  background: `linear-gradient(135deg,${et.color}18,${et.color}08)`,
-                  borderBottom: `1px solid ${et.color}20`
-                }}>
-                  <img
-                    src={`/events/${et.folder}/01.jpg`}
-                    alt={et.cat}
-                    onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "flex"; }}
-                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                  />
-                  {/* Fallback icon */}
-                  <div style={{
-                    display: "none", width: "100%", height: "100%", position: "absolute", inset: 0,
-                    alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 8
-                  }}>
-                    <Icon name={et.icon} size={56} color={et.color} sw={1.2} />
-                    <span style={{
-                      fontFamily: "'DM Sans',sans-serif", fontSize: 11, color: `${et.color}80`,
-                      fontWeight: 700, letterSpacing: ".15em", textTransform: "uppercase"
-                    }}>Click to view photos</span>
-                  </div>
-
-                  {/* Hover overlay */}
-                  <div style={{
-                    position: "absolute", inset: 0,
-                    background: "linear-gradient(to bottom, transparent 50%, rgba(0,0,0,.6) 100%)",
-                    display: "flex", alignItems: "flex-end", padding: 14, opacity: 0, transition: "opacity .3s"
-                  }}
-                    className="hapCardOverlay">
-                    <span style={{
-                      fontFamily: "'DM Sans',sans-serif", fontSize: 12, fontWeight: 700,
-                      color: "#fff", letterSpacing: ".1em", textTransform: "uppercase"
-                    }}>
-                      View Photos →
-                    </span>
-                  </div>
-                </div>
-
-                <div style={{ padding: "18px 22px 22px" }}>
-                  <p style={{
-                    fontFamily: "'DM Sans',sans-serif", fontSize: 10, fontWeight: 700,
-                    letterSpacing: ".2em", textTransform: "uppercase", color: et.color, marginBottom: 6
-                  }}>
-                    {et.cat}
-                  </p>
-                  <h4 style={{
-                    fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 17,
-                    color: "#0f172a", marginBottom: 0, lineHeight: 1.2
-                  }}>{et.title}</h4>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── SCATTER GALLERY VIEW (event selected) ── */}
-        {selected !== null && ev && (
-          <div>
-            {/* Selected event header bar */}
-            <div style={{
-              display: "flex", alignItems: "center", gap: 16, padding: "20px 24px", marginBottom: 8,
-              borderRadius: 20, background: `${ev.color}08`, border: `1.5px solid ${ev.color}30`,
-              boxShadow: `inset 0 1px 0 rgba(255,255,255,.5)`
-            }}>
-              <div style={{
-                width: 44, height: 44, borderRadius: 14, background: `${ev.color}15`,
-                border: `1.5px solid ${ev.color}35`, display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: `0 0 18px ${ev.color}15`
-              }}>
-                <Icon name={ev.icon} size={22} color={ev.color} sw={1.6} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{
-                  fontFamily: "'DM Sans',sans-serif", fontSize: 11, fontWeight: 700,
-                  letterSpacing: ".22em", textTransform: "uppercase", color: ev.color, marginBottom: 3
-                }}>{ev.cat}</div>
-                <div style={{ fontFamily: "'Sora',sans-serif", fontSize: 18, fontWeight: 800, color: "#0f172a", lineHeight: 1.1 }}>{ev.title}</div>
-              </div>
-            </div>
-
-            {/* Scatter gallery */}
-            <ScatterGallery ev={ev} visible={selected !== null} />
-          </div>
-        )}
+        {/* ── UNIFIED COLLAGE VIEW (Auto-Filters via Tags) ── */}
+        <InteractiveCollage selected={selected} eventTypes={eventTypes} visible={vis} />
 
         {/* ── YOUTUBE SCROLL TRACK ── */}
         <div style={{ marginTop: 80 }}>
@@ -1510,43 +1444,50 @@ function HappeningSection() {
             <Icon name="youtube" size={24} color="#ef4444" sw={2} />
             Rathinam TV
           </div>
-          
+
           <div style={{ position: "relative", width: "100%", overflow: "hidden" }}>
             <div className="youtube-marquee" style={{ display: "flex", gap: "24px", width: "max-content", padding: "10px 0" }}>
               {/* Actual latest video IDs fetched from @RathinamCollege */}
               {["izya9OIsDGk", "d_Q-_dRdxaY", "niMsbCsmV5g", "SPC74ZVd9OA", "HxUJA3_hoto",
                 "izya9OIsDGk", "d_Q-_dRdxaY", "niMsbCsmV5g", "SPC74ZVd9OA", "HxUJA3_hoto"].map((id, i) => (
-                <div key={i} style={{
-                  width: 440, height: 248, flexShrink: 0, borderRadius: 16, overflow: "hidden",
-                  background: "#f8fafc", border: "1px solid rgba(15,23,42,0.06)", boxShadow: "0 8px 24px rgba(0,0,0,0.04)"
-                }}>
-                  <iframe
-                    width="100%" height="100%"
-                    src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&controls=0`}
-                    title="YouTube video player" frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    style={{ pointerEvents: "none" }} // Prevents iframe from capturing scroll events or pauses on hover
-                  />
-                </div>
-              ))}
+                  <div key={i} style={{
+                    width: 440, height: 248, flexShrink: 0, borderRadius: 16, overflow: "hidden",
+                    background: "#f8fafc", border: "1px solid rgba(15,23,42,0.06)", boxShadow: "0 8px 24px rgba(0,0,0,0.04)"
+                  }}>
+                    <iframe
+                      width="100%" height="100%"
+                      src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&controls=0`}
+                      title="YouTube video player" frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      style={{ pointerEvents: "none" }} // Prevents iframe from capturing scroll events or pauses on hover
+                    />
+                  </div>
+                ))}
             </div>
           </div>
         </div>
 
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .hapCardOverlay { pointer-events: none; }
         div:hover > .hapCardOverlay { opacity: 1 !important; }
         
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-464px * 5)); } }
-        .youtube-marquee {
-          animation: scrollMarquee 35s linear infinite;
-        }
-        .youtube-marquee:hover {
-          animation-play-state: paused;
-        }
+        @keyframes scrollLeftInf { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scrollRightInf { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+        .youtube-marquee { animation: scrollMarquee 35s linear infinite; }
+        .youtube-marquee:hover { animation-play-state: paused; }
+
+        .life-marquee-left { animation: scrollLeftInf 45s linear infinite; }
+        .life-marquee-right { animation: scrollRightInf 55s linear infinite; }
+        
+        .life-collage-card { transition: all 0.5s cubic-bezier(.175,.885,.32,1.275); }
+        .life-collage-card:hover { transform: scale(1.05) !important; z-index: 10; box-shadow: 0 32px 80px rgba(0,0,0,0.6) !important; }
+        .life-marquee-left:hover, .life-marquee-right:hover { animation-play-state: paused; }
       `}} />
     </section>
   );
@@ -1555,13 +1496,13 @@ function HappeningSection() {
 /* ═══════════════════════════════════════════════════════════════════
    5. LIFE @ RATHINAM
 ═══════════════════════════════════════════════════════════════════ */
-const lifeCards = [
-  { icon: "building", title: "World-Class Campus", sub: "300-acre modern campus", color: "#38bdf8" },
-  { icon: "home", title: "Safe & Vibrant Hostels", sub: "Boys & Girls, 24×7 security, Wi-Fi", color: "#a855f7" },
-  { icon: "target", title: "Sports & Athletics", sub: "National-level champions trained here", color: "#a3e635" },
-  { icon: "music", title: "Arts & Culture", sub: "40+ active student organisations", color: "#f472b6" },
-  { icon: "flask", title: "Research Opportunities", sub: "From your very first year", color: "#fb923c" },
-  { icon: "leaf", title: "Wellness & Sustainability", sub: "Yoga, counselling, eco-campus", color: "#34d399" },
+const lifeCardsInfo = [
+  { img: "/life/01.jpg", icon: "building", title: "World-Class Campus", sub: "300-acre modern campus", color: "#38bdf8", ar: "16/9", h: 280, yOff: "15px" },
+  { img: "/life/02.jpg", icon: "home", title: "Safe Hostels", sub: "24×7 security & Wi-Fi", color: "#a855f7", ar: "3/4", h: 280, yOff: "-20px" },
+  { img: "/life/03.jpg", icon: "target", title: "Sports Athletics", sub: "National champions trained here", color: "#a3e635", ar: "1/1", h: 280, yOff: "25px" },
+  { img: "/life/04.jpg", icon: "music", title: "Arts & Culture", sub: "40+ active organisations", color: "#f472b6", ar: "4/3", h: 280, yOff: "-10px" },
+  { img: "/life/05.jpg", icon: "flask", title: "Research Ops", sub: "From your first year", color: "#fb923c", ar: "1/1", h: 280, yOff: "15px" },
+  { img: "/life/06.jpg", icon: "leaf", title: "Eco Sustainability", sub: "Yoga, counselling, healthy food", color: "#34d399", ar: "16/9", h: 280, yOff: "-25px" },
 ];
 
 function LifeSection() {
@@ -1615,21 +1556,47 @@ function LifeSection() {
           </div>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 16 }}>
-          {lifeCards.map((c, i) => (
-            <div key={c.title}
-              style={{
-                borderRadius: 22, padding: "28px 24px", border: `1px solid ${c.color}25`,
-                background: `${c.color}07`, transition: "all .4s cubic-bezier(.175,.885,.32,1.275)",
-                opacity: vis ? 1 : 0, transitionDelay: `${i * 80}ms`, transform: vis ? "translateY(0)" : "translateY(24px)"
-              }}
-              onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-6px)"; e.currentTarget.style.boxShadow = `0 20px 50px ${c.color}18` }}
-              onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none" }}>
-              <div style={{ marginBottom: 14 }}><Icon name={c.icon} size={36} color={c.color} sw={1.5} /></div>
-              <h4 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 17, color: "#f8fafc", marginBottom: 6 }}>{c.title}</h4>
-              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: "rgba(255,255,255,.45)", lineHeight: 1.6 }}>{c.sub}</p>
+        {/* ── INNOVATIVE ANIMATED LOOP COLLAGE ── */}
+        <div style={{ position: "relative", width: "100%", overflow: "visible", marginTop: 40, height: 600 }}>
+
+          {/* Loop Track 1 - Left bounds */}
+          <div style={{ position: "absolute", top: 20, width: "100vw", left: "calc(-50vw + 50%)", overflow: "hidden" }}>
+            <div className="life-marquee-left" style={{ display: "flex", gap: 24, width: "max-content", padding: "20px 0" }}>
+              {[...lifeCardsInfo, ...lifeCardsInfo, ...lifeCardsInfo].map((c, i) => (
+                <div key={`T1-${i}`} className="life-collage-card"
+                  style={{
+                    height: c.h, aspectRatio: c.ar, borderRadius: 28, position: "relative", overflow: "hidden",
+                    flexShrink: 0, transform: `translateY(${c.yOff})`, border: `1px solid ${c.color}35`,
+                    boxShadow: "0 12px 40px rgba(0,0,0,0.2)"
+                  }}>
+                  <img src={c.img} alt={c.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={e => { e.currentTarget.style.display = "none"; if (e.currentTarget.nextSibling) e.currentTarget.nextSibling.style.display = "flex"; }} />
+                  {/* Fallback pattern */}
+                  <div style={{ display: "none", position: "absolute", inset: 0, background: `radial-gradient(ellipse at bottom right, ${c.color}20, #0c0c18)` }} />
+                  {/* Pure image frame - no text */}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Loop Track 2 - Right bounds */}
+          <div style={{ position: "absolute", top: 320, width: "100vw", left: "calc(-50vw + 50%)", overflow: "hidden" }}>
+            <div className="life-marquee-right" style={{ display: "flex", gap: 24, width: "max-content", padding: "20px 0" }}>
+              {[...lifeCardsInfo].reverse().concat([...lifeCardsInfo].reverse(), [...lifeCardsInfo].reverse()).map((c, i) => (
+                <div key={`T2-${i}`} className="life-collage-card"
+                  style={{
+                    height: c.h, aspectRatio: c.ar, borderRadius: 28, position: "relative", overflow: "hidden",
+                    flexShrink: 0, transform: `translateY(${parseInt(c.yOff) * -1}px)`, border: `1px solid ${c.color}35`,
+                    boxShadow: "0 12px 40px rgba(0,0,0,0.2)"
+                  }}>
+                  <img src={c.img} alt={c.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={e => { e.currentTarget.style.display = "none"; if (e.currentTarget.nextSibling) e.currentTarget.nextSibling.style.display = "flex"; }} />
+                  {/* Fallback pattern */}
+                  <div style={{ display: "none", position: "absolute", inset: 0, background: `radial-gradient(ellipse at bottom left, ${c.color}20, #0c0c18)` }} />
+                  {/* Pure image frame - no text */}
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -1810,86 +1777,82 @@ function ChairmanSection() {
           </h2>
         </div>
 
-        {/* 3-Column Layout */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 440px 1fr", gap: 40, alignItems: "center" }}>
-          
-          {/* Left Block — Name and Highlights */}
-          <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateX(0)" : "translateX(-32px)", transition: "all 1s ease .15s", display: "flex", flexDirection: "column", gap: 32 }}>
-            <div>
-              <h3 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 26, color: "#0f172a", marginBottom: 6 }}>
+        {/* 2-Column Layout: Image left, full message right */}
+        <div style={{ display: "grid", gridTemplateColumns: "420px 1fr", gap: 72, alignItems: "start" }}>
+
+          {/* Left Block — Image + Name */}
+          <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateX(0)" : "translateX(-32px)", transition: "all 1s ease .15s", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+            {/* Image Container */}
+            <div style={{ position: "relative", width: "100%", height: 460, display: "flex", justifyContent: "center", alignItems: "flex-end" }}>
+              <div style={{
+                position: "absolute", bottom: 0, left: 20, right: 20, height: 340,
+                background: "linear-gradient(135deg, rgba(102,0,102,.06), rgba(0,102,153,.06))",
+                borderRadius: "200px 200px 24px 24px", border: "1px solid rgba(15,23,42,.05)",
+                opacity: vis ? 1 : 0, transform: vis ? "scale(1)" : "scale(0.9)", transition: "all 1s ease .2s",
+                animation: vis ? "chairmanGlow 5s ease-in-out infinite" : "none"
+              }} />
+              {/* Soft radial glow beneath feet */}
+              <div style={{
+                position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)",
+                width: 260, height: 60, borderRadius: "50%",
+                background: "radial-gradient(ellipse, rgba(102,0,102,.18) 0%, transparent 70%)",
+                filter: "blur(12px)",
+                animation: vis ? "chairmanGlow 5s ease-in-out infinite" : "none",
+                pointerEvents: "none"
+              }} />
+              <img
+                src="/chairman-transparent.png"
+                alt="Dr. Madan A Sendhil"
+                onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "flex"; }}
+                style={{
+                  position: "relative", zIndex: 12, width: "115%", maxWidth: 480, objectFit: "contain",
+                  transformOrigin: "bottom center",
+                  opacity: vis ? 1 : 0,
+                  transform: vis ? "translateY(0)" : "translateY(100px)",
+                  transition: "all 1.2s cubic-bezier(0.16, 1, 0.3, 1) .3s",
+                  animation: vis ? "chairmanFloat 6s ease-in-out infinite" : "none",
+                }}
+              />
+              <div style={{
+                display: "none", position: "absolute", inset: 0, alignItems: "center", justifyContent: "center",
+                flexDirection: "column", opacity: vis ? 1 : 0, transition: "opacity .8s .4s", zIndex: 5
+              }}>
+                <Icon name="user" size={48} color="rgba(15,23,42,.2)" sw={1.5} />
+                <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: "rgba(15,23,42,.4)", marginTop: 12 }}>Transparent PNG Image Area</p>
+              </div>
+            </div>
+            {/* Name tag below image */}
+            <div style={{ textAlign: "center" }}>
+              <h3 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 22, color: "#0f172a", marginBottom: 4 }}>
                 Dr. Madan A Sendhil
               </h3>
-              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 14, color: "#660066", fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase" }}>
+              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: "#660066", fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase" }}>
                 Chairman, Rathinam Groups
               </p>
             </div>
-            
-            {/* Highlight Cards Placeholder */}
-            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-              {/* Card 1 */}
-              <div style={{ background: "#f8fafc", border: "1px solid rgba(15,23,42,.06)", borderRadius: 16, padding: 20, boxShadow: "0 4px 12px rgba(0,0,0,.02)" }}>
-                 <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "rgba(15,23,42,.4)", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 4 }}>Highlight Metric</p>
-                 <div style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 20, color: "#0f172a" }}>[ Placeholder Value ]</div>
-              </div>
-              {/* Card 2 */}
-              <div style={{ background: "#f8fafc", border: "1px solid rgba(15,23,42,.06)", borderRadius: 16, padding: 20, boxShadow: "0 4px 12px rgba(0,0,0,.02)" }}>
-                 <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "rgba(15,23,42,.4)", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 4 }}>Highlight Metric</p>
-                 <div style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 20, color: "#0f172a" }}>[ Placeholder Value ]</div>
-              </div>
-            </div>
           </div>
 
-          {/* Center Block — The Extending Image Container */}
-          <div style={{ position: "relative", height: 500, display: "flex", justifyContent: "center", alignItems: "flex-end" }}>
-            {/* The structural backdrop / podium */}
-            <div style={{ 
-              position: "absolute", bottom: 0, left: 30, right: 30, height: 380, 
-              background: "linear-gradient(135deg, rgba(102,0,102,.04), rgba(0,102,153,.04))", 
-              borderRadius: "200px 200px 24px 24px", border: "1px solid rgba(15,23,42,.05)",
-              opacity: vis ? 1 : 0, transform: vis ? "scale(1)" : "scale(0.9)", transition: "all 1s ease .2s"
-            }} />
-            
-            {/* Actual image popover */}
-            <img 
-               src="/chairman-transparent.png" 
-               alt="Dr. Madan A Sendhil"
-               onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "flex"; }}
-               style={{
-                 position: "relative", zIndex: 12, width: "120%", maxWidth: 520, objectFit: "contain",
-                 transformOrigin: "bottom center",
-                 opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(100px)", transition: "all 1.2s cubic-bezier(0.16, 1, 0.3, 1) .3s"
-               }} 
-            />
-
-            {/* Fallback shadow text if no image exists yet */}
-            <div style={{
-              display: "none", position: "absolute", inset: 0, alignItems: "center", justifyContent: "center",
-              flexDirection: "column", opacity: vis ? 1 : 0, transition: "opacity .8s .4s", zIndex: 5
-            }}>
-              <Icon name="user" size={48} color="rgba(15,23,42,.2)" sw={1.5} />
-              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: "rgba(15,23,42,.4)", marginTop: 12 }}>Transparent PNG Image Area</p>
-            </div>
-          </div>
-
-          {/* Right Block — The Message */}
-          <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateX(0)" : "translateX(32px)", transition: "all 1s ease .4s", display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 80, color: "rgba(102,0,102,.1)", fontFamily: "Georgia,serif", lineHeight: 0.8, marginBottom: -16 }}>"</div>
-            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 17, color: "rgba(15,23,42,.75)", lineHeight: 1.8, marginBottom: 24 }}>
-              At Rathinam Global University, we believe that true education is not merely the transfer of knowledge — it is the cultivation of <span style={{ color: "#660066", fontWeight: 700 }}>readiness</span>. Readiness to think independently, to lead with integrity, and to adapt in a world that never stops changing.
+          {/* Right Block — Full justified message */}
+          <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateX(0)" : "translateX(32px)", transition: "all 1s ease .4s", paddingTop: 16 }}>
+            <div style={{ fontSize: 88, color: "rgba(102,0,102,.08)", fontFamily: "Georgia,serif", lineHeight: 0.75, marginBottom: 8 }}>"</div>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 15.5, color: "rgba(15,23,42,.78)", lineHeight: 1.9, marginBottom: 20, textAlign: "justify" }}>
+              At Rathinam Global Deemed-to-be University (RGU), we envision education as a <span style={{ color: "#660066", fontWeight: 700 }}>transformative force</span> — one that not only imparts knowledge but also shapes character, nurtures innovation, and inspires purpose.
             </p>
-            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 16, color: "rgba(15,23,42,.6)", lineHeight: 1.8, marginBottom: 32 }}>
-              We have built this institution on a singular promise: that every student who walks through our doors will leave transformed — equipped not just with a degree, but with the confidence, competence, and character to make a difference.
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 15.5, color: "rgba(15,23,42,.65)", lineHeight: 1.9, marginBottom: 20, textAlign: "justify" }}>
+              In an era defined by rapid technological evolution and global interconnectedness, the role of a university must go beyond conventional learning. At RGU, we are committed to creating an ecosystem where <span style={{ color: "#660066", fontWeight: 700 }}>academic excellence meets real-world relevance</span>, empowering our students to become creators, problem-solvers, and leaders of tomorrow.
             </p>
-            <a href="#"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 28px", borderRadius: 12,
-                background: "#0f172a", color: "#ffffff", width: "fit-content",
-                fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none", transition: "all .3s"
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#660066" }}
-              onMouseLeave={e => { e.currentTarget.style.background = "#0f172a" }}>
-              Read Full Message →
-            </a>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 15.5, color: "rgba(15,23,42,.65)", lineHeight: 1.9, marginBottom: 20, textAlign: "justify" }}>
+              Our vision is to build a university that stands at the intersection of technology, creativity, and societal impact. Through our Centres of Excellence, industry-integrated curriculum, and experiential learning models, we ensure that every student is equipped not just with degrees, but with <span style={{ color: "#006699", fontWeight: 700 }}>skills, mindset, and adaptability</span> to thrive in a dynamic world.
+            </p>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 15.5, color: "rgba(15,23,42,.65)", lineHeight: 1.9, marginBottom: 20, textAlign: "justify" }}>
+              We strongly believe that the future belongs to those who can <span style={{ color: "#660066", fontWeight: 700 }}>learn, unlearn, and relearn</span>. Hence, we foster a culture of curiosity, critical thinking, and continuous innovation — nurturing individuals who are not only professionally competent but also socially responsible and ethically grounded.
+            </p>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 15.5, color: "rgba(15,23,42,.65)", lineHeight: 1.9, marginBottom: 20, textAlign: "justify" }}>
+              As we continue this journey, our commitment remains steadfast — to create a global learning environment that inspires excellence, drives innovation, and contributes meaningfully to society.
+            </p>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 15.5, color: "rgba(15,23,42,.78)", lineHeight: 1.9, fontStyle: "italic", fontWeight: 600, textAlign: "justify" }}>
+              Together, let us shape a future where education empowers, innovation leads, and humanity prospers.
+            </p>
           </div>
 
         </div>
@@ -1915,8 +1878,8 @@ function RecognitionSection() {
   const [ref, vis] = useVisible(0.05);
 
   return (
-    <section ref={ref} id="recognition" style={{ 
-      background: "radial-gradient(ellipse at bottom, #1e1e38 0%, #0c0c18 80%)", 
+    <section ref={ref} id="recognition" style={{
+      background: "radial-gradient(ellipse at bottom, #1e1e38 0%, #0c0c18 80%)",
       position: "relative", overflow: "hidden", width: "100%"
     }}>
       {/* Background stars / grid */}
@@ -1928,29 +1891,29 @@ function RecognitionSection() {
 
       {/* The Earth Image - Now Native in DOM Flow to define Banner height */}
       <div style={{ position: "relative", width: "100%", zIndex: 5 }}>
-        <img 
-          src="/earth-half.png" 
-          alt="Earth Globe Background" 
-          style={{ 
+        <img
+          src="/earth-half.png"
+          alt="Earth Globe Background"
+          style={{
             width: "100%", height: "auto", display: "block", margin: "0 auto",
             objectFit: "contain", objectPosition: "bottom center",
             opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(120px)",
             transition: "all 1.5s cubic-bezier(0.16, 1, 0.3, 1)"
           }}
           onError={e => {
-             e.currentTarget.style.display = "none";
-             e.currentTarget.nextSibling.style.display = "block";
+            e.currentTarget.style.display = "none";
+            e.currentTarget.nextSibling.style.display = "block";
           }}
         />
-        <div style={{ 
+        <div style={{
           display: "none", margin: "0 auto", width: "100%", paddingBottom: "50%",
-          background: "radial-gradient(ellipse at bottom, #2563eb, transparent 70%)", 
-          borderTopLeftRadius: "50% 100%", borderTopRightRadius: "50% 100%", opacity: 0.3 
+          background: "radial-gradient(ellipse at bottom, #2563eb, transparent 70%)",
+          borderTopLeftRadius: "50% 100%", borderTopRightRadius: "50% 100%", opacity: 0.3
         }} />
       </div>
 
       {/* Header - Now Absolute Over The Image */}
-      <div style={{ position: "absolute", top: "10%", left: 0, right: 0, zIndex: 10, width: "100%" }}>
+      <div style={{ position: "absolute", top: "5%", left: 0, right: 0, zIndex: 10, width: "100%" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px" }}>
           <div style={{
             textAlign: "center",
@@ -2008,7 +1971,7 @@ function RecognitionSection() {
                 {item.bottomText}
               </div>
             </div>
-            
+
             {/* Animated Vertical Line track */}
             <div style={{
               width: 2, height: item.height, background: `linear-gradient(to top, transparent, ${item.color}40, transparent)`,
@@ -2025,10 +1988,11 @@ function RecognitionSection() {
       <div style={{
         position: "absolute", bottom: 0, left: 0, right: 0, height: 100,
         background: "linear-gradient(to top, rgba(12,12,24,1), transparent)", zIndex: 8
-      }}/>
+      }} />
 
       {/* Internal Styles for Keyframes */}
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes shootUp {
           0% { transform: translateY(200%); opacity: 0; }
           20% { opacity: 1; }
