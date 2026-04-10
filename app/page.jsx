@@ -1158,12 +1158,12 @@ function RGUWaySection() {
    4. HAPPENING @ RATHINAM
 ═══════════════════════════════════════════════════════════════════ */
 const eventTypes = [
-  { icon: "film", cat: "Annual Cultural", title: "Cultural Fiesta", folder: "annual-cultural", color: "#a855f7", tag: "FEATURED", date: "May 2–4, 2026" },
-  { icon: "cpu", cat: "Tech Festival", title: "TechRise 2026", folder: "tech-festival", color: "#38bdf8", tag: "LIVE", date: "Apr 18–20, 2026" },
-  { icon: "medal", cat: "Sports", title: "Sports Meet", folder: "sports-meet", color: "#a3e635", tag: "UPCOMING", date: "Apr 25–28, 2026" },
-  { icon: "cap", cat: "Celebration", title: "Founders Day", folder: "founders-day", color: "#f472b6", tag: "UPCOMING", date: "Jun 1, 2026" },
-  { icon: "flask", cat: "Innovation", title: "Research Expo", folder: "research-expo", color: "#fb923c", tag: "UPCOMING", date: "Jun 5, 2026" },
-  { icon: "lightbulb", cat: "Hackathon", title: "RGU Hackathon S4", folder: "hackathon", color: "#34d399", tag: "REGISTER", date: "May 20, 2026" },
+  { icon: "film", cat: "Annual Cultural", title: "Cultural Fiesta", folder: "annual-cultural", color: "#660066", tag: "FEATURED", date: "May 2–4, 2026" },
+  { icon: "cpu", cat: "Tech Festival", title: "TechRise 2026", folder: "tech-festival", color: "#006699", tag: "LIVE", date: "Apr 18–20, 2026" },
+  { icon: "medal", cat: "Sports", title: "Sports Meet", folder: "sports-meet", color: "#99cc33", tag: "UPCOMING", date: "Apr 25–28, 2026" },
+  { icon: "cap", cat: "Celebration", title: "Founders Day", folder: "founders-day", color: "#660066", tag: "UPCOMING", date: "Jun 1, 2026" },
+  { icon: "flask", cat: "Innovation", title: "Research Expo", folder: "research-expo", color: "#006699", tag: "UPCOMING", date: "Jun 5, 2026" },
+  { icon: "lightbulb", cat: "Hackathon", title: "RGU Hackathon S4", folder: "hackathon", color: "#99cc33", tag: "REGISTER", date: "May 20, 2026" },
 ];
 
 // Scatter offsets per image slot — pre-computed so each photo enters from a different direction
@@ -1299,13 +1299,13 @@ function HappeningSection() {
   const ev = selected !== null ? eventTypes[selected] : null;
 
   return (
-    <section ref={ref} id="happening" style={{ background: "#0c0c18", padding: "100px 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="happening" style={{ background: "#ffffff", padding: "100px 0", position: "relative", overflow: "hidden" }}>
 
       {/* Dynamic radial glow behind selected event colour */}
       <div style={{
         position: "absolute", inset: 0, pointerEvents: "none", transition: "background 0.8s ease",
         background: ev
-          ? `radial-gradient(ellipse 70vw 60vh at 50% 50%, ${ev.color}09 0%, transparent 70%)`
+          ? `radial-gradient(ellipse 70vw 60vh at 50% 50%, ${ev.color}08 0%, transparent 70%)`
           : "none"
       }} />
 
@@ -1318,23 +1318,13 @@ function HappeningSection() {
           opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)", transition: "all .8s ease"
         }}>
           <div>
-            <div style={{
-              display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 18px", borderRadius: 100,
-              background: "rgba(239,68,68,.1)", border: "1px solid rgba(239,68,68,.25)", marginBottom: 16
-            }}>
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#ef4444", animation: "heroPulse 2s infinite" }} />
-              <span style={{
-                fontFamily: "'DM Sans',sans-serif", fontWeight: 700, fontSize: 11,
-                letterSpacing: ".28em", textTransform: "uppercase", color: "#f87171"
-              }}>Live & Upcoming</span>
-            </div>
             <h2 style={{
               fontFamily: "'Sora',sans-serif", fontWeight: 900,
-              fontSize: "clamp(2.4rem,5vw,4rem)", color: "#f8fafc", letterSpacing: "-.03em", lineHeight: 1
+              fontSize: "clamp(2.4rem,5vw,4rem)", color: "#0f172a", letterSpacing: "-.03em", lineHeight: 1
             }}>
               Happening @{" "}
               <span style={{
-                background: "linear-gradient(90deg,#38bdf8,#34d399)",
+                background: "linear-gradient(90deg,#660066,#006699)",
                 WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
               }}>Rathinam</span>
             </h2>
@@ -1343,23 +1333,23 @@ function HappeningSection() {
             <button onClick={() => setSelected(null)}
               style={{
                 fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 14,
-                color: "rgba(255,255,255,.7)", background: "rgba(255,255,255,.06)",
-                border: "1px solid rgba(255,255,255,.15)", padding: "10px 20px", borderRadius: 10,
+                color: "rgba(15,23,42,.7)", background: "rgba(15,23,42,.04)",
+                border: "1px solid rgba(15,23,42,.08)", padding: "10px 20px", borderRadius: 10,
                 cursor: "pointer", transition: "all .3s", display: "flex", alignItems: "center", gap: 8
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.1)"; e.currentTarget.style.color = "#fff" }}
-              onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,.06)"; e.currentTarget.style.color = "rgba(255,255,255,.7)" }}>
+              onMouseEnter={e => { e.currentTarget.style.background = "rgba(15,23,42,.08)"; e.currentTarget.style.color = "#0f172a" }}
+              onMouseLeave={e => { e.currentTarget.style.background = "rgba(15,23,42,.04)"; e.currentTarget.style.color = "rgba(15,23,42,.7)" }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M19 12H5M12 5l-7 7 7 7" /></svg>
               All Events
             </button>
           ) : (
             <a href="#" style={{
               fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 14,
-              color: "rgba(255,255,255,.5)", textDecoration: "none", letterSpacing: ".08em",
-              border: "1px solid rgba(255,255,255,.12)", padding: "10px 20px", borderRadius: 10, transition: "all .3s"
+              color: "rgba(15,23,42,.6)", textDecoration: "none", letterSpacing: ".08em",
+              border: "1px solid rgba(15,23,42,.15)", padding: "10px 20px", borderRadius: 10, transition: "all .3s"
             }}
-              onMouseEnter={e => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.borderColor = "rgba(255,255,255,.3)" }}
-              onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,.5)"; e.currentTarget.style.borderColor = "rgba(255,255,255,.12)" }}>
+              onMouseEnter={e => { e.currentTarget.style.color = "#0f172a"; e.currentTarget.style.borderColor = "rgba(15,23,42,.3)" }}
+              onMouseLeave={e => { e.currentTarget.style.color = "rgba(15,23,42,.6)"; e.currentTarget.style.borderColor = "rgba(15,23,42,.15)" }}>
               View All Events →
             </a>
           )}
@@ -1377,17 +1367,17 @@ function HappeningSection() {
                 style={{
                   display: "inline-flex", alignItems: "center", gap: 8, padding: "9px 18px",
                   borderRadius: 24, cursor: "pointer", outline: "none",
-                  background: isActive ? `${et.color}22` : "rgba(255,255,255,.04)",
-                  border: `1.5px solid ${isActive ? et.color + "70" : "rgba(255,255,255,.10)"}`,
-                  boxShadow: isActive ? `0 0 0 2px ${et.color}20, 0 8px 24px ${et.color}15` : "none",
+                  background: isActive ? `${et.color}15` : "rgba(15,23,42,.03)",
+                  border: `1.5px solid ${isActive ? et.color + "50" : "rgba(15,23,42,.06)"}`,
+                  boxShadow: isActive ? `0 0 0 2px ${et.color}10, 0 8px 24px ${et.color}15` : "none",
                   transition: "all .35s cubic-bezier(.25,.8,.25,1)"
                 }}
-                onMouseEnter={e => { if (!isActive) { e.currentTarget.style.borderColor = `${et.color}45`; e.currentTarget.style.background = `${et.color}0d`; } }}
-                onMouseLeave={e => { if (!isActive) { e.currentTarget.style.borderColor = "rgba(255,255,255,.10)"; e.currentTarget.style.background = "rgba(255,255,255,.04)"; } }}>
-                <Icon name={et.icon} size={15} color={isActive ? et.color : "rgba(255,255,255,.45)"} sw={2} />
+                onMouseEnter={e => { if (!isActive) { e.currentTarget.style.borderColor = "rgba(15,23,42,.15)"; e.currentTarget.style.background = "rgba(15,23,42,.06)"; } }}
+                onMouseLeave={e => { if (!isActive) { e.currentTarget.style.borderColor = "rgba(15,23,42,.06)"; e.currentTarget.style.background = "rgba(15,23,42,.03)"; } }}>
+                <Icon name={et.icon} size={15} color={isActive ? et.color : "rgba(15,23,42,.45)"} sw={2} />
                 <span style={{
                   fontFamily: "'DM Sans',sans-serif", fontSize: 13, fontWeight: 700,
-                  color: isActive ? et.color : "rgba(255,255,255,.55)", letterSpacing: ".04em",
+                  color: isActive ? et.color : "rgba(15,23,42,.55)", letterSpacing: ".04em",
                   transition: "color .3s"
                 }}>
                   {et.cat}
@@ -1462,16 +1452,6 @@ function HappeningSection() {
                       View Photos →
                     </span>
                   </div>
-
-                  {/* Tag badge */}
-                  <span style={{
-                    position: "absolute", top: 14, right: 14, fontSize: 10, fontWeight: 800,
-                    padding: "4px 10px", borderRadius: 6, fontFamily: "'DM Sans',sans-serif", letterSpacing: ".12em",
-                    background: et.tag === "LIVE" ? "#ef4444" : et.tag === "FEATURED" ? "#a855f7" : et.tag === "REGISTER" ? "#a3e635" : "rgba(255,255,255,.14)",
-                    color: et.tag === "REGISTER" ? "#0a0a14" : "#fff"
-                  }}>
-                    {et.tag}
-                  </span>
                 </div>
 
                 <div style={{ padding: "18px 22px 22px" }}>
@@ -1483,15 +1463,8 @@ function HappeningSection() {
                   </p>
                   <h4 style={{
                     fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 17,
-                    color: "#f8fafc", marginBottom: 8, lineHeight: 1.2
+                    color: "#0f172a", marginBottom: 0, lineHeight: 1.2
                   }}>{et.title}</h4>
-                  <p style={{
-                    fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "rgba(255,255,255,.4)",
-                    fontWeight: 600, display: "flex", alignItems: "center", gap: 6
-                  }}>
-                    <Icon name="calendar" size={13} color="rgba(255,255,255,.35)" sw={2} />
-                    {et.date}
-                  </p>
                 </div>
               </div>
             ))}
@@ -1504,13 +1477,13 @@ function HappeningSection() {
             {/* Selected event header bar */}
             <div style={{
               display: "flex", alignItems: "center", gap: 16, padding: "20px 24px", marginBottom: 8,
-              borderRadius: 20, background: `${ev.color}10`, border: `1.5px solid ${ev.color}35`,
-              boxShadow: `inset 0 1px 0 rgba(255,255,255,.06)`
+              borderRadius: 20, background: `${ev.color}08`, border: `1.5px solid ${ev.color}30`,
+              boxShadow: `inset 0 1px 0 rgba(255,255,255,.5)`
             }}>
               <div style={{
-                width: 44, height: 44, borderRadius: 14, background: `${ev.color}18`,
+                width: 44, height: 44, borderRadius: 14, background: `${ev.color}15`,
                 border: `1.5px solid ${ev.color}35`, display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: `0 0 18px ${ev.color}25`
+                boxShadow: `0 0 18px ${ev.color}15`
               }}>
                 <Icon name={ev.icon} size={22} color={ev.color} sw={1.6} />
               </div>
@@ -1519,23 +1492,8 @@ function HappeningSection() {
                   fontFamily: "'DM Sans',sans-serif", fontSize: 11, fontWeight: 700,
                   letterSpacing: ".22em", textTransform: "uppercase", color: ev.color, marginBottom: 3
                 }}>{ev.cat}</div>
-                <div style={{ fontFamily: "'Sora',sans-serif", fontSize: 18, fontWeight: 800, color: "#f8fafc", lineHeight: 1.1 }}>{ev.title}</div>
+                <div style={{ fontFamily: "'Sora',sans-serif", fontSize: 18, fontWeight: 800, color: "#0f172a", lineHeight: 1.1 }}>{ev.title}</div>
               </div>
-              <div style={{
-                fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "rgba(255,255,255,.4)",
-                display: "flex", alignItems: "center", gap: 6
-              }}>
-                <Icon name="calendar" size={13} color="rgba(255,255,255,.35)" sw={2} />
-                {ev.date}
-              </div>
-              <span style={{
-                fontSize: 10, fontWeight: 800, padding: "5px 12px", borderRadius: 8,
-                fontFamily: "'DM Sans',sans-serif", letterSpacing: ".12em",
-                background: ev.tag === "LIVE" ? "#ef4444" : ev.tag === "FEATURED" ? "#a855f7" : ev.tag === "REGISTER" ? "#a3e635" : "rgba(255,255,255,.14)",
-                color: ev.tag === "REGISTER" ? "#0a0a14" : "#fff"
-              }}>
-                {ev.tag}
-              </span>
             </div>
 
             {/* Scatter gallery */}
@@ -1543,11 +1501,52 @@ function HappeningSection() {
           </div>
         )}
 
+        {/* ── YOUTUBE SCROLL TRACK ── */}
+        <div style={{ marginTop: 80 }}>
+          <div style={{
+            fontFamily: "'Sora',sans-serif", fontSize: 20, fontWeight: 800, color: "#0f172a",
+            marginBottom: 24, display: "flex", alignItems: "center", gap: 12
+          }}>
+            <Icon name="youtube" size={24} color="#ef4444" sw={2} />
+            Rathinam TV
+          </div>
+          
+          <div style={{ position: "relative", width: "100%", overflow: "hidden" }}>
+            <div className="youtube-marquee" style={{ display: "flex", gap: "24px", width: "max-content", padding: "10px 0" }}>
+              {/* Actual latest video IDs fetched from @RathinamCollege */}
+              {["izya9OIsDGk", "d_Q-_dRdxaY", "niMsbCsmV5g", "SPC74ZVd9OA", "HxUJA3_hoto",
+                "izya9OIsDGk", "d_Q-_dRdxaY", "niMsbCsmV5g", "SPC74ZVd9OA", "HxUJA3_hoto"].map((id, i) => (
+                <div key={i} style={{
+                  width: 440, height: 248, flexShrink: 0, borderRadius: 16, overflow: "hidden",
+                  background: "#f8fafc", border: "1px solid rgba(15,23,42,0.06)", boxShadow: "0 8px 24px rgba(0,0,0,0.04)"
+                }}>
+                  <iframe
+                    width="100%" height="100%"
+                    src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&controls=0`}
+                    title="YouTube video player" frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ pointerEvents: "none" }} // Prevents iframe from capturing scroll events or pauses on hover
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
         .hapCardOverlay { pointer-events: none; }
         div:hover > .hapCardOverlay { opacity: 1 !important; }
+        
+        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-464px * 5)); } }
+        .youtube-marquee {
+          animation: scrollMarquee 35s linear infinite;
+        }
+        .youtube-marquee:hover {
+          animation-play-state: paused;
+        }
       `}} />
     </section>
   );
@@ -1774,11 +1773,11 @@ function SpotlightSection() {
 function ChairmanSection() {
   const [ref, vis] = useVisible(0.12);
   return (
-    <section ref={ref} id="chairman" style={{ background: "linear-gradient(180deg,#0c0c18,#080810)", padding: "100px 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="chairman" style={{ background: "#ffffff", padding: "120px 0 100px", position: "relative" }}>
       {/* Large faded RGU watermark */}
       <div style={{
         position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)",
-        fontFamily: "'Sora',sans-serif", fontWeight: 900, fontSize: "22vw", color: "rgba(255,255,255,.018)",
+        fontFamily: "'Sora',sans-serif", fontWeight: 900, fontSize: "22vw", color: "rgba(15,23,42,.03)",
         pointerEvents: "none", letterSpacing: "-.05em", whiteSpace: "nowrap", userSelect: "none"
       }}>
         RGU
@@ -1786,126 +1785,113 @@ function ChairmanSection() {
       <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", position: "relative", zIndex: 10 }}>
 
         <div style={{
-          textAlign: "center", marginBottom: 60,
+          textAlign: "center", marginBottom: 80,
           opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)", transition: "all .8s ease"
         }}>
           <div style={{
             display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 18px", borderRadius: 100,
-            background: "rgba(251,191,36,.08)", border: "1px solid rgba(251,191,36,.22)", marginBottom: 20
+            background: "rgba(102,0,102,.06)", border: "1px solid rgba(102,0,102,.15)", marginBottom: 20
           }}>
-            <Icon name="cap" size={14} color="#fbbf24" sw={2} />
+            <Icon name="cap" size={14} color="#660066" sw={2} />
             <span style={{
               fontFamily: "'DM Sans',sans-serif", fontWeight: 700, fontSize: 11,
-              letterSpacing: ".28em", textTransform: "uppercase", color: "#fbbf24"
-            }}>Leadership Vision</span>
+              letterSpacing: ".28em", textTransform: "uppercase", color: "#660066"
+            }}>Unparallel Leadership</span>
           </div>
           <h2 style={{
             fontFamily: "'Sora',sans-serif", fontWeight: 900,
-            fontSize: "clamp(2.4rem,5vw,4rem)", color: "#f8fafc", letterSpacing: "-.03em"
+            fontSize: "clamp(2.4rem,5vw,4rem)", color: "#0f172a", letterSpacing: "-.03em"
           }}>
             Inspiring{" "}
             <span style={{
-              background: "linear-gradient(90deg,#fbbf24,#fb923c)",
+              background: "linear-gradient(90deg,#660066,#006699)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
             }}>Direction</span>
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "340px 1fr", gap: 64, alignItems: "center" }}>
-
-          {/* Left — photo + name card */}
-          <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateX(0)" : "translateX(-32px)", transition: "all 1s ease .15s" }}>
-            {/* Photo placeholder */}
-            <div style={{
-              borderRadius: 28, overflow: "hidden", marginBottom: 24, position: "relative",
-              border: "1px solid rgba(251,191,36,.2)", boxShadow: "0 24px 80px rgba(251,191,36,.12)"
-            }}>
-              <div style={{
-                height: 380, background: "linear-gradient(135deg,rgba(251,191,36,.12),rgba(168,85,247,.10))",
-                display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"
-              }}>
-                <div style={{
-                  width: 100, height: 100, borderRadius: "50%", background: "rgba(251,191,36,.15)",
-                  border: "2px solid rgba(251,191,36,.3)", display: "flex", alignItems: "center",
-                  justifyContent: "center", marginBottom: 16
-                }}>
-                  <Icon name="cap" size={48} color="rgba(251,191,36,.6)" sw={1.4} />
-                </div>
-                <div style={{
-                  fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "rgba(255,255,255,.3)",
-                  letterSpacing: ".12em", textTransform: "uppercase"
-                }}>Chairman's Photo</div>
-              </div>
-              {/* Bottom overlay */}
-              <div style={{
-                background: "linear-gradient(to top,rgba(5,5,16,.95) 0%,transparent 100%)",
-                position: "absolute", bottom: 0, left: 0, right: 0, padding: "24px 20px"
-              }}>
-                <div style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 20, color: "#f8fafc" }}>
-                  Dr. Arjun Rathinam
-                </div>
-                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: "rgba(255,255,255,.5)", marginTop: 4 }}>
-                  Chairman & Founder
-                </div>
-                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "#fbbf24", fontWeight: 600, marginTop: 2 }}>
-                  Rathinam Global University
-                </div>
-              </div>
-            </div>
-
-            {/* Quote chip */}
-            <div style={{
-              borderRadius: 16, padding: "16px 20px", background: "rgba(251,191,36,.08)",
-              border: "1px solid rgba(251,191,36,.2)", textAlign: "center"
-            }}>
-              <div style={{ fontSize: 32, marginBottom: 4, color: "#fbbf24" }}>"</div>
-              <p style={{
-                fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 16,
-                color: "rgba(255,255,255,.8)", lineHeight: 1.4, fontStyle: "italic"
-              }}>
-                Readiness is the ultimate education.
+        {/* 3-Column Layout */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 440px 1fr", gap: 40, alignItems: "center" }}>
+          
+          {/* Left Block — Name and Highlights */}
+          <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateX(0)" : "translateX(-32px)", transition: "all 1s ease .15s", display: "flex", flexDirection: "column", gap: 32 }}>
+            <div>
+              <h3 style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 26, color: "#0f172a", marginBottom: 6 }}>
+                Dr. Madan A Sendhil
+              </h3>
+              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 14, color: "#660066", fontWeight: 700, letterSpacing: ".05em", textTransform: "uppercase" }}>
+                Chairman, Rathinam Groups
               </p>
+            </div>
+            
+            {/* Highlight Cards Placeholder */}
+            <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+              {/* Card 1 */}
+              <div style={{ background: "#f8fafc", border: "1px solid rgba(15,23,42,.06)", borderRadius: 16, padding: 20, boxShadow: "0 4px 12px rgba(0,0,0,.02)" }}>
+                 <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "rgba(15,23,42,.4)", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 4 }}>Highlight Metric</p>
+                 <div style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 20, color: "#0f172a" }}>[ Placeholder Value ]</div>
+              </div>
+              {/* Card 2 */}
+              <div style={{ background: "#f8fafc", border: "1px solid rgba(15,23,42,.06)", borderRadius: 16, padding: 20, boxShadow: "0 4px 12px rgba(0,0,0,.02)" }}>
+                 <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "rgba(15,23,42,.4)", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", marginBottom: 4 }}>Highlight Metric</p>
+                 <div style={{ fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 20, color: "#0f172a" }}>[ Placeholder Value ]</div>
+              </div>
             </div>
           </div>
 
-          {/* Right — message */}
-          <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateX(0)" : "translateX(32px)", transition: "all 1s ease .3s" }}>
+          {/* Center Block — The Extending Image Container */}
+          <div style={{ position: "relative", height: 500, display: "flex", justifyContent: "center", alignItems: "flex-end" }}>
+            {/* The structural backdrop / podium */}
+            <div style={{ 
+              position: "absolute", bottom: 0, left: 30, right: 30, height: 380, 
+              background: "linear-gradient(135deg, rgba(102,0,102,.04), rgba(0,102,153,.04))", 
+              borderRadius: "200px 200px 24px 24px", border: "1px solid rgba(15,23,42,.05)",
+              opacity: vis ? 1 : 0, transform: vis ? "scale(1)" : "scale(0.9)", transition: "all 1s ease .2s"
+            }} />
+            
+            {/* Actual image popover */}
+            <img 
+               src="/chairman-transparent.png" 
+               alt="Dr. Madan A Sendhil"
+               onError={e => { e.currentTarget.style.display = "none"; e.currentTarget.nextSibling.style.display = "flex"; }}
+               style={{
+                 position: "relative", zIndex: 12, width: "120%", maxWidth: 520, objectFit: "contain",
+                 transformOrigin: "bottom center",
+                 opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(100px)", transition: "all 1.2s cubic-bezier(0.16, 1, 0.3, 1) .3s"
+               }} 
+            />
+
+            {/* Fallback shadow text if no image exists yet */}
             <div style={{
-              fontSize: 60, color: "rgba(251,191,36,.25)", fontFamily: "Georgia,serif",
-              lineHeight: 1, marginBottom: -16
-            }}>"</div>
-            <p style={{
-              fontFamily: "'DM Sans',sans-serif", fontSize: 18, color: "rgba(255,255,255,.75)",
-              lineHeight: 1.9, marginBottom: 24
+              display: "none", position: "absolute", inset: 0, alignItems: "center", justifyContent: "center",
+              flexDirection: "column", opacity: vis ? 1 : 0, transition: "opacity .8s .4s", zIndex: 5
             }}>
-              At Rathinam Global University, we believe that true education is not merely the transfer of knowledge —
-              it is the cultivation of <span style={{ color: "#fbbf24", fontWeight: 700 }}>readiness</span>. Readiness to think
-              independently, to lead with integrity, and to adapt in a world that never stops changing.
+              <Icon name="user" size={48} color="rgba(15,23,42,.2)" sw={1.5} />
+              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: "rgba(15,23,42,.4)", marginTop: 12 }}>Transparent PNG Image Area</p>
+            </div>
+          </div>
+
+          {/* Right Block — The Message */}
+          <div style={{ opacity: vis ? 1 : 0, transform: vis ? "translateX(0)" : "translateX(32px)", transition: "all 1s ease .4s", display: "flex", flexDirection: "column" }}>
+            <div style={{ fontSize: 80, color: "rgba(102,0,102,.1)", fontFamily: "Georgia,serif", lineHeight: 0.8, marginBottom: -16 }}>"</div>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 17, color: "rgba(15,23,42,.75)", lineHeight: 1.8, marginBottom: 24 }}>
+              At Rathinam Global University, we believe that true education is not merely the transfer of knowledge — it is the cultivation of <span style={{ color: "#660066", fontWeight: 700 }}>readiness</span>. Readiness to think independently, to lead with integrity, and to adapt in a world that never stops changing.
             </p>
-            <p style={{
-              fontFamily: "'DM Sans',sans-serif", fontSize: 17, color: "rgba(255,255,255,.55)",
-              lineHeight: 1.9, marginBottom: 28
-            }}>
-              We have built this institution on a singular promise: that every student who walks through our doors will
-              leave transformed — equipped not just with a degree, but with the{" "}
-              <span style={{ color: "#f8fafc", fontWeight: 600 }}>confidence, competence, and character</span>{" "}
-              to make a difference.
-            </p>
-            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 17, color: "rgba(255,255,255,.55)", lineHeight: 1.9, marginBottom: 36 }}>
-              With world-class faculty, cutting-edge research facilities, and an unshakeable commitment to industry
-              relevance, RGU stands as a beacon of what Indian higher education can and should be.
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 16, color: "rgba(15,23,42,.6)", lineHeight: 1.8, marginBottom: 32 }}>
+              We have built this institution on a singular promise: that every student who walks through our doors will leave transformed — equipped not just with a degree, but with the confidence, competence, and character to make a difference.
             </p>
             <a href="#"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8, padding: "13px 28px", borderRadius: 12,
-                border: "1.5px solid rgba(251,191,36,.3)", color: "#fbbf24",
-                fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 15, textDecoration: "none", transition: "all .3s"
+                background: "#0f172a", color: "#ffffff", width: "fit-content",
+                fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none", transition: "all .3s"
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = "rgba(251,191,36,.1)" }}
-              onMouseLeave={e => { e.currentTarget.style.background = "transparent" }}>
+              onMouseEnter={e => { e.currentTarget.style.background = "#660066" }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#0f172a" }}>
               Read Full Message →
             </a>
           </div>
+
         </div>
       </div>
     </section>
@@ -1913,142 +1899,148 @@ function ChairmanSection() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   8. RECOGNITION — 2×4 ANIMATED FLIP CARDS
+   8. RECOGNITION — EARTH GLOBE LAYOUT
 ═══════════════════════════════════════════════════════════════════ */
 const recognitions = [
-  { icon: "columns", title: "NAAC A++ Accreditation", desc: "Highest grade awarded by the National Assessment and Accreditation Council — a testament to academic excellence, governance, and student outcomes.", color: "#a855f7" },
-  { icon: "star", title: "NIRF Top 50 Ranking", desc: "Consistently ranked among India's top 50 universities by the National Institutional Ranking Framework across multiple disciplines.", color: "#38bdf8" },
-  { icon: "settings", title: "NBA Accreditation", desc: "National Board of Accreditation recognition for Engineering & Technology programs, ensuring global quality benchmarks are met.", color: "#a3e635" },
-  { icon: "globe", title: "QS World University Ranking", desc: "Recognised in the QS World Rankings for research output, employer reputation, and international faculty diversity.", color: "#f472b6" },
-  { icon: "shield", title: "ISO 9001:2015 Certified", desc: "Quality management certification guaranteeing consistent, process-driven education delivery across all departments and schools.", color: "#fb923c" },
-  { icon: "clipboard", title: "AICTE Approved", desc: "All technical programs are fully approved by the All India Council for Technical Education, ensuring curriculum relevance and industry alignment.", color: "#34d399" },
-  { icon: "badge", title: "ABET Accredited Programs", desc: "Select engineering programs carry ABET accreditation, internationally recognised across 41 countries for technical education quality.", color: "#fbbf24" },
-  { icon: "lightbulb", title: "Smart India Hackathon Winners", desc: "RGU students have consistently won national-level hackathons, reflecting our culture of innovation, problem-solving, and real-world impact.", color: "#e879f9" },
+  { topText: "QS I-Gauge", highlight: "PLATINUM", bottomText: "RANK", color: "#a855f7", offset: 0, height: 450 },
+  { topText: "Accredited", highlight: "A++", bottomText: "BY NAAC", color: "#38bdf8", offset: -40, height: 220 },
+  { topText: "NIRF Ranking", highlight: "9TH", bottomText: "YEAR IN A ROW", color: "#a3e635", offset: -80, height: 420 },
+  { topText: "Innovation", highlight: "TOP 50", bottomText: "IN INDIA", color: "#f472b6", offset: -100, height: 250 },
+  { topText: "Global Reach", highlight: "1000+", bottomText: "INT'L STUDENTS", color: "#fb923c", offset: -80, height: 420 },
+  { topText: "India's", highlight: "FIRST", bottomText: "INDUSTRY INTEGRATED", color: "#34d399", offset: -40, height: 220 },
+  { topText: "In-Campus", highlight: "ATAL", bottomText: "INCUBATION CENTRE", color: "#fbbf24", offset: 0, height: 450 },
 ];
 
-function FlipCard({ card, delay, vis }) {
-  const [flipped, setFlipped] = useState(false);
-  return (
-    <div
-      style={{
-        perspective: 1200, height: 280, cursor: "pointer",
-        opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(32px)",
-        transition: `opacity .7s ease ${delay}ms, transform .7s ease ${delay}ms`
-      }}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-    >
-      <div style={{
-        position: "relative", width: "100%", height: "100%",
-        transformStyle: "preserve-3d", transition: "transform .65s cubic-bezier(.175,.885,.32,1.275)",
-        transform: flipped ? "rotateY(180deg)" : "none"
-      }}>
-
-        {/* Front */}
-        <div style={{
-          position: "absolute", inset: 0, borderRadius: 24, backfaceVisibility: "hidden",
-          border: `1px solid ${card.color}30`, background: `${card.color}08`,
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-          padding: "28px 24px", textAlign: "center", overflow: "hidden"
-        }}>
-          {/* Icon box */}
-          <div style={{
-            width: 64, height: 64, borderRadius: 18, background: `${card.color}18`,
-            border: `1px solid ${card.color}30`, display: "flex", alignItems: "center",
-            justifyContent: "center", marginBottom: 16
-          }}>
-            <Icon name={card.icon} size={30} color={card.color} sw={1.5} />
-          </div>
-          <h4 style={{
-            fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 16,
-            color: "#f8fafc", lineHeight: 1.25, marginBottom: 10
-          }}>{card.title}</h4>
-          <div style={{
-            fontSize: 11, fontFamily: "'DM Sans',sans-serif", color: card.color,
-            fontWeight: 600, letterSpacing: ".12em", textTransform: "uppercase"
-          }}>
-            CLICK TO LEARN MORE →
-          </div>
-          {/* Bottom glow line */}
-          <div style={{
-            position: "absolute", bottom: 0, left: 0, right: 0, height: 2,
-            background: `linear-gradient(90deg,transparent,${card.color},transparent)`, opacity: .5
-          }} />
-        </div>
-
-        {/* Back */}
-        <div style={{
-          position: "absolute", inset: 0, borderRadius: 24, backfaceVisibility: "hidden",
-          transform: "rotateY(180deg)", border: `1px solid ${card.color}50`,
-          background: `linear-gradient(135deg,${card.color}15,${card.color}08)`,
-          display: "flex", flexDirection: "column", justifyContent: "center",
-          padding: "28px 24px", textAlign: "center"
-        }}>
-          <div style={{ marginBottom: 12 }}><Icon name={card.icon} size={36} color={card.color} sw={1.4} /></div>
-          <h4 style={{
-            fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 16,
-            color: card.color, lineHeight: 1.25, marginBottom: 14
-          }}>{card.title}</h4>
-          <p style={{
-            fontFamily: "'DM Sans',sans-serif", fontSize: 13, color: "rgba(255,255,255,.65)",
-            lineHeight: 1.7
-          }}>{card.desc}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function RecognitionSection() {
-  const [ref, vis] = useVisible(0.08);
+  const [ref, vis] = useVisible(0.05);
+
   return (
-    <section ref={ref} id="recognition" style={{ background: "#0c0c18", padding: "100px 0", position: "relative", overflow: "hidden" }}>
+    <section ref={ref} id="recognition" style={{ 
+      background: "radial-gradient(ellipse at bottom, #1e1e38 0%, #0c0c18 80%)", 
+      position: "relative", overflow: "hidden", width: "100%"
+    }}>
+      {/* Background stars / grid */}
       <div style={{
-        position: "absolute", inset: 0, pointerEvents: "none", opacity: .02,
+        position: "absolute", inset: 0, pointerEvents: "none", opacity: .1,
         backgroundImage: "linear-gradient(rgba(255,255,255,.8) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.8) 1px,transparent 1px)",
-        backgroundSize: "60px 60px"
+        backgroundSize: "60px 60px", zIndex: 1
       }} />
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px" }}>
 
-        <div style={{
-          textAlign: "center", marginBottom: 64,
-          opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)", transition: "all .8s ease"
-        }}>
+      {/* The Earth Image - Now Native in DOM Flow to define Banner height */}
+      <div style={{ position: "relative", width: "100%", zIndex: 5 }}>
+        <img 
+          src="/earth-half.png" 
+          alt="Earth Globe Background" 
+          style={{ 
+            width: "100%", height: "auto", display: "block", margin: "0 auto",
+            objectFit: "contain", objectPosition: "bottom center",
+            opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(120px)",
+            transition: "all 1.5s cubic-bezier(0.16, 1, 0.3, 1)"
+          }}
+          onError={e => {
+             e.currentTarget.style.display = "none";
+             e.currentTarget.nextSibling.style.display = "block";
+          }}
+        />
+        <div style={{ 
+          display: "none", margin: "0 auto", width: "100%", paddingBottom: "50%",
+          background: "radial-gradient(ellipse at bottom, #2563eb, transparent 70%)", 
+          borderTopLeftRadius: "50% 100%", borderTopRightRadius: "50% 100%", opacity: 0.3 
+        }} />
+      </div>
+
+      {/* Header - Now Absolute Over The Image */}
+      <div style={{ position: "absolute", top: "10%", left: 0, right: 0, zIndex: 10, width: "100%" }}>
+        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px" }}>
           <div style={{
-            display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 18px", borderRadius: 100,
-            background: "rgba(251,191,36,.08)", border: "1px solid rgba(251,191,36,.22)", marginBottom: 20
+            textAlign: "center",
+            opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)", transition: "all .8s ease"
           }}>
-            <Icon name="award" size={14} color="#fbbf24" sw={2} />
-            <span style={{
-              fontFamily: "'DM Sans',sans-serif", fontWeight: 700, fontSize: 11,
-              letterSpacing: ".28em", textTransform: "uppercase", color: "#fbbf24"
-            }}>Awards & Accreditations</span>
+            <div style={{
+              display: "inline-flex", alignItems: "center", gap: 8, padding: "8px 18px", borderRadius: 100,
+              background: "rgba(251,191,36,.08)", border: "1px solid rgba(251,191,36,.22)", marginBottom: 20
+            }}>
+              <Icon name="award" size={14} color="#fbbf24" sw={2} />
+              <span style={{
+                fontFamily: "'DM Sans',sans-serif", fontWeight: 700, fontSize: 11,
+                letterSpacing: ".28em", textTransform: "uppercase", color: "#fbbf24"
+              }}>Global Benchmark</span>
+            </div>
+            <h2 style={{
+              fontFamily: "'Sora',sans-serif", fontWeight: 900,
+              fontSize: "clamp(1.4rem,2.5vw,2.0rem)", color: "#f8fafc", letterSpacing: "-.02em",
+              marginBottom: 20, textShadow: "0 10px 40px rgba(0,0,0,0.8)"
+            }}>
+              Recognition That Reflects{" "}
+              <span style={{
+                background: "linear-gradient(90deg,#fbbf24,#fb923c)",
+                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
+              }}>Readiness</span>
+            </h2>
           </div>
-          <h2 style={{
-            fontFamily: "'Sora',sans-serif", fontWeight: 900,
-            fontSize: "clamp(2.4rem,5vw,4rem)", color: "#f8fafc", letterSpacing: "-.03em", marginBottom: 16
-          }}>
-            Recognition That Reflects{" "}
-            <span style={{
-              background: "linear-gradient(90deg,#fbbf24,#fb923c)",
-              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text"
-            }}>Readiness</span>
-          </h2>
-          <p style={{
-            fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,.45)", fontSize: 17,
-            maxWidth: 560, margin: "0 auto"
-          }}>
-            Global accreditations, national rankings, and industry accolades — hover any card to learn more.
-          </p>
-        </div>
-
-        {/* 2×4 grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 16 }}>
-          {recognitions.map((card, i) => (
-            <FlipCard key={card.title} card={card} delay={i * 70} vis={vis} />
-          ))}
         </div>
       </div>
+
+      {/* Animated Satellite Nodes Mapping - Now Absolute Over The Image */}
+      <div style={{
+        position: "absolute", bottom: "16%", left: 0, right: 0,
+        display: "flex", justifyContent: "space-evenly", alignItems: "flex-end",
+        padding: "0 20px", zIndex: 10
+      }}>
+        {recognitions.map((item, i) => (
+          <div key={i} style={{
+            position: "relative", display: "flex", flexDirection: "column", alignItems: "center",
+            transform: `translateY(${item.offset}px)`, width: 140
+          }}>
+            {/* Node Card - Infographic Style */}
+            <div style={{
+              textAlign: "center", marginBottom: 12,
+              opacity: vis ? 1 : 0, transform: vis ? "translateY(0)" : "translateY(24px)",
+              transition: `all .8s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.1 + 0.4}s`
+            }}>
+              <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 10, color: "rgba(255,255,255,0.6)", fontWeight: 700, letterSpacing: ".15em", textTransform: "uppercase", marginBottom: 6 }}>
+                {item.topText}
+              </div>
+              <div style={{ fontFamily: "'Sora',sans-serif", fontWeight: 900, fontSize: 28, color: "#ffffff", lineHeight: 1, letterSpacing: "-.03em", textShadow: `0 0 24px ${item.color}80` }}>
+                {item.highlight}
+              </div>
+              <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 11, color: "rgba(255,255,255,0.85)", fontWeight: 700, letterSpacing: ".1em", textTransform: "uppercase", marginTop: 6 }}>
+                {item.bottomText}
+              </div>
+            </div>
+            
+            {/* Animated Vertical Line track */}
+            <div style={{
+              width: 2, height: item.height, background: `linear-gradient(to top, transparent, ${item.color}40, transparent)`,
+              position: "relative", overflow: "hidden", opacity: vis ? 1 : 0,
+              transition: `opacity 1s ease 1s`
+            }}>
+              <div className="energy-pulse" style={{ backgroundColor: item.color, animationDelay: `${i * 0.3}s` }} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Ambient bottom glow */}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, right: 0, height: 100,
+        background: "linear-gradient(to top, rgba(12,12,24,1), transparent)", zIndex: 8
+      }}/>
+
+      {/* Internal Styles for Keyframes */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes shootUp {
+          0% { transform: translateY(200%); opacity: 0; }
+          20% { opacity: 1; }
+          80% { opacity: 1; }
+          100% { transform: translateY(-300%); opacity: 0; }
+        }
+        .energy-pulse {
+          position: absolute; bottom: 0; left: -2px; right: -2px; height: 30px;
+          border-radius: 10px; box-shadow: 0 0 10px currentColor;
+          animation: shootUp 2.5s infinite linear;
+        }
+      `}} />
     </section>
   );
 }
@@ -2059,10 +2051,10 @@ function RecognitionSection() {
 function CTABanner() {
   const [ref, vis] = useVisible(0.15);
   return (
-    <section ref={ref} style={{ background: "#080810", padding: "80px 0" }}>
+    <section ref={ref} style={{ background: "#080810", padding: "40px 0" }}>
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 32px", textAlign: "center" }}>
         <div style={{
-          borderRadius: 32, padding: "64px 48px", position: "relative", overflow: "hidden",
+          borderRadius: 24, padding: "36px 32px", position: "relative", overflow: "hidden",
           background: "linear-gradient(135deg,rgba(168,85,247,.12),rgba(56,189,248,.08))",
           border: "1px solid rgba(168,85,247,.2)",
           opacity: vis ? 1 : 0, transform: vis ? "scale(1)" : "scale(.96)", transition: "all .8s ease"
@@ -2074,22 +2066,22 @@ function CTABanner() {
           }} />
           <h2 style={{
             fontFamily: "'Sora',sans-serif", fontWeight: 900,
-            fontSize: "clamp(2rem,4vw,3.2rem)", color: "#f8fafc", letterSpacing: "-.03em", marginBottom: 16
+            fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "#f8fafc", letterSpacing: "-.02em", marginBottom: 12
           }}>
             Ready to Begin Your Journey?
           </h2>
           <p style={{
-            fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,.5)", fontSize: 17,
-            lineHeight: 1.7, maxWidth: 560, margin: "0 auto 36px"
+            fontFamily: "'DM Sans',sans-serif", color: "rgba(255,255,255,.5)", fontSize: 14,
+            lineHeight: 1.6, maxWidth: 500, margin: "0 auto 24px"
           }}>
             Applications for the 2026–27 academic year are open. Secure your place at RGU before seats fill up.
           </p>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
             <a href="#apply"
               style={{
-                display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 36px", borderRadius: 14,
+                display: "inline-flex", alignItems: "center", gap: 8, padding: "12px 28px", borderRadius: 12,
                 background: "linear-gradient(90deg,#a3e635,#34d399)", color: "#0a0a14",
-                fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 16, textDecoration: "none",
+                fontFamily: "'Sora',sans-serif", fontWeight: 800, fontSize: 14, textDecoration: "none",
                 boxShadow: "0 8px 32px rgba(163,230,53,.35)", transition: "all .3s"
               }}
               onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px) scale(1.02)" }}
@@ -2098,9 +2090,9 @@ function CTABanner() {
             </a>
             <a href="tel:+914222345678"
               style={{
-                display: "inline-flex", alignItems: "center", gap: 8, padding: "15px 28px", borderRadius: 14,
+                display: "inline-flex", alignItems: "center", gap: 6, padding: "12px 20px", borderRadius: 12,
                 border: "1.5px solid rgba(255,255,255,.2)", color: "rgba(255,255,255,.8)",
-                fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 15, textDecoration: "none", transition: "all .3s"
+                fontFamily: "'Sora',sans-serif", fontWeight: 700, fontSize: 13, textDecoration: "none", transition: "all .3s"
               }}
               onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,.08)" }}
               onMouseLeave={e => { e.currentTarget.style.background = "transparent" }}>
