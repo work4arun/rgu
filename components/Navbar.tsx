@@ -36,16 +36,8 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
 
         {/* Logo */}
-        <a href="#" className="flex items-center">
-          <div
-            className="h-11 px-3 rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 transition-all duration-300"
-            style={{
-              background: "rgba(255,255,255,0.95)",
-              boxShadow: scrolled ? "0 4px 20px rgba(0,0,0,.35)" : "0 4px 16px rgba(0,0,0,.2)",
-            }}
-          >
-            <img src="/logo.png" alt="RGU" className="h-8 w-auto object-contain" />
-          </div>
+        <a href="#" className="flex items-center flex-shrink-0 transition-all duration-300">
+          <img src="/logo.png" alt="RGU" className="h-10 w-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)] hover:scale-105 transition-transform" />
         </a>
 
         {/* Desktop Links */}
